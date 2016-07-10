@@ -1,5 +1,6 @@
 node_modules/
-app/*.js
+app/**/*.js
 typings/
-app/*.map
+*.map
 .DS_STORE
+npm-debug.log

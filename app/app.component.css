@@ -6,7 +6,9 @@
   background-color: #7ed1c5;
   width: 90%;
   height: 300px;
-  margin: 5% auto;
+  margin: 5% 5% 0 5%;
+  border-top-left-radius: 5px;
+  border-top-right-radius: 5px;
 }
 
 #main-title {
@@ -22,5 +24,11 @@
 }
 
 .blog-nav {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
   background-color: #97dbd1;
+  margin: 0 5% 3% 5%;
+  border-radius: 0 0 5px 5px;
 }

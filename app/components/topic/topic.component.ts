@@ -1,21 +1,21 @@
 import { Component }          from '@angular/core';
 import { ROUTER_DIRECTIVES }  from '@angular/router';
-import { Helpers } from "./shared/helpers";
+import { Helpers } from "../../shared/helpers";
 
-// import { BlogService }        from './blog.service';
+// import { HeroService }        from './blog.service';
 
-let componentName = 'app'
+let componentName = 'topic'
 
 @Component({
   selector: componentName,
+
   templateUrl: Helpers.getTemplatePath(componentName),
   styleUrls: [Helpers.getStylePath(componentName)],
   directives: [ROUTER_DIRECTIVES],
   // providers: [
-  //   BlogService,
+  //   HeroService,
   // ]
 })
-export class AppComponent {
-  title = "Numbers Don't Define Us";
-  subtitle = "A food lovers blog";
+export class TopicComponent {
+  
 }

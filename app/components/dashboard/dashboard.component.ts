@@ -1,13 +1,16 @@
 import { Component }          from '@angular/core';
 import { ROUTER_DIRECTIVES }  from '@angular/router';
+import { Helpers } from "../../shared/helpers";
 
 // import { HeroService }        from './blog.service';
 
-@Component({
-  selector: 'blog-details',
+let componentName = 'dashboard';
 
-  templateUrl: 'app/dashboard.component.html',
-  styleUrls: ['app/dashboard.component.css'],
+@Component({
+  selector: componentName,
+
+  templateUrl: Helpers.getTemplatePath(componentName),
+  styleUrls: [Helpers.getStylePath(componentName)],
   directives: [ROUTER_DIRECTIVES],
   // providers: [
   //   HeroService,

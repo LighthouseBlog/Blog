@@ -1,19 +1,16 @@
 import { Component }          from '@angular/core';
 import { ROUTER_DIRECTIVES }  from '@angular/router';
+import { Helpers } from "../../shared/helpers";
 
 // import { BlogService }        from './blog.service';
 
-@Component({
-  selector: 'blog-details',
+let componentName = 'blog-details';
 
-  template: `
-    <h1>{{title}}</h1>
-    <nav>
-      <a [routerLink]="['/dashboard']" routerLinkActive="active">Dashboard Route</a>
-    </nav>
-    <router-outlet></router-outlet>
-  `,
-  styleUrls: ['app/blog-details.component.css'],
+@Component({
+  selector: componentName,
+
+  templateUrl: Helpers.getTemplatePath(componentName),
+  styleUrls: [Helpers.getStylePath(componentName)],
   directives: [ROUTER_DIRECTIVES],
   // providers: [
   //   BlogService,
