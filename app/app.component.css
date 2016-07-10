@@ -1,0 +1,26 @@
+.main-component {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-color: #7ed1c5;
+  width: 90%;
+  height: 300px;
+  margin: 5% auto;
+}
+
+#main-title {
+  text-align: center;
+  font-size: 40pt;
+  color: whitesmoke;
+  text-shadow: 2px 2px 4px #000000;
+}
+
+#subtitle {
+  font-size: 14pt;
+  padding-top: 10px;
+}
+
+.blog-nav {
+  background-color: #97dbd1;
+}

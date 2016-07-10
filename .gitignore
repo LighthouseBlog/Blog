@@ -2,3 +2,4 @@ node_modules/
 app/*.js
 typings/
 app/*.map
+.DS_STORE

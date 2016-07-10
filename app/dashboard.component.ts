@@ -6,13 +6,7 @@ import { ROUTER_DIRECTIVES }  from '@angular/router';
 @Component({
   selector: 'blog-details',
 
-  template: `
-    <h1>{{title}}</h1>
-    <nav>
-      <a [routerLink]="['/blog']" routerLinkActive="active">Blog Details Route</a>
-    </nav>
-    <router-outlet></router-outlet>
-  `,
+  templateUrl: 'app/dashboard.component.html',
   styleUrls: ['app/dashboard.component.css'],
   directives: [ROUTER_DIRECTIVES],
   // providers: [
@@ -20,5 +14,6 @@ import { ROUTER_DIRECTIVES }  from '@angular/router';
   // ]
 })
 export class DashboardComponent {
-  title = "Dashboard";
+  about = 'Hi, I am Janna Safran and I am the author of this blog. I am a second year student at Dickinson College. Contact me at janna.safran@gmail.com if you have any questions.';
+  
 }

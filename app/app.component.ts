@@ -5,11 +5,7 @@ import { ROUTER_DIRECTIVES }  from '@angular/router';
 
 @Component({
   selector: 'my-app',
-
-  template: `
-    <h1>{{title}}</h1>
-    <router-outlet></router-outlet>
-  `,
+  templateUrl: 'app/app.component.html',
   styleUrls: ['app/app.component.css'],
   directives: [ROUTER_DIRECTIVES],
   // providers: [
@@ -18,4 +14,5 @@ import { ROUTER_DIRECTIVES }  from '@angular/router';
 })
 export class AppComponent {
   title = "Numbers Don't Define Us";
+  subtitle = "A food lovers blog";
 }

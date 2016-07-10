@@ -1,0 +1,20 @@
+.profile-picture {
+  width: 200px;
+  height: 200px;
+}
+
+.about-section {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+}
+
+.blog-section {
+  color: cornflowerblue;
+}
+
+.archive-section {
+  color: cornflowerblue;
+}
+
