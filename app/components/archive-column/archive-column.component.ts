@@ -4,7 +4,7 @@ import { Helpers } from "../../shared/helpers";
 
 // import { HeroService }        from './blog.service';
 
-let componentName = 'topic'
+let componentName = 'archive-column'
 
 @Component({
   selector: componentName,
@@ -16,6 +16,6 @@ let componentName = 'topic'
   //   HeroService,
   // ]
 })
-export class TopicComponent {
+export class ArchiveColumnComponent {
 
 }

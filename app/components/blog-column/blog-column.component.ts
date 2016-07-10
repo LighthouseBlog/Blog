@@ -2,9 +2,9 @@ import { Component }          from '@angular/core';
 import { ROUTER_DIRECTIVES }  from '@angular/router';
 import { Helpers } from "../../shared/helpers";
 
-// import { BlogService }        from './blog.service';
+// import { HeroService }        from './blog.service';
 
-let componentName = 'blog-details';
+let componentName = 'blog-column'
 
 @Component({
   selector: componentName,
@@ -13,9 +13,9 @@ let componentName = 'blog-details';
   styleUrls: [Helpers.getStylePath(componentName)],
   directives: [ROUTER_DIRECTIVES],
   // providers: [
-  //   BlogService,
+  //   HeroService,
   // ]
 })
-export class BlogDetailsComponent {
-  title = "Article Number 1";
+export class BlogColumnComponent {
+
 }
