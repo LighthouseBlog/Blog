@@ -1,22 +1,14 @@
-import { Component }          from '@angular/core';
-import { ROUTER_DIRECTIVES }  from '@angular/router';
+import { Component } from '@angular/core';
 import { Helpers } from "../../shared/helpers";
-
-// import { HeroService }        from './blog.service';
 
 let componentName = 'topic-column'
 
 @Component({
   selector: componentName,
-
   templateUrl: Helpers.getTemplatePath(componentName),
-  styleUrls: [Helpers.getStylePath(componentName)],
-  directives: [ROUTER_DIRECTIVES],
-  // providers: [
-  //   HeroService,
-  // ]
+  styleUrls: [Helpers.getStylePath(componentName)]
 })
-export class TopicColumnComponent {
-    about = 'Hi, I am Janna Safran and I am the author of this blog. I am a second year student at Dickinson College. Contact me at janna.safran@gmail.com if you have any questions.';
 
+export class TopicColumnComponent {
+    about = 'I am Sam Pastoriza and I am developing a blog using Angular 2.';
 }
