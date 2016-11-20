@@ -10,7 +10,7 @@ var PORT = 3000;
 app.use(express.static("dist"));
 
 app.use((req, res) => {
-    res.sendFile(__dirname + "/dist/templates/app/index.html");
+    res.sendFile(__dirname + "/dist/index.html");
 })
 
 app.listen(PORT, function () {

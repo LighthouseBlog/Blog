@@ -2,23 +2,26 @@
   "name": "angularblog",
   "version": "1.0.0",
   "description": "A simple blogging website",
-  "main": "app.js",
+  "main": "server.js",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/pastorsj/AngularBlog.git"
   },
   "scripts": {
-    "start": "node server.js",
-    "lite": "lite-server",
+    "prod": "node server.js",
     "postinstall": "typings install",
+    "typings": "typings",
+    "start": "tsc && concurrently \"npm run tsc:w\" \"npm run lite\" ",
+    "lite": "lite-server",
     "tsc": "tsc",
-    "tsc:w": "tsc -w",
-    "typings": "typings"
+    "tsc:w": "tsc -w"
   },
   "dependencies": {
-    "express": "^4.14.0",
-    
+    "@angular/material": "^2.0.0-alpha.10",
+    "@types/hammerjs": "^2.0.33",
     "core-js": "^2.4.0",
+    "express": "^4.14.0",
+    "hammerjs": "^2.0.8",
     "i": "^0.3.5",
     "reflect-metadata": "^0.1.3",
     "rxjs": "5.0.0-beta.12",
@@ -34,15 +37,17 @@
     "@angular/platform-browser-dynamic": "~2.2.0",
     "@angular/router": "~3.2.0",
     "@angular/upgrade": "~2.2.0",
-
+    "@types/core-js": "^0.9.34",
+    "@types/node": "^6.0.48",
+    "concurrently": "^2.0.0",
     "copy-webpack-plugin": "^3.0.1",
+    "lite-server": "^2.2.0",
     "source-map-loader": "^0.1.5",
     "ts-loader": "^0.8.2",
+    "typescript": "^2.0.3",
+    "typings": "^2.0.0",
     "webpack": "^1.13.1",
-    "webpack-livereload-plugin": "^0.8.1",
-    "@types/core-js": "^0.9.34",
-    "@types/node": "^6.0.45",
-    "typescript": "^2.0.3"
+    "webpack-livereload-plugin": "^0.8.1"
   },
   "keywords": [
     "blog",

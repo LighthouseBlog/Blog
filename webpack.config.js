@@ -47,6 +47,10 @@ module.exports = {
                 to: "./dist/"
             },
             {
+                from: "./app/styles.css",
+                to: "./dist/"
+            },
+            {
                 from: "./app/assets/",
                 to: "./dist/assets/"
             },
