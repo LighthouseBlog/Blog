@@ -1,63 +1,46 @@
 {
-  "name": "angularblog",
-  "version": "1.0.0",
-  "description": "A simple blogging website",
-  "main": "server.js",
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/pastorsj/AngularBlog.git"
-  },
+  "name": "angular-blog",
+  "version": "0.0.0",
+  "license": "MIT",
   "scripts": {
-    "prod": "node server.js",
-    "postinstall": "typings install",
-    "typings": "typings",
-    "start": "tsc && concurrently \"npm run tsc:w\" \"npm run lite\" ",
-    "lite": "lite-server",
-    "tsc": "tsc",
-    "tsc:w": "tsc -w"
+    "ng": "ng",
+    "start": "ng serve",
+    "build": "ng build",
+    "test": "ng test",
+    "lint": "ng lint",
+    "e2e": "ng e2e"
   },
+  "private": true,
   "dependencies": {
-    "@angular/material": "^2.0.0-alpha.10",
-    "@types/hammerjs": "^2.0.33",
-    "core-js": "^2.4.0",
-    "express": "^4.14.0",
-    "hammerjs": "^2.0.8",
-    "i": "^0.3.5",
-    "reflect-metadata": "^0.1.3",
-    "rxjs": "5.0.0-beta.12",
-    "zone.js": "^0.6.12"
+    "@angular/common": "^4.0.0",
+    "@angular/compiler": "^4.0.0",
+    "@angular/core": "^4.0.0",
+    "@angular/forms": "^4.0.0",
+    "@angular/http": "^4.0.0",
+    "@angular/platform-browser": "^4.0.0",
+    "@angular/platform-browser-dynamic": "^4.0.0",
+    "@angular/router": "^4.0.0",
+    "core-js": "^2.4.1",
+    "rxjs": "^5.1.0",
+    "zone.js": "^0.8.4"
   },
   "devDependencies": {
-    "@angular/common": "~2.2.0",
-    "@angular/compiler": "~2.2.0",
-    "@angular/core": "~2.2.0",
-    "@angular/forms": "~2.2.0",
-    "@angular/http": "~2.2.0",
-    "@angular/platform-browser": "~2.2.0",
-    "@angular/platform-browser-dynamic": "~2.2.0",
-    "@angular/router": "~3.2.0",
-    "@angular/upgrade": "~2.2.0",
-    "@types/core-js": "^0.9.34",
-    "@types/node": "^6.0.48",
-    "concurrently": "^2.0.0",
-    "copy-webpack-plugin": "^3.0.1",
-    "lite-server": "^2.2.0",
-    "source-map-loader": "^0.1.5",
-    "ts-loader": "^0.8.2",
-    "typescript": "^2.0.3",
-    "typings": "^2.0.0",
-    "webpack": "^1.13.1",
-    "webpack-livereload-plugin": "^0.8.1"
-  },
-  "keywords": [
-    "blog",
-    "angular2",
-    "angular"
-  ],
-  "author": "pastorsj",
-  "license": "MIT",
-  "bugs": {
-    "url": "https://github.com/pastorsj/AngularBlog/issues"
-  },
-  "homepage": "https://github.com/pastorsj/AngularBlog/#readme"
+    "@angular/cli": "1.0.0",
+    "@angular/compiler-cli": "^4.0.0",
+    "@types/jasmine": "2.5.38",
+    "@types/node": "~6.0.60",
+    "codelyzer": "~2.0.0",
+    "jasmine-core": "~2.5.2",
+    "jasmine-spec-reporter": "~3.2.0",
+    "karma": "~1.4.1",
+    "karma-chrome-launcher": "~2.0.0",
+    "karma-cli": "~1.0.1",
+    "karma-jasmine": "~1.1.0",
+    "karma-jasmine-html-reporter": "^0.2.2",
+    "karma-coverage-istanbul-reporter": "^0.2.0",
+    "protractor": "~5.1.0",
+    "ts-node": "~2.0.0",
+    "tslint": "~4.5.0",
+    "typescript": "~2.2.0"
+  }
 }
