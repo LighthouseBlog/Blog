@@ -1,0 +1,9 @@
+
+/* https://material.angular.io/components/component/toolbar */
+.spacer {
+  flex: 1 1 auto;
+}
+
+.link:hover {
+  cursor: pointer;
+}
