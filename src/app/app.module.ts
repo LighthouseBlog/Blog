@@ -4,6 +4,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 import { MaterialModule } from '@angular/material';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
+import { FroalaEditorModule, FroalaViewModule } from 'angular2-froala-wysiwyg';
 import 'hammerjs';
 
 import { AppComponent } from './app.component';
@@ -13,6 +14,7 @@ import { RegisterComponent } from './register/register.component';
 
 import {Router} from './app.routing';
 import { SideNavComponent } from './side-nav/side-nav.component';
+import { EditorComponent } from './editor/editor.component';
 
 @NgModule({
   declarations: [
@@ -20,7 +22,8 @@ import { SideNavComponent } from './side-nav/side-nav.component';
     NavBarComponent,
     LoginComponent,
     RegisterComponent,
-    SideNavComponent
+    SideNavComponent,
+    EditorComponent
   ],
   imports: [
     BrowserAnimationsModule,
@@ -29,7 +32,9 @@ import { SideNavComponent } from './side-nav/side-nav.component';
     ReactiveFormsModule,
     HttpModule,
     MaterialModule,
-    Router
+    Router,
+    FroalaEditorModule.forRoot(),
+    FroalaViewModule.forRoot()
   ],
   providers: [],
   bootstrap: [AppComponent]
