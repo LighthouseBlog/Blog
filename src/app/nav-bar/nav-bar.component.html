@@ -1,12 +1,11 @@
 <md-toolbar color="primary">
-    <!-- hamburger menu -->
-
-      <div>
-        <span routerLink="/" class="link">{{title}}</span>
-        <span class="spacer"></span>
-        <div>
-          <a md-button routerLink="/login">Login</a>
-          <a md-button routerLink="/register">Register</a>
-      </div>
-      </div>
+    <button md-icon-button (click)="onMenuClick()">
+        <md-icon>menu</md-icon>
+    </button>
+    <span routerLink="/" class="link">{{title}}</span>
+    <span class="spacer"></span>
+    <div>
+      <a md-button routerLink="/login">Login</a>
+      <a md-button routerLink="/register">Register</a>
+    </div>
 </md-toolbar>

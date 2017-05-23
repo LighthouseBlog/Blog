@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 
 @Component({
   selector: 'app-side-nav',
@@ -7,7 +7,16 @@ import { Component, OnInit } from '@angular/core';
 })
 export class SideNavComponent implements OnInit {
 
-  constructor() { }
+  opened = false;
+
+  clicked(event) {
+    this.opened = event;
+  }
+
+  onSidebarClose() {
+    console.log('Called', this.opened);
+    this.opened = false;
+  }
 
   ngOnInit() {
   }
