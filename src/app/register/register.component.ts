@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms';
 
-//pg 225 Angular 2 Development with Typescript
+// pg 225 Angular 2 Development with Typescript
 function equalValidator({value}: FormGroup) : {[key: string]: any} {
   const [first, ...rest] = Object.keys(value || {});
   const valid = rest.every(v => value[v] === value[first]);
@@ -15,8 +15,8 @@ function equalValidator({value}: FormGroup) : {[key: string]: any} {
 })
 export class RegisterComponent implements OnInit {
 
-  title = "Register"
-  registerGroup: FormGroup
+  title = 'Register';
+  registerGroup: FormGroup;
 
   constructor(fb: FormBuilder) {
     this.registerGroup = fb.group({
