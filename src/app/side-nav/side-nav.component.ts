@@ -13,7 +13,7 @@ export class SideNavComponent implements OnInit {
     this.opened = event;
   }
 
-  onSidebarClose() {
+  onClose() {
     console.log('Called', this.opened);
     this.opened = false;
   }

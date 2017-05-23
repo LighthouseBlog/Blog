@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, FormControl, Validators, FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
+import {MdDialogRef} from '@angular/material';
 
 @Component({
   selector: 'app-create-article-modal',
@@ -25,7 +26,7 @@ export class CreateArticleModalComponent implements OnInit {
     if (isFormValid) {
       console.log('Creating new article');
       console.log('Article Title', formValue['articleTitle']);
-      this.router.navigate(['articles', 'edit', 'id']);
+      this.router.navigate(['edit', '1']);
     }
   }
 

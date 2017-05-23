@@ -18,11 +18,12 @@ const routes: Routes = [
   // /articles
   {
     path: 'articles',
-    component: UserArticlesComponent,
-    children: [
-      { path: 'edit/:id', component: EditorComponent }
-    ]
-  }
+    component: UserArticlesComponent
+  },
+  {
+      path: 'edit/:id',
+      component: EditorComponent
+    }
 ];
 
 export const Router = RouterModule.forRoot(routes);
