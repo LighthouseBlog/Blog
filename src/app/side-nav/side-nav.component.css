@@ -1,7 +1,7 @@
 .sidenav-content {
   display: flex;
   height: 100%;
-  align-items: center;
+  align-items: flex-start;
   justify-content: center;
 }
 
@@ -12,4 +12,8 @@
 .sidenav-list {
   height: 100px;
   display: flex;
+}
+
+.sidenav-container {
+  height: 98vh;
 }

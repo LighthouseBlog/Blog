@@ -1,5 +1,5 @@
 <md-sidenav-container class="sidenav-container">
-  <md-sidenav mode="push" opened="{{opened}}" (onClose)="onSidebarClose()" class="sidenav">
+  <md-sidenav #sidenav mode="push" opened="{{opened}}" (close)="onSidebarClose()" class="sidenav">
     <div class="sidenav-content">
       <md-list>
         <md-list-item>
@@ -18,4 +18,5 @@
     </div>
   </md-sidenav>
   <app-nav-bar (clicked)="clicked($event)"></app-nav-bar>
+  <router-outlet></router-outlet>
 </md-sidenav-container>

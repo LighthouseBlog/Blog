@@ -10,11 +10,14 @@ export class SideNavComponent implements OnInit {
   opened = false;
 
   clicked(event) {
-    this.opened = event;
+    //console.log('clicked called', event, this.opened);
+    //this.opened = event;
+    this.opened = !this.opened;
+    //this.opened = true;
   }
 
   onSidebarClose() {
-    console.log('Called', this.opened);
+    //console.log('onsidebarclose called', this.opened);
     this.opened = false;
   }
 

@@ -17,6 +17,7 @@ export class NavBarComponent implements OnInit {
 
   onMenuClick() {
     this.clicked.emit(this.opened);
+    //console.log("onmenuclick called");
   }
 
   ngOnInit() {
