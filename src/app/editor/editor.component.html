@@ -1,1 +1,4 @@
-<div *ngIf="editing" [froalaEditor] [(froalaModel)]="editorContent"></div>
+<div class="editor">
+  <div *ngIf="editing" [froalaEditor] [(froalaModel)]="editorContent"></div>
+</div>
+<div [froalaView]="editorContent"></div>

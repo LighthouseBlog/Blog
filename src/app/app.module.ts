@@ -2,7 +2,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
-import { MaterialModule } from '@angular/material';
+import { MaterialModule, MdGridListModule, MdDialogModule } from '@angular/material';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import { FroalaEditorModule, FroalaViewModule } from 'angular2-froala-wysiwyg';
 import 'hammerjs';
@@ -38,7 +38,9 @@ import { CreateArticleModalComponent } from './create-article-modal/create-artic
     MaterialModule,
     Router,
     FroalaEditorModule.forRoot(),
-    FroalaViewModule.forRoot()
+    FroalaViewModule.forRoot(),
+    MdGridListModule,
+    MdDialogModule
   ],
   entryComponents: [
     CreateArticleModalComponent
