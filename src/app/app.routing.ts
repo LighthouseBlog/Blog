@@ -1,6 +1,7 @@
 import { Routes, RouterModule } from '@angular/router';
 import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
+import { UserArticlesComponent } from './user-articles/user-articles.component';
 import { EditorComponent } from './editor/editor.component';
 
 const routes: Routes = [
@@ -14,10 +15,13 @@ const routes: Routes = [
     path: 'register',
     component: RegisterComponent
   },
-  // /editor
+  // /articles
   {
-    path: 'editor',
-    component: EditorComponent
+    path: 'articles',
+    component: UserArticlesComponent,
+    children: [
+      { path: 'edit/:id', component: EditorComponent }
+    ]
   }
 ];
 

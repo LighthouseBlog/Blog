@@ -7,9 +7,20 @@ import { Component, OnInit } from '@angular/core';
 })
 export class EditorComponent implements OnInit {
 
+  editing = false;
+
   constructor() { }
 
   ngOnInit() {
+    this.editing = true;
+  }
+
+  saveArticle() {
+
+  }
+
+  previewArticle() {
+
   }
 
 }

@@ -27,7 +27,7 @@ export class LoginComponent implements OnInit {
       console.log('Logging in');
       console.log('Username', formValue['username']);
       console.log('Password', formValue['password']);
-      this.router.navigate(['editor']);
+      this.router.navigate(['articles']);
     }
   }
 
