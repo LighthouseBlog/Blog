@@ -10,7 +10,7 @@ export class SideNavComponent implements OnInit {
   opened = false;
 
   clicked(event) {
-    this.opened = event;
+    this.opened = !this.opened;
   }
 
   onClose() {

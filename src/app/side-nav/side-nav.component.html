@@ -1,5 +1,4 @@
 <md-sidenav-container class="sidenav-container">
-  <app-nav-bar (clicked)="clicked($event)"></app-nav-bar>
   <md-sidenav mode="push" opened="{{opened}}" (close)="onClose()" class="sidenav">
     <div class="sidenav-content">
       <md-list>
@@ -11,8 +10,13 @@
           <md-icon md-list-icon>book</md-icon>
           <h3 md-line>Setting up an AWS Server</h3>
         </md-list-item>
+        <md-list-item>
+          <md-icon md-list-icon>book</md-icon>
+          <h3 md-line>Item 3</h3>
+        </md-list-item>
       </md-list>
     </div>
   </md-sidenav>
+  <app-nav-bar (clicked)="clicked($event)"></app-nav-bar>
   <router-outlet></router-outlet>
 </md-sidenav-container>

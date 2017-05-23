@@ -12,3 +12,12 @@
 .sidenav {
   padding: 20px;
 }
+
+.sidenav-list {
+  height: 100px;
+  display: flex;
+}
+
+.sidenav-container {
+  height: 98vh;
+}
