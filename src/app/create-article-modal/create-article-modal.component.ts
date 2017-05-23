@@ -13,7 +13,7 @@ export class CreateArticleModalComponent implements OnInit {
   title = 'Create a new article';
   formGroup: FormGroup;
 
-  constructor(fb: FormBuilder, private router: Router) {
+  constructor(fb: FormBuilder, private router: Router, private dialogRef: MdDialogRef<CreateArticleModalComponent>) {
     this.formGroup = fb.group({
       'articleTitle': new FormControl('', Validators.required)
     });
@@ -27,6 +27,7 @@ export class CreateArticleModalComponent implements OnInit {
       console.log('Creating new article');
       console.log('Article Title', formValue['articleTitle']);
       this.router.navigate(['edit', '1']);
+      this.dialogRef.close('closed');
     }
   }
 
