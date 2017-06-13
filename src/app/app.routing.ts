@@ -3,6 +3,7 @@ import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
 import { UserArticlesComponent } from './user-articles/user-articles.component';
 import { EditorComponent } from './editor/editor.component';
+import { AuthGuard } from './_guards/auth.guard';
 
 const routes: Routes = [
   // /login
@@ -13,17 +14,24 @@ const routes: Routes = [
   // /register
   {
     path: 'register',
-    component: RegisterComponent
+    component: RegisterComponent,
+    canActivate: [AuthGuard]
   },
   // /articles
   {
     path: 'articles',
-    component: UserArticlesComponent
+    component: UserArticlesComponent,
+    canActivate: [AuthGuard]
   },
   {
-      path: 'edit/:id',
-      component: EditorComponent
-    }
+    path: 'edit/:id',
+    component: EditorComponent,
+    canActivate: [AuthGuard]
+  },
+  { 
+    path: '**',
+    redirectTo: ''
+  }
 ];
 
 export const Router = RouterModule.forRoot(routes);

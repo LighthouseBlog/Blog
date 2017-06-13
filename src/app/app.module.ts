@@ -1,7 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { HttpModule } from '@angular/http';
+import { HttpModule, JsonpModule, RequestOptions, RequestOptionsArgs } from '@angular/http';
 import { MaterialModule, MdGridListModule, MdDialogModule } from '@angular/material';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import { FroalaEditorModule, FroalaViewModule } from 'angular2-froala-wysiwyg';
@@ -17,6 +17,11 @@ import { SideNavComponent } from './side-nav/side-nav.component';
 import { EditorComponent } from './editor/editor.component';
 import { UserArticlesComponent } from './user-articles/user-articles.component';
 import { CreateArticleModalComponent } from './create-article-modal/create-article-modal.component';
+
+import { AuthGuard } from './_guards/auth.guard';
+import { AuthenticationService } from './_services/authentication.service';
+import { EditorService } from './_services/editor.service';
+import { BaseRequestOptions } from '@angular/http';
 
 @NgModule({
   declarations: [
@@ -35,6 +40,7 @@ import { CreateArticleModalComponent } from './create-article-modal/create-artic
     FormsModule,
     ReactiveFormsModule,
     HttpModule,
+    JsonpModule,
     MaterialModule,
     Router,
     FroalaEditorModule.forRoot(),
@@ -45,7 +51,14 @@ import { CreateArticleModalComponent } from './create-article-modal/create-artic
   entryComponents: [
     CreateArticleModalComponent
   ],
-  providers: [],
-  bootstrap: [AppComponent]
+  providers: [
+    AuthGuard,
+    AuthenticationService,
+    EditorService,
+    BaseRequestOptions
+  ],
+  bootstrap: [
+    AppComponent
+  ]
 })
 export class AppModule { }

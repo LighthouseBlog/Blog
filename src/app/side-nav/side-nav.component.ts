@@ -13,12 +13,16 @@ export class SideNavComponent implements OnInit {
     this.opened = !this.opened;
   }
 
+  retrieveArticles() { 
+  }
+
   onClose() {
     console.log('Called', this.opened);
     this.opened = false;
   }
 
   ngOnInit() {
+    this.retrieveArticles();
   }
 
 }
