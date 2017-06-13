@@ -1,4 +1,7 @@
 import { Component, OnInit, Output, EventEmitter } from '@angular/core';
+import { Router } from '@angular/router';
+
+import { AuthenticationService } from '../_services/authentication.service';
 
 @Component({
   selector: 'app-nav-bar',
@@ -13,14 +16,25 @@ export class NavBarComponent implements OnInit {
   @Output()
   clicked: EventEmitter<boolean> = new EventEmitter();
 
-  constructor() { }
+  constructor(
+    private auth: AuthenticationService,
+    private router: Router
+  ) { }
 
   onMenuClick() {
     this.clicked.emit(this.opened);
-    //console.log("onmenuclick called");
   }
 
   ngOnInit() {
+  }
+
+  loggedIn() {
+    return localStorage.getItem('currentUser');
+  }
+
+  logout() {
+    this.auth.logout();
+    this.router.navigate(['/']);
   }
 
 }

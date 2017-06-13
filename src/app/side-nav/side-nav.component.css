@@ -5,6 +5,10 @@
   justify-content: center;
 }
 
+.sidenav-container {
+  height: 100vh;
+}
+
 .sidenav {
   padding: 20px;
 }

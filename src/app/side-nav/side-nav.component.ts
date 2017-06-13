@@ -10,18 +10,19 @@ export class SideNavComponent implements OnInit {
   opened = false;
 
   clicked(event) {
-    //console.log('clicked called', event, this.opened);
-    //this.opened = event;
     this.opened = !this.opened;
-    //this.opened = true;
   }
 
-  onSidebarClose() {
-    //console.log('onsidebarclose called', this.opened);
+  retrieveArticles() {
+  }
+
+  onClose() {
+    console.log('Called', this.opened);
     this.opened = false;
   }
 
   ngOnInit() {
+    this.retrieveArticles();
   }
 
 }
