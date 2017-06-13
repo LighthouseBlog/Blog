@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { Router, ActivatedRoute } from '@angular/router';
+
+import { EditorService } from '../_services/editor.service';
 
 @Component({
   selector: 'app-editor',
@@ -10,11 +13,16 @@ export class EditorComponent implements OnInit {
   public editing = false;
   public options: Object = {
     placeholderText: 'Edit Content Here',
-    charCounterCount: true
+    charCounterCount: true,
+    heightMin: 400
   };
-  private content: Object;
+  private content: string;
 
-  constructor() { }
+  constructor(
+    private editorService: EditorService,
+    private router: Router,
+    private route: ActivatedRoute
+  ) { }
 
   ngOnInit() {
     this.editing = true;
@@ -23,6 +31,9 @@ export class EditorComponent implements OnInit {
         this.updateContent(editor);
       }
     };
+    this.route.params.subscribe(params => {
+      this.editorService.setArticleId(params['id']);
+    });
   }
 
   updateContent(editor) {
@@ -30,7 +41,16 @@ export class EditorComponent implements OnInit {
   }
 
   saveArticle() {
-
+    console.log('Saving Article');
+    console.log('content', this.content);
+    this.editorService.saveEdits(this.content)
+      .subscribe(result => {
+        if (result === true) {
+            console.log('Successfully saved');
+        } else {
+            console.error('Failed to login, please try again');
+        }
+      });
   }
 
   previewArticle() {

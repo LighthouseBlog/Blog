@@ -3,4 +3,11 @@
   justify-content: center;
   align-items: center;
   flex-direction: column;
+  margin-top: 7vh;
+}
+
+.save {
+  float: right;
+  margin-right: 1.5vw;
+  margin-top: 1.5vh;
 }

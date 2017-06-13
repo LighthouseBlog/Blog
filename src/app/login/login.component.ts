@@ -11,8 +11,8 @@ import { AuthenticationService } from '../_services/authentication.service';
 })
 export class LoginComponent implements OnInit {
 
-  title = "Login"
-  formGroup: FormGroup
+  title = 'Login';
+  formGroup: FormGroup;
 
   constructor(fb: FormBuilder, private router: Router, private auth: AuthenticationService) {
     this.formGroup = fb.group({

@@ -1,4 +1,4 @@
+<button md-raised-button (click)="saveArticle()" color="primary" class="save"> Save Article </button>
 <div class="editor">
   <div *ngIf="editing" [froalaEditor]='options' [(froalaModel)]="editorContent"></div>
 </div>
-<div [froalaView]="editorContent"></div>
