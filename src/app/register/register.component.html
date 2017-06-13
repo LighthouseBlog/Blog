@@ -3,7 +3,7 @@
     <md-card-header>
       <md-card-title><h2>{{title}}</h2></md-card-title>
     </md-card-header>
-    <form #f="ngForm" [formGroup]="registerGroup" (ngSubmit)="login(f.value, f.valid)" novalidate>
+    <form #f="ngForm" [formGroup]="registerGroup" (ngSubmit)="register(f.value, f.valid)" novalidate>
       <md-card-content align="center">
         <md-input-container>
           <input mdInput type="text" placeholder="Username" formControlName="username" required />
@@ -15,6 +15,7 @@
         </md-input-container><br /> 
         <md-input-container>
           <input mdInput type="text" placeholder="Name" formControlName="name" required />
+          <md-hint *ngIf="registerGroup.hasError('required','name')" [ngStyle]="{'color': 'red'}" >Username is required</md-hint>
         </md-input-container><br />
         <div formGroupName="passwordsGroup">
           <md-input-container>

@@ -12,7 +12,7 @@ import Constants from '../constants';
 @Injectable()
 export class EditorService {
 
-  private editorUrl = Constants.URL + '/blog';  // URL to web API
+  private editorUrl = Constants.URL + '/blog';
 
   constructor(
     private http: Http,

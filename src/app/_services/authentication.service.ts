@@ -8,6 +8,7 @@ import Constants from '../constants';
 export class AuthenticationService {
     public token: string;
     private loginUrl = Constants.URL + '/login';
+    private registerUrl = Constants.URL + '/register';
 
     constructor(
       private http: Http) {
@@ -25,6 +26,23 @@ export class AuthenticationService {
         });
 
         return this.http.post(this.loginUrl, {}, options)
+            .map((response: Response) => {
+                const token = response.json() && response.json().token;
+                if (token) {
+                    this.token = token;
+
+                    localStorage.setItem('currentUser', JSON.stringify({ username: username, token: token }));
+
+                    return true;
+                } else {
+                    return false;
+                }
+            });
+    }
+
+    register(username: string, password: string, email: string, name: string): Observable<boolean> {
+
+        return this.http.post(this.registerUrl, {username, password, email, name})
             .map((response: Response) => {
                 const token = response.json() && response.json().token;
                 if (token) {
