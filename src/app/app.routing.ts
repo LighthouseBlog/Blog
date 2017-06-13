@@ -14,8 +14,7 @@ const routes: Routes = [
   // /register
   {
     path: 'register',
-    component: RegisterComponent,
-    canActivate: [AuthGuard]
+    component: RegisterComponent
   },
   // /articles
   {
