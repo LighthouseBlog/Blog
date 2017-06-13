@@ -5,7 +5,8 @@
     <span routerLink="/" class="link">{{title}}</span>
     <span class="spacer"></span>
     <div>
-      <a md-button routerLink="/login">Login</a>
-      <a md-button routerLink="/register">Register</a>
+      <a *ngIf="!loggedIn()" md-button routerLink="/login">Login</a>
+      <a md-button *ngIf="!loggedIn()" routerLink="/register">Register</a>
+      <button md-button *ngIf="loggedIn()" (click)="logout()">Logout</button>
     </div>
 </md-toolbar>

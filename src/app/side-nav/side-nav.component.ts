@@ -13,7 +13,7 @@ export class SideNavComponent implements OnInit {
     this.opened = !this.opened;
   }
 
-  retrieveArticles() { 
+  retrieveArticles() {
   }
 
   onClose() {

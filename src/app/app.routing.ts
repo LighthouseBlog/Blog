@@ -27,7 +27,7 @@ const routes: Routes = [
     component: EditorComponent,
     canActivate: [AuthGuard]
   },
-  { 
+  {
     path: '**',
     redirectTo: ''
   }
