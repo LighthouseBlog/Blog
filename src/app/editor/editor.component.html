@@ -1,4 +1,4 @@
 <div class="editor">
-  <div *ngIf="editing" [froalaEditor] [(froalaModel)]="editorContent"></div>
+  <div *ngIf="editing" [froalaEditor]='options' [(froalaModel)]="editorContent"></div>
 </div>
 <div [froalaView]="editorContent"></div>
