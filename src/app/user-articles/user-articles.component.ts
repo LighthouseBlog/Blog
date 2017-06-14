@@ -16,9 +16,7 @@ export class UserArticlesComponent implements OnInit {
 
   createArticle() {
     const dialogRef = this.dialog.open(CreateArticleModalComponent);
-    dialogRef.afterClosed().subscribe(result => {
-      console.log('Result', result);
-    });
+    dialogRef.afterClosed().subscribe(result => { });
   }
 
 }

@@ -42,13 +42,12 @@ export class EditorComponent implements OnInit {
 
   saveArticle() {
     console.log('Saving Article');
-    console.log('content', this.content);
     this.editorService.saveEdits(this.content)
       .subscribe(result => {
-        if (result === true) {
+        if (result['text'] === this.content) {
             console.log('Successfully saved');
         } else {
-            console.error('Failed to login, please try again');
+            console.error('Failed to save article, please try again');
         }
       });
   }

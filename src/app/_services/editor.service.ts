@@ -28,7 +28,7 @@ export class EditorService {
     this.title = title;
   }
 
-  createArticle(title: string): Observable<boolean> {
+  createArticle(): Observable<boolean> {
     const headers = new Headers();
     headers.append('Content-Type', 'application/json');
     headers.append('Authorization', 'Bearer ' + this.auth.token);

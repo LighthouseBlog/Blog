@@ -44,9 +44,10 @@ export class RegisterComponent implements OnInit {
     if (isFormValid) {
       const username = formValue.username;
       const password = formValue.passwordsGroup.password;
-      console.log('Password', password);
+
       const email = formValue.email;
       const name = formValue.name;
+      
       console.log('Registering');
       this.auth.register(username, password, email, name)
         .subscribe(result => {

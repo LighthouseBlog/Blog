@@ -36,10 +36,15 @@ export class CreateArticleModalComponent implements OnInit {
       const articleTitle = formValue['articleTitle'];
       this.editorService.setArticleTitle(articleTitle);
 
-      this.editorService.createArticle(articleTitle)
+      this.editorService.createArticle()
         .subscribe(results => {
-          this.router.navigate(['edit', '1']);
-          this.dialogRef.close('closed');
+          if (!isNaN(results['_id'])) {
+            this.editorService.setArticleId(results['_id']);
+            this.dialogRef.close('closed');
+            this.router.navigate(['edit', results['_id']]);
+          } else {
+            console.error('An error has occured, the article title was saved.');
+          }
         })
     }
   }

@@ -17,7 +17,6 @@ export class SideNavComponent implements OnInit {
   }
 
   onClose() {
-    console.log('Called', this.opened);
     this.opened = false;
   }
 
