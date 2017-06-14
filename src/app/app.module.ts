@@ -21,6 +21,7 @@ import { CreateArticleModalComponent } from './create-article-modal/create-artic
 import { AuthGuard } from './_guards/auth.guard';
 import { AuthenticationService } from './_services/authentication.service';
 import { EditorService } from './_services/editor.service';
+import { ArticleService } from './_services/article.service';
 import { BaseRequestOptions } from '@angular/http';
 
 @NgModule({
@@ -55,6 +56,7 @@ import { BaseRequestOptions } from '@angular/http';
     AuthGuard,
     AuthenticationService,
     EditorService,
+    ArticleService,
     BaseRequestOptions
   ],
   bootstrap: [

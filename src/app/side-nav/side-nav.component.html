@@ -2,17 +2,9 @@
   <md-sidenav mode="push" opened="{{opened}}" (close)="onClose()" class="sidenav">
     <div class="sidenav-content">
       <md-list>
-        <md-list-item>
+        <md-list-item *ngFor="let article of articles | async articles ">
           <md-icon md-list-icon>book</md-icon>
-          <h3 md-line>Introduction</h3>
-        </md-list-item>
-        <md-list-item>
-          <md-icon md-list-icon>book</md-icon>
-          <h3 md-line>Setting up an AWS Server</h3>
-        </md-list-item>
-        <md-list-item>
-          <md-icon md-list-icon>book</md-icon>
-          <h3 md-line>Item 3</h3>
+          <h3 md-line>{{article?.name}}</h3>
         </md-list-item>
       </md-list>
     </div>
