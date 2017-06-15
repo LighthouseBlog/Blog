@@ -1,0 +1,8 @@
+<div class="articles">
+  <md-list>
+    <md-list-item *ngFor="let article of articles | async">
+      <md-icon md-list-icon>book</md-icon>
+      <button md-button (click)="selectedArticle(article)"> {{article?.name}} </button> 
+    </md-list-item>
+  </md-list>
+</div>

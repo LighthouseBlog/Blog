@@ -1,14 +1,17 @@
 <md-sidenav-container class="sidenav-container">
   <md-sidenav mode="push" opened="{{opened}}" (close)="onClose()" class="sidenav">
     <div class="sidenav-content">
-      <md-list>
-        <md-list-item *ngFor="let article of articles | async articles ">
-          <md-icon md-list-icon>book</md-icon>
-          <h3 md-line>{{article?.name}}</h3>
-        </md-list-item>
-      </md-list>
+      <md-input-container>
+        <input mdInput placeholder="Article Title" [mdAutocomplete]="auto" [formControl]="articleCtrl">
+      </md-input-container>
+      <md-autocomplete #auto="mdAutocomplete">
+        <md-option *ngFor="let article of filteredArticles | async filteredArticles" [value]="article">
+          {{ article?.name }}
+        </md-option>
+      </md-autocomplete>
     </div>
   </md-sidenav>
   <app-nav-bar (clicked)="clicked($event)"></app-nav-bar>
+  <app-articles></app-articles>
   <router-outlet></router-outlet>
 </md-sidenav-container>

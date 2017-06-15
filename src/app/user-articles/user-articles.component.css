@@ -1,4 +1,6 @@
 .new-article {
   display: flex;
   justify-content: flex-end;
+  margin-top: 1.5vh;
+  margin-right: 1.5vw;
 }

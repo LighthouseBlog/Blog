@@ -23,6 +23,7 @@ import { AuthenticationService } from './_services/authentication.service';
 import { EditorService } from './_services/editor.service';
 import { ArticleService } from './_services/article.service';
 import { BaseRequestOptions } from '@angular/http';
+import { ArticlesComponent } from './articles/articles.component';
 
 @NgModule({
   declarations: [
@@ -33,7 +34,8 @@ import { BaseRequestOptions } from '@angular/http';
     SideNavComponent,
     EditorComponent,
     UserArticlesComponent,
-    CreateArticleModalComponent
+    CreateArticleModalComponent,
+    ArticlesComponent
   ],
   imports: [
     BrowserAnimationsModule,

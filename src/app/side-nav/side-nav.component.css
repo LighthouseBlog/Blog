@@ -11,11 +11,7 @@
 
 .sidenav {
   padding: 20px;
-}
-
-.sidenav-list {
-  height: 100px;
-  display: flex;
+  min-width: 20vw;
 }
 
 .sidenav-container {
