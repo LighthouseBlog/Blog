@@ -32,11 +32,20 @@ export class ArticleService {
     const headers = new Headers();
     headers.append('Authorization', 'Bearer ' + this.auth.token);
 
-    const author = JSON.parse(localStorage.getItem('currentUser'));
-
     const options = new RequestOptions({ headers });
 
     return this.http.get(this.editorUrl, options)
+                    .map(this.extractData)
+                    .catch(this.handleError);
+  }
+
+  getArticle(id: number): Observable<Object> {
+    const headers = new Headers();
+    headers.append('Authorization', 'Bearer ' + this.auth.token);
+
+    const options = new RequestOptions({ headers });
+
+    return this.http.get(this.editorUrl + id, options)
                     .map(this.extractData)
                     .catch(this.handleError);
   }

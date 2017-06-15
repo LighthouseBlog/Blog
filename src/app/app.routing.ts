@@ -3,6 +3,7 @@ import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
 import { UserArticlesComponent } from './user-articles/user-articles.component';
 import { EditorComponent } from './editor/editor.component';
+import { ArticleComponent } from './article/article.component';
 import { AuthGuard } from './_guards/auth.guard';
 
 const routes: Routes = [
@@ -26,6 +27,10 @@ const routes: Routes = [
     path: 'edit/:id',
     component: EditorComponent,
     canActivate: [AuthGuard]
+  },
+  {
+    path: 'article/:id',
+    component: ArticleComponent
   },
   {
     path: '**',

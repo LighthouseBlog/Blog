@@ -24,6 +24,7 @@ import { EditorService } from './_services/editor.service';
 import { ArticleService } from './_services/article.service';
 import { BaseRequestOptions } from '@angular/http';
 import { ArticlesComponent } from './articles/articles.component';
+import { ArticleComponent } from './article/article.component';
 
 @NgModule({
   declarations: [
@@ -35,7 +36,8 @@ import { ArticlesComponent } from './articles/articles.component';
     EditorComponent,
     UserArticlesComponent,
     CreateArticleModalComponent,
-    ArticlesComponent
+    ArticlesComponent,
+    ArticleComponent
   ],
   imports: [
     BrowserAnimationsModule,
