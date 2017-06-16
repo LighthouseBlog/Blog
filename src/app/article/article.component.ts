@@ -11,20 +11,21 @@ import { ActivatedRoute } from '@angular/router';
 export class ArticleComponent implements OnInit {
 
   public article;
-  public articleText;
 
   constructor(
     private articleService: ArticleService,
     private route: ActivatedRoute
   ) {
-    this.article = {name: 'Article name'};
-    this.articleText = '<p> Insert Test </p>';
+    this.article = '';
   }
 
   ngOnInit() {
     this.route.params
       .subscribe(results => {
-        this.article = this.articleService.getArticle(results.id)
+        this.articleService.getArticle(results.id)
+          .subscribe(result => {
+            this.article = result;
+          })
       })
   }
 }

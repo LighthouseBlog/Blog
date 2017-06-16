@@ -39,13 +39,8 @@ export class ArticleService {
                     .catch(this.handleError);
   }
 
-  getArticle(id: number): Observable<Object> {
-    const headers = new Headers();
-    headers.append('Authorization', 'Bearer ' + this.auth.token);
-
-    const options = new RequestOptions({ headers });
-
-    return this.http.get(this.editorUrl + id, options)
+  getArticle(id: number): Observable<boolean> {
+    return this.http.get(this.editorUrl + id)
                     .map(this.extractData)
                     .catch(this.handleError);
   }
