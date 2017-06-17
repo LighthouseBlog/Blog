@@ -9,7 +9,23 @@ import { CreateArticleModalComponent } from '../create-article-modal/create-arti
 })
 export class UserArticlesComponent implements OnInit {
 
-  constructor(public dialog: MdDialog) { }
+  public settings;
+
+  constructor(public dialog: MdDialog) {
+    this.settings = {
+      columns: {
+        name: {
+          title: 'Title'
+        },
+        author: {
+          title: 'Author'
+        },
+        createdOn: {
+          title: 'Created On'
+        }
+      }
+    };
+  }
 
   ngOnInit() {
   }

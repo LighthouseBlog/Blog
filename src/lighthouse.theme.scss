@@ -1,0 +1,19 @@
+@import '~@angular/material/theming';
+
+@include mat-core();
+
+// mat-palette(color, default, lighter hue, darker hue)
+// https://www.materialpalette.com/colors
+
+$lighthouse-app-primary: mat-palette($mat-light-blue, A400);
+$lighthouse-app-accent: mat-palette($mat-purple, A400);
+
+$lighthouse-app-warn: mat-palette($mat-deep-orange);
+
+// $mat-light-theme-background: mat-color($color, 0.5);
+
+// mat-light-theme(primary, accent, warn)
+
+$lighthouse-app-theme: mat-light-theme($lighthouse-app-primary, $lighthouse-app-accent, $lighthouse-app-warn);
+
+@include angular-material-theme($lighthouse-app-theme);

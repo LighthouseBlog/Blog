@@ -3,9 +3,11 @@ import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpModule, JsonpModule, RequestOptions, RequestOptionsArgs } from '@angular/http';
 import { MaterialModule, MdGridListModule, MdDialogModule } from '@angular/material';
+
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import { FroalaEditorModule, FroalaViewModule } from 'angular2-froala-wysiwyg';
 import 'hammerjs';
+import { Ng2SmartTableModule } from 'ng2-smart-table';
 
 import { AppComponent } from './app.component';
 import { NavBarComponent } from './nav-bar/nav-bar.component';
@@ -51,7 +53,8 @@ import { ArticleComponent } from './article/article.component';
     FroalaEditorModule.forRoot(),
     FroalaViewModule.forRoot(),
     MdGridListModule,
-    MdDialogModule
+    MdDialogModule,
+    Ng2SmartTableModule
   ],
   entryComponents: [
     CreateArticleModalComponent

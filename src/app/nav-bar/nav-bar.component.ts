@@ -10,7 +10,7 @@ import { AuthenticationService } from '../_services/authentication.service';
 })
 export class NavBarComponent implements OnInit {
 
-  title = `Programmer's Paradise`;
+  title = `Lighthouse`;
   opened = true;
 
   @Output()
