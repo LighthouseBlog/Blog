@@ -6,11 +6,11 @@ import { AuthenticationService } from '../_services/authentication.service';
 @Component({
   selector: 'app-nav-bar',
   templateUrl: './nav-bar.component.html',
-  styleUrls: ['./nav-bar.component.css']
+  styleUrls: ['./nav-bar.component.scss']
 })
 export class NavBarComponent implements OnInit {
 
-  title = "Programmer's Paradise";
+  title = `Programmer's Paradise`;
   opened = true;
 
   @Output()

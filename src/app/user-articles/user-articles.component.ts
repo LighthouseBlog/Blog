@@ -5,7 +5,7 @@ import { CreateArticleModalComponent } from '../create-article-modal/create-arti
 @Component({
   selector: 'app-user-articles',
   templateUrl: './user-articles.component.html',
-  styleUrls: ['./user-articles.component.css']
+  styleUrls: ['./user-articles.component.scss']
 })
 export class UserArticlesComponent implements OnInit {
 

@@ -7,7 +7,7 @@ import { ActivatedRoute } from '@angular/router';
 @Component({
   selector: 'app-article',
   templateUrl: './article.component.html',
-  styleUrls: ['./article.component.css']
+  styleUrls: ['./article.component.scss']
 })
 export class ArticleComponent implements OnInit {
 
@@ -41,7 +41,6 @@ export class ArticleComponent implements OnInit {
   getAuthor() {
     this.authorService.getAuthor(this.article.author)
       .subscribe(result => {
-        console.log('Author', result);
         this.author = result;
       });
   }

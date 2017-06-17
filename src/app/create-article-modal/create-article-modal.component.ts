@@ -8,7 +8,7 @@ import { EditorService } from '../_services/editor.service';
 @Component({
   selector: 'app-create-article-modal',
   templateUrl: './create-article-modal.component.html',
-  styleUrls: ['./create-article-modal.component.css']
+  styleUrls: ['./create-article-modal.component.scss']
 })
 export class CreateArticleModalComponent implements OnInit {
 
