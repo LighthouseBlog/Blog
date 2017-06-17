@@ -22,6 +22,8 @@ import { AuthGuard } from './_guards/auth.guard';
 import { AuthenticationService } from './_services/authentication.service';
 import { EditorService } from './_services/editor.service';
 import { ArticleService } from './_services/article.service';
+import { AuthorService } from './_services/author.service';
+
 import { BaseRequestOptions } from '@angular/http';
 import { ArticlesComponent } from './articles/articles.component';
 import { ArticleComponent } from './article/article.component';
@@ -61,6 +63,7 @@ import { ArticleComponent } from './article/article.component';
     AuthenticationService,
     EditorService,
     ArticleService,
+    AuthorService,
     BaseRequestOptions
   ],
   bootstrap: [

@@ -1,11 +1,29 @@
-/*.title {
+.title {
   margin-left: 2vw;
   margin-top: 2vh;
   float: left;
+  color: purple;
 }
 
 .article {
   margin-left: 2vw;
   margin-right: 2vh;
   float: left;
-}*/
+  color: black;
+}
+
+.author {
+  margin-left: 2vw;
+  margin-right: 2vh;
+  float: left;
+  color: black;
+}
+
+.article-display {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  margin: 3vh 3vw 3vh 3vw;
+  background-color: ghostwhite;
+  border-radius: 5px;
+}

@@ -9,9 +9,9 @@ import { AuthenticationService } from '../_services/authentication.service';
 import Constants from '../constants';
 
 @Injectable()
-export class ArticleService {
+export class AuthorService {
 
-  private editorUrl = Constants.URL + '/blog/';
+  private authorUrl = Constants.URL + '/user/';
   private title = '';
   private id: string;
 
@@ -28,19 +28,13 @@ export class ArticleService {
     this.title = title;
   }
 
-  getAllArticles(): Observable<Array<JSON>> {
+  getAuthor(username: string): Observable<Object> {
     const headers = new Headers();
     headers.append('Authorization', 'Bearer ' + this.auth.token);
 
     const options = new RequestOptions({ headers });
 
-    return this.http.get(this.editorUrl, options)
-                    .map(this.extractData)
-                    .catch(this.handleError);
-  }
-
-  getArticle(id: number): Observable<Object> {
-    return this.http.get(this.editorUrl + id)
+    return this.http.get(this.authorUrl + username, options)
                     .map(this.extractData)
                     .catch(this.handleError);
   }
