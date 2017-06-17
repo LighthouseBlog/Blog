@@ -13,7 +13,6 @@ import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
 
 import {Router} from './app.routing';
-import { SideNavComponent } from './side-nav/side-nav.component';
 import { EditorComponent } from './editor/editor.component';
 import { UserArticlesComponent } from './user-articles/user-articles.component';
 import { CreateArticleModalComponent } from './create-article-modal/create-article-modal.component';
@@ -34,7 +33,6 @@ import { ArticleComponent } from './article/article.component';
     NavBarComponent,
     LoginComponent,
     RegisterComponent,
-    SideNavComponent,
     EditorComponent,
     UserArticlesComponent,
     CreateArticleModalComponent,

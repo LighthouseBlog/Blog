@@ -3,3 +3,23 @@ html, body {
   width: 100%;
   height: 100%;
 }
+
+.sidenav-content {
+  display: flex;
+  height: 100%;
+  align-items: flex-start;
+  justify-content: center;
+}
+
+.sidenav-container {
+  height: 100vh;
+}
+
+.sidenav {
+  padding: 20px;
+  min-width: 20vw;
+}
+
+.sidenav-container {
+  height: 98vh;
+}
