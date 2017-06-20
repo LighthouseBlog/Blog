@@ -28,7 +28,7 @@ export class ArticleService {
     this.title = title;
   }
 
-  getAllArticles(): Observable<Array<JSON>> {
+  getAllArticles(): Observable<Array<Object>> {
     const headers = new Headers();
     headers.append('Authorization', 'Bearer ' + this.auth.token);
 

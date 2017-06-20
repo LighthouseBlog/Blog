@@ -12,21 +12,12 @@ import Constants from '../constants';
 export class AuthorService {
 
   private authorUrl = Constants.URL + '/user/';
-  private title = '';
-  private id: string;
+  private articlesUrl = Constants.URL + '/articles/';
 
   constructor(
     private http: Http,
     private auth: AuthenticationService
   ) { }
-
-  setArticleId(id: string) {
-    this.id = id;
-  }
-
-  setArticleTitle(title: string) {
-    this.title = title;
-  }
 
   getAuthor(username: string): Observable<Object> {
     const headers = new Headers();
@@ -39,8 +30,27 @@ export class AuthorService {
                     .catch(this.handleError);
   }
 
+  getArticlesByAuthor(): Observable<Array<JSON>> {
+    const headers = new Headers();
+    headers.append('Content-Type', 'application/json');
+    headers.append('Authorization', 'Bearer ' + this.auth.token);
+
+    const author = JSON.parse(localStorage.getItem('currentUser')).username;
+
+    const options = new RequestOptions({ headers });
+
+    return this.http.get(this.articlesUrl + author, options)
+                    .map(this.extractData)
+                    .catch(this.handleError);
+  }
+
+  public getAuthorUsername(): string {
+    return JSON.parse(localStorage.getItem('currentUser')).username;
+  }
+
   private extractData(res: Response) {
     const body = res.json();
+    console.log('Data: ', body.data);
     return body.data || { };
   }
 

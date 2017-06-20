@@ -7,6 +7,7 @@
     <div>
       <a *ngIf="!loggedIn()" md-button routerLink="/login">Login</a>
       <a md-button *ngIf="!loggedIn()" routerLink="/register">Register</a>
+      <a md-button *ngIf="loggedIn()" routerLink="/articles">Your Articles</a>
       <button md-button *ngIf="loggedIn()" (click)="logout()">Logout</button>
     </div>
 </md-toolbar>
