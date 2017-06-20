@@ -1,8 +1,19 @@
 <div class="articles">
-  <md-list>
-    <md-list-item *ngFor="let article of articles | async">
-      <md-icon md-list-icon>book</md-icon>
-      <button md-button (click)="selectedArticle(article)"> {{article?.name}} </button> 
-    </md-list-item>
-  </md-list>
+  <md-grid-list cols="4">
+    <md-grid-tile *ngFor="let article of articles | async">
+      <md-card class="example-card">
+        <md-card-header>
+          <md-card-title>{{article?.title}}</md-card-title>
+        </md-card-header>
+        <md-card-content>
+          <p>
+            {{article?.description}}
+          </p>
+        </md-card-content>
+        <md-card-actions>
+          <button md-button (click)="selectedArticle(article)"> READ </button> 
+        </md-card-actions>
+      </md-card>
+    </md-grid-tile>
+  </md-grid-list>
 </div>

@@ -1,5 +1,5 @@
 <div class="article-display">
-  <h1 class="title"> {{article.name}} </h1>
-  <h3 class="author"> {{author.name}} </h3>
+  <h1 class="title"> {{article?.title}} </h1>
+  <h3 class="author"> {{author?.name}} </h3>
   <div class="article" [innerHTML]="article.text"> </div>
 </div>

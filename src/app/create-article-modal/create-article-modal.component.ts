@@ -22,7 +22,8 @@ export class CreateArticleModalComponent implements OnInit {
     private editorService: EditorService
   ) {
     this.formGroup = fb.group({
-      'articleTitle': new FormControl('', Validators.required)
+      'articleTitle': new FormControl('', Validators.required),
+      'articleDescription': new FormControl('', Validators.required)
     });
   }
 
@@ -34,7 +35,10 @@ export class CreateArticleModalComponent implements OnInit {
       console.log('Creating new article');
 
       const articleTitle = formValue['articleTitle'];
+      const articleDescription = formValue['articleDescription'];
+
       this.editorService.setArticleTitle(articleTitle);
+      this.editorService.setArticleDescription(articleDescription);
 
       this.editorService.createArticle()
         .subscribe(results => {
