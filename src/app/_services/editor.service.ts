@@ -13,6 +13,7 @@ export class EditorService {
 
   private editorUrl = Constants.URL + '/blog/';
   private title = '';
+  private description = '';
   private id: string;
 
   constructor(
@@ -28,6 +29,10 @@ export class EditorService {
     this.title = title;
   }
 
+  setArticleDescription(description: string) {
+    this.description = description;
+  }
+
   createArticle(): Observable<boolean> {
     const headers = new Headers();
     headers.append('Content-Type', 'application/json');
@@ -37,7 +42,8 @@ export class EditorService {
 
     const post = {
       text: 'New Article',
-      name: this.title,
+      title: this.title,
+      description: this.description,
       author: author.username
     };
 
@@ -57,7 +63,8 @@ export class EditorService {
 
     const post = {
       text: edits,
-      name: this.title,
+      title: this.title,
+      description: this.description,
       author: author.username
     };
 

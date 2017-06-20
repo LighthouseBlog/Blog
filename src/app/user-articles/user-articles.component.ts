@@ -15,7 +15,7 @@ export class UserArticlesComponent implements OnInit {
   constructor(public dialog: MdDialog) {
     this.settings = {
       columns: {
-        name: {
+        title: {
           title: 'Title'
         },
         author: {
@@ -29,17 +29,17 @@ export class UserArticlesComponent implements OnInit {
     };
     this.data = [
       {
-        name: 'How To Guide',
+        title: 'How To Guide',
         author: 'Sam Pastoriza',
         createdOn: '11/11/1111'
       },
       {
-        name: 'Testing',
+        title: 'Testing',
         author: 'Sam Pastoriza',
         createdOn: '11/11/1311'
       },
       {
-        name: 'Web Applications',
+        title: 'Web Applications',
         author: 'Sam Pastoriza',
         createdOn: '11/11/1111'
       }
