@@ -42,7 +42,12 @@ export class UserArticlesComponent implements OnInit {
     this.authorService.getArticlesByAuthor()
       .subscribe(results => {
         this.source.load(results.map((result) => {
-          result['author'] = this.authorService.getAuthorUsername();
+          return {
+            author: result.author,
+            title: result.title,
+            description: result.description,
+            datePosted: result.datePosted
+          }
         }));
       });
   }

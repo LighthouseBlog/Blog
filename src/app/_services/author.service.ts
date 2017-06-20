@@ -6,6 +6,7 @@ import 'rxjs/add/operator/catch';
 import 'rxjs/add/operator/map';
 
 import { AuthenticationService } from '../_services/authentication.service';
+import { Article } from '../_models/Article';
 import Constants from '../constants';
 
 @Injectable()
@@ -30,7 +31,7 @@ export class AuthorService {
                     .catch(this.handleError);
   }
 
-  getArticlesByAuthor(): Observable<Array<JSON>> {
+  getArticlesByAuthor(): Observable<Array<Article>> {
     const headers = new Headers();
     headers.append('Content-Type', 'application/json');
     headers.append('Authorization', 'Bearer ' + this.auth.token);
@@ -50,7 +51,6 @@ export class AuthorService {
 
   private extractData(res: Response) {
     const body = res.json();
-    console.log('Data: ', body.data);
     return body.data || { };
   }
 

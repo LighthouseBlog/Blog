@@ -6,6 +6,7 @@ import 'rxjs/add/operator/catch';
 import 'rxjs/add/operator/map';
 
 import { AuthenticationService } from '../_services/authentication.service';
+import { Article } from '../_models/Article';
 import Constants from '../constants';
 
 @Injectable()
