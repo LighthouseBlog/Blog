@@ -10,6 +10,7 @@ import { CreateArticleModalComponent } from '../create-article-modal/create-arti
 export class UserArticlesComponent implements OnInit {
 
   public settings;
+  public data;
 
   constructor(public dialog: MdDialog) {
     this.settings = {
@@ -23,8 +24,26 @@ export class UserArticlesComponent implements OnInit {
         createdOn: {
           title: 'Created On'
         }
-      }
+      },
+      mode: 'external'
     };
+    this.data = [
+      {
+        name: 'How To Guide',
+        author: 'Sam Pastoriza',
+        createdOn: '11/11/1111'
+      },
+      {
+        name: 'Testing',
+        author: 'Sam Pastoriza',
+        createdOn: '11/11/1311'
+      },
+      {
+        name: 'Web Applications',
+        author: 'Sam Pastoriza',
+        createdOn: '11/11/1111'
+      }
+    ];
   }
 
   ngOnInit() {
@@ -33,6 +52,10 @@ export class UserArticlesComponent implements OnInit {
   createArticle() {
     const dialogRef = this.dialog.open(CreateArticleModalComponent);
     dialogRef.afterClosed().subscribe(result => { });
+  }
+
+  onCreate(e) {
+    console.log('Created', e);
   }
 
 }
