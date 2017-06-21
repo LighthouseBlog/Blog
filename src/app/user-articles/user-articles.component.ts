@@ -83,7 +83,6 @@ export class UserArticlesComponent implements OnInit {
       height: '50vh',
       width: '50vw',
     });
-    dialogRef.afterClosed().subscribe(result => { });
   }
 
   onCreate(e) {

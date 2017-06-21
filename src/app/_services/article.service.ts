@@ -29,7 +29,7 @@ export class ArticleService {
     this.title = title;
   }
 
-  getAllArticles(): Observable<Array<Object>> {
+  getAllArticles(): Observable<Array<Article>> {
     const headers = new Headers();
     headers.append('Authorization', 'Bearer ' + this.auth.token);
 
@@ -40,7 +40,7 @@ export class ArticleService {
                     .catch(this.handleError);
   }
 
-  getArticle(id: number): Observable<Object> {
+  getArticle(id: number): Observable<Article> {
     return this.http.get(this.editorUrl + id)
                     .map(this.extractData)
                     .catch(this.handleError);

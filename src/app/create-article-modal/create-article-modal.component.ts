@@ -16,12 +16,12 @@ export class CreateArticleModalComponent implements OnInit {
   formGroup: FormGroup;
 
   constructor(
-    fb: FormBuilder,
+    private fb: FormBuilder,
     private router: Router,
     private dialogRef: MdDialogRef<CreateArticleModalComponent>,
     private editorService: EditorService
   ) {
-    this.formGroup = fb.group({
+    this.formGroup = this.fb.group({
       'articleTitle': new FormControl('', Validators.required),
       'articleDescription': new FormControl('', Validators.required)
     });

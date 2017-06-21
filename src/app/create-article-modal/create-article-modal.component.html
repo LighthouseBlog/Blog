@@ -1,24 +1,24 @@
-<md-dialog-content>
-  <md-card class="create-card">
-    <md-card-header>
-      <md-card-title><h2>{{title}}</h2></md-card-title>
-    </md-card-header>
-    <form #f="ngForm" [formGroup]="formGroup" (ngSubmit)="create(f.value, f.valid)" novalidate>
-      <md-card-content align="center">
-        <md-input-container class="form-input">
-          <input mdInput type="text" placeholder="Article Title" formControlName="articleTitle" required />
-          <md-hint *ngIf="formGroup.hasError('required','articleTitle')" [ngStyle]="{'color': 'red'}" >Article Title is required</md-hint>
-        </md-input-container>
-        <md-input-container class="form-input">
-          <textarea mdInput type="text" placeholder="Article Description" formControlName="articleDescription" rows="5" required></textarea>
-          <md-hint *ngIf="formGroup.hasError('required','articleDescription')" [ngStyle]="{'color': 'red'}" >Article Description is required</md-hint>
-        </md-input-container>
-      </md-card-content>
-    </form>
-  </md-card>
-</md-dialog-content>
-<md-dialog-actions align="end">
-  <button md-button md-dialog-close>Cancel</button>
-  <!-- Can optionally provide a result for the closing dialog. -->
-  <button md-raised-button type="submit" [disabled]="!f.valid">Create</button>
-</md-dialog-actions>
+<form #f="ngForm" [formGroup]="formGroup" (ngSubmit)="create(f.value, f.valid)" novalidate>
+  <md-dialog-content>
+    <md-card class="create-card">
+      <md-card-header>
+        <md-card-title><h2>{{title}}</h2></md-card-title>
+      </md-card-header>
+        <md-card-content align="center">
+          <md-input-container class="form-input">
+            <input mdInput type="text" placeholder="Article Title" formControlName="articleTitle" required />
+            <md-hint *ngIf="formGroup.hasError('required','articleTitle')" [ngStyle]="{'color': 'red'}" >Article Title is required</md-hint>
+          </md-input-container>
+          <md-input-container class="form-input">
+            <textarea mdInput type="text" placeholder="Article Description" formControlName="articleDescription" rows="5" required></textarea>
+            <md-hint *ngIf="formGroup.hasError('required','articleDescription')" [ngStyle]="{'color': 'red'}" >Article Description is required</md-hint>
+          </md-input-container>
+        </md-card-content>
+    </md-card>
+  </md-dialog-content>
+  <md-dialog-actions align="end">
+    <button md-button md-dialog-close>Cancel</button>
+    <!-- Can optionally provide a result for the closing dialog. -->
+    <button md-raised-button type="submit" [disabled]="!f.valid">Create</button>
+  </md-dialog-actions>
+</form>
