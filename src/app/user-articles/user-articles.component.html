@@ -1,5 +1,14 @@
 <div class="new-article">
-  <ng2-smart-table [settings]="settings" [source]="source" (create)="onCreate()"></ng2-smart-table>
+  <button md-raised-button class="create" (click)="createArticle()" color="accent">
+    New Article
+  </button>
+  <ng2-smart-table
+    [settings]="settings" 
+    [source]="source"
+    (create)="onCreate($event)"
+    (edit)="onEdit($event)"
+    (delete)="onDelete($event)">
+  </ng2-smart-table>
 </div>
 
 <router-outlet></router-outlet>
