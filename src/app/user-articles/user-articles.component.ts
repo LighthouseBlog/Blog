@@ -79,7 +79,10 @@ export class UserArticlesComponent implements OnInit {
   }
 
   createArticle() {
-    const dialogRef = this.dialog.open(CreateArticleModalComponent);
+    const dialogRef = this.dialog.open(CreateArticleModalComponent, {
+      height: '50vh',
+      width: '50vw',
+    });
     dialogRef.afterClosed().subscribe(result => { });
   }
 
