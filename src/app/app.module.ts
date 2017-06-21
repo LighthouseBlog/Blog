@@ -28,6 +28,7 @@ import { AuthorService } from './_services/author.service';
 import { BaseRequestOptions } from '@angular/http';
 import { ArticlesComponent } from './articles/articles.component';
 import { ArticleComponent } from './article/article.component';
+import { DeleteArticleModalComponent } from './delete-article-modal/delete-article-modal.component';
 
 @NgModule({
   declarations: [
@@ -39,7 +40,8 @@ import { ArticleComponent } from './article/article.component';
     UserArticlesComponent,
     CreateArticleModalComponent,
     ArticlesComponent,
-    ArticleComponent
+    ArticleComponent,
+    DeleteArticleModalComponent
   ],
   imports: [
     BrowserAnimationsModule,
@@ -57,7 +59,8 @@ import { ArticleComponent } from './article/article.component';
     Ng2SmartTableModule
   ],
   entryComponents: [
-    CreateArticleModalComponent
+    CreateArticleModalComponent,
+    DeleteArticleModalComponent
   ],
   providers: [
     AuthGuard,

@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {MdDialog, MdDialogRef} from '@angular/material';
 import { CreateArticleModalComponent } from '../create-article-modal/create-article-modal.component';
+import { DeleteArticleModalComponent } from '../delete-article-modal/delete-article-modal.component';
 
 import { LocalDataSource } from 'ng2-smart-table'
 import { AuthorService } from '../_services/author.service';
@@ -22,15 +23,9 @@ export class UserArticlesComponent implements OnInit {
     private authorService: AuthorService,
     private router: Router) {
     this.settings = {
-      delete: {
-        confirmDelete: true,
-      },
       actions: {
         add: false,
         columnTitle: 'Your Articles'
-      },
-      edit: {
-        confirmSave: true,
       },
       columns: {
         _id: {
@@ -79,14 +74,10 @@ export class UserArticlesComponent implements OnInit {
   }
 
   createArticle() {
-    const dialogRef = this.dialog.open(CreateArticleModalComponent, {
+    this.dialog.open(CreateArticleModalComponent, {
       height: '50vh',
       width: '50vw',
     });
-  }
-
-  onCreate(e) {
-    console.log('Created', e);
   }
 
   onEdit(e) {
@@ -95,7 +86,14 @@ export class UserArticlesComponent implements OnInit {
   }
 
   onDelete(e) {
-    console.log('Deleted', e);
+    console.log('e', e);
+    const dialogRef = this.dialog.open(DeleteArticleModalComponent, {
+      data: e.data,
+    });
+    dialogRef.afterClosed()
+      .subscribe(result => {
+        this.source.remove(e.data)
+      })
   }
 
 }

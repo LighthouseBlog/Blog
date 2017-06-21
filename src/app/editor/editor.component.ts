@@ -72,7 +72,7 @@ export class EditorComponent implements OnInit {
       this.editorService.setArticleTitle(articleTitle);
       this.editorService.setArticleDescription(articleDescription);
 
-      this.editorService.saveEdits(this.content)
+      this.editorService.saveArticle(this.content)
         .subscribe(result => {
           if (result['text'] === this.content) {
               console.log('Successfully saved');

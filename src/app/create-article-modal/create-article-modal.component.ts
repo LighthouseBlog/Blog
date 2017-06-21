@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, FormControl, Validators, FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
-import {MdDialogRef} from '@angular/material';
+import { MdDialogRef } from '@angular/material';
 
 import { EditorService } from '../_services/editor.service';
 

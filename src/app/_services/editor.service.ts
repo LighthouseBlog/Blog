@@ -6,6 +6,7 @@ import 'rxjs/add/operator/catch';
 import 'rxjs/add/operator/map';
 
 import { AuthenticationService } from '../_services/authentication.service';
+import { Article } from '../_models/Article';
 import Constants from '../constants';
 
 @Injectable()
@@ -54,7 +55,7 @@ export class EditorService {
                     .catch(this.handleError);
   }
 
-  saveEdits(edits: string): Observable<boolean> {
+  saveArticle(edits: string): Observable<boolean> {
     const headers = new Headers();
     headers.append('Content-Type', 'application/json');
     headers.append('Authorization', 'Bearer ' + this.auth.token);
@@ -71,6 +72,20 @@ export class EditorService {
     const options = new RequestOptions({ headers });
 
     return this.http.put(this.editorUrl + this.id, post, options)
+                    .map(this.extractData)
+                    .catch(this.handleError);
+  }
+
+  deleteArticle(article): Observable<boolean> {
+    const headers = new Headers();
+    headers.append('Content-Type', 'application/json');
+    headers.append('Authorization', 'Bearer ' + this.auth.token);
+
+    const author = JSON.parse(localStorage.getItem('currentUser'));
+
+    const options = new RequestOptions({ headers });
+
+    return this.http.delete(this.editorUrl + article._id, options)
                     .map(this.extractData)
                     .catch(this.handleError);
   }
