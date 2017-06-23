@@ -7,12 +7,12 @@ import 'rxjs/add/operator/map';
 
 import { AuthenticationService } from '../_services/authentication.service';
 import { Article } from '../_models/Article';
-import Constants from '../constants';
+import { environment } from '../../environments/environment';
 
 @Injectable()
 export class ArticleService {
 
-  private editorUrl = Constants.URL + '/blog/';
+  private editorUrl = environment.URL + '/blog/';
   private title = '';
   private id: string;
 

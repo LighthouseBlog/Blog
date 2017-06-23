@@ -1,14 +1,14 @@
 import { Injectable } from '@angular/core';
 import { Http, Headers, Response, RequestOptions } from '@angular/http';
-import { Observable } from 'rxjs';
+import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/map';
-import Constants from '../constants';
+import { environment } from '../../environments/environment';
 
 @Injectable()
 export class AuthenticationService {
     public token: string;
-    private loginUrl = Constants.URL + '/login';
-    private registerUrl = Constants.URL + '/register';
+    private loginUrl = environment.URL + '/login';
+    private registerUrl = environment.URL + '/register';
 
     constructor(
       private http: Http) {

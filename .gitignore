@@ -4,3 +4,4 @@ typings/
 *.map
 .DS_STORE
 npm-debug.log
+dist/
