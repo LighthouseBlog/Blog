@@ -1,4 +1,4 @@
 export const environment = {
   production: true,
-  URL: 'http://localhost:3000/api'
+  URL: 'http://blog.sampastoriza.com/api'
 };
