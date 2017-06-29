@@ -10,11 +10,14 @@ import { EditorService } from '../_services/editor.service';
 })
 export class DeleteArticleModalComponent implements OnInit {
 
+  public article: Object;
+
   constructor(
     @Inject(MD_DIALOG_DATA) public data: Object,
     private editorService: EditorService,
-    private dialogRef: MdDialogRef<DeleteArticleModalComponent>,) {
+    private dialogRef: MdDialogRef<DeleteArticleModalComponent>) {
     console.log('Data', data);
+    this.article = data;
   }
 
   ngOnInit() {

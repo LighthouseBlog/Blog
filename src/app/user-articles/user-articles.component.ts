@@ -89,6 +89,8 @@ export class UserArticlesComponent implements OnInit {
     console.log('e', e);
     const dialogRef = this.dialog.open(DeleteArticleModalComponent, {
       data: e.data,
+      height: '40vh',
+      width: '40vw',
     });
     dialogRef.afterClosed()
       .subscribe(result => {
