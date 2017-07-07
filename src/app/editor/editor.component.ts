@@ -4,6 +4,7 @@ import { FormBuilder, FormGroup, FormControl, Validators, FormsModule } from '@a
 
 import { EditorService } from '../_services/editor.service';
 import { ArticleService } from '../_services/article.service';
+import { ImagesService } from '../_services/images.service';
 
 @Component({
   selector: 'app-editor',
@@ -12,19 +13,27 @@ import { ArticleService } from '../_services/article.service';
 })
 export class EditorComponent implements OnInit {
 
-  public editing = false;
-  public options: Object = {
+  private froalaOptions: Object = {
+    heightMin: 400,
     placeholderText: 'Edit Content Here',
     charCounterCount: true,
-    heightMin: 400
+    events: {
+      'froalaEditor.contentChanged': (e, editor) => {
+        this.updateContent(editor);
+      }
+    }
   };
   private content: string;
+
   public editorContent: string;
-  formGroup: FormGroup;
+  public editing = false;
+  public formGroup: FormGroup;
+  public options: any;
 
   constructor(
     private editorService: EditorService,
     private articleService: ArticleService,
+    private imagesService: ImagesService,
     private fb: FormBuilder,
     private router: Router,
     private route: ActivatedRoute
@@ -33,15 +42,21 @@ export class EditorComponent implements OnInit {
       'articleTitle': new FormControl('', Validators.required),
       'articleDescription': new FormControl('', Validators.required)
     });
+    this.options = this.getOptions();
+  }
+
+  getOptions() {
+    return new Promise((resolve) => {
+      this.imagesService.getHash()
+        .subscribe(hash => {
+          this.froalaOptions['imageUploadToS3'] = hash;
+          resolve(this.froalaOptions);
+        });
+    });
   }
 
   ngOnInit() {
     this.editing = true;
-    this.options['events'] = {
-      'froalaEditor.contentChanged': (e, editor) => {
-        this.updateContent(editor);
-      }
-    };
     this.route.params.subscribe(params => {
       const id = params['id'];
 

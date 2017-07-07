@@ -24,6 +24,7 @@ import { AuthenticationService } from './_services/authentication.service';
 import { EditorService } from './_services/editor.service';
 import { ArticleService } from './_services/article.service';
 import { AuthorService } from './_services/author.service';
+import { ImagesService } from './_services/images.service';
 
 import { BaseRequestOptions } from '@angular/http';
 import { ArticlesComponent } from './articles/articles.component';
@@ -68,6 +69,7 @@ import { DeleteArticleModalComponent } from './delete-article-modal/delete-artic
     EditorService,
     ArticleService,
     AuthorService,
+    ImagesService,
     BaseRequestOptions
   ],
   bootstrap: [
