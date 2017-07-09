@@ -13,7 +13,7 @@ import { ImagesService } from '../_services/images.service';
 })
 export class EditorComponent implements OnInit {
 
-  private froalaOptions: Object = {
+  private options: Object = {
     heightMin: 400,
     placeholderText: 'Edit Content Here',
     charCounterCount: true,
@@ -28,7 +28,7 @@ export class EditorComponent implements OnInit {
   public editorContent: string;
   public editing = false;
   public formGroup: FormGroup;
-  public options: any;
+  public initControls: any;
 
   constructor(
     private editorService: EditorService,
@@ -42,17 +42,16 @@ export class EditorComponent implements OnInit {
       'articleTitle': new FormControl('', Validators.required),
       'articleDescription': new FormControl('', Validators.required)
     });
-    this.options = this.getOptions();
   }
 
-  getOptions() {
-    return new Promise((resolve) => {
-      this.imagesService.getHash()
-        .subscribe(hash => {
-          this.froalaOptions['imageUploadToS3'] = hash;
-          resolve(this.froalaOptions);
-        });
-    });
+  public initialize(initControls) {
+    this.imagesService.getHash()
+      .subscribe(hash => {
+        this.options['imageUploadToS3'] = hash;
+        this.initControls = initControls;
+        console.log('Initializing!', initControls);
+        this.initControls.initialize();
+      });
   }
 
   ngOnInit() {

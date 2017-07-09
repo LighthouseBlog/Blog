@@ -11,6 +11,6 @@
     </md-input-container>
   </form>
   <div mdInput class="editor">
-    <div *ngIf="editing" [froalaEditor]="options | async" [(froalaModel)]="editorContent"></div>
+    <div *ngIf="editing" (froalaInit)="initialize($event)" [froalaEditor]="options" [(froalaModel)]="editorContent"></div>
   </div>
 </div>
