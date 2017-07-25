@@ -29,6 +29,18 @@ export class ImagesService {
                     .catch(this.handleError);
   }
 
+  deleteImage(source: string): Observable<string> {
+    const headers = new Headers();
+    headers.append('Authorization', 'Bearer ' + this.auth.token);
+
+    const options = new RequestOptions({headers, body: {src: source} });
+
+    console.log('Options', options);
+    return this.http.delete(this.imagesUrl, options)
+                    .map(this.extractData)
+                    .catch(this.handleError);
+  }
+
   private extractData(res: Response) {
     const body = res.json();
     return body || { };

@@ -6,6 +6,8 @@ import { EditorService } from '../_services/editor.service';
 import { ArticleService } from '../_services/article.service';
 import { ImagesService } from '../_services/images.service';
 
+import { environment } from '../../environments/environment';
+
 @Component({
   selector: 'app-editor',
   templateUrl: './editor.component.html',
@@ -20,6 +22,13 @@ export class EditorComponent implements OnInit {
     events: {
       'froalaEditor.contentChanged': (e, editor) => {
         this.updateContent(editor);
+      },
+      'froalaEditor.image.removed': (e, editor, $img) => {
+        const src = $img.attr('src');
+        this.imagesService.deleteImage(src)
+          .subscribe(result => {
+            console.log('Result', result);
+          })
       }
     }
   };
@@ -48,6 +57,7 @@ export class EditorComponent implements OnInit {
     this.imagesService.getHash()
       .subscribe(hash => {
         this.options['imageUploadToS3'] = hash;
+
         this.initControls = initControls;
         console.log('Initializing!', initControls);
         this.initControls.initialize();
