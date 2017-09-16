@@ -52,7 +52,6 @@ export class AppComponent implements OnInit {
       .subscribe(results => {
         this.articles = results;
         this.filteredArticles = this.articleCtrl.valueChanges
-          .startWith(null)
           .map(name => this.filterArticles(name));
       })
   }
