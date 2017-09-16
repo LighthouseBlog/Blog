@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { FormBuilder, FormGroup, FormControl, Validators, FormsModule } from '@angular/forms';
+import { MdSnackBar } from '@angular/material';
 
 import { EditorService } from '../_services/editor.service';
 import { ArticleService } from '../_services/article.service';
@@ -45,7 +46,8 @@ export class EditorComponent implements OnInit {
     private imagesService: ImagesService,
     private fb: FormBuilder,
     private router: Router,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private snackBar: MdSnackBar
   ) {
     this.formGroup = this.fb.group({
       'articleTitle': new FormControl('', Validators.required),
@@ -88,8 +90,6 @@ export class EditorComponent implements OnInit {
 
   saveArticle(formValue: any, isFormValid: boolean) {
     if (isFormValid) {
-      console.log('Saving Article');
-
       const articleTitle = formValue['articleTitle'];
       const articleDescription = formValue['articleDescription'];
 
@@ -99,10 +99,16 @@ export class EditorComponent implements OnInit {
       this.editorService.saveArticle(this.content)
         .subscribe(result => {
           if (result['text'] === this.content) {
-              console.log('Successfully saved');
+              this.snackBar.open('Successfully saved article', '', {
+                duration: 4000
+              });
           } else {
               console.error('Failed to save article, please try again');
           }
+        }, error => {
+          this.snackBar.open('There was an error while attempting to save this article', '', {
+            duration: 4000
+          });
         });
     } else {
       console.error('Form is not valid', formValue);
