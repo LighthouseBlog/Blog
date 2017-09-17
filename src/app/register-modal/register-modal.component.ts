@@ -6,7 +6,7 @@ import { MdDialogRef, MdSnackBar } from '@angular/material';
 import { AuthenticationService } from '../_services/authentication.service';
 
 // pg 225 Angular 2 Development with Typescript
-function equalValidator({value}: FormGroup) : {[key: string]: any} {
+function equalValidator({value}: FormGroup): {[key: string]: any} {
   const [first, ...rest] = Object.keys(value || {});
   const valid = rest.every(v => value[v] === value[first]);
   return valid ? null : {equal: true};

@@ -6,6 +6,7 @@ import { AuthenticationService } from '../_services/authentication.service';
 
 import { LoginModalComponent } from '../login-modal/login-modal.component';
 import { RegisterModalComponent } from '../register-modal/register-modal.component';
+import { SettingsModalComponent } from '../settings-modal/settings-modal.component';
 
 @Component({
   selector: 'app-nav-bar',
@@ -47,6 +48,10 @@ export class NavBarComponent implements OnInit {
 
   register() {
     this.dialog.open(RegisterModalComponent);
+  }
+
+  editSettings() {
+    this.dialog.open(SettingsModalComponent);
   }
 
   loggedIn() {

@@ -25,6 +25,8 @@ import { EditorService } from './_services/editor.service';
 import { ArticleService } from './_services/article.service';
 import { AuthorService } from './_services/author.service';
 import { ImagesService } from './_services/images.service';
+import { FileValidator } from './_directives/fileValidator.directive';
+import { FileValueAccessor } from './_directives/fileValueAccessor.directive';
 
 import { BaseRequestOptions } from '@angular/http';
 import { ArticlesComponent } from './articles/articles.component';
@@ -44,7 +46,9 @@ import { SettingsModalComponent } from './settings-modal/settings-modal.componen
     ArticlesComponent,
     ArticleComponent,
     DeleteArticleModalComponent,
-    SettingsModalComponent
+    SettingsModalComponent,
+    FileValidator,
+    FileValueAccessor
   ],
   imports: [
     BrowserAnimationsModule,
@@ -65,7 +69,8 @@ import { SettingsModalComponent } from './settings-modal/settings-modal.componen
     CreateArticleModalComponent,
     DeleteArticleModalComponent,
     LoginModalComponent,
-    RegisterModalComponent
+    RegisterModalComponent,
+    SettingsModalComponent
   ],
   providers: [
     AuthGuard,
