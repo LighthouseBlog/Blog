@@ -30,6 +30,7 @@ import { BaseRequestOptions } from '@angular/http';
 import { ArticlesComponent } from './articles/articles.component';
 import { ArticleComponent } from './article/article.component';
 import { DeleteArticleModalComponent } from './delete-article-modal/delete-article-modal.component';
+import { SettingsModalComponent } from './settings-modal/settings-modal.component';
 
 @NgModule({
   declarations: [
@@ -42,7 +43,8 @@ import { DeleteArticleModalComponent } from './delete-article-modal/delete-artic
     CreateArticleModalComponent,
     ArticlesComponent,
     ArticleComponent,
-    DeleteArticleModalComponent
+    DeleteArticleModalComponent,
+    SettingsModalComponent
   ],
   imports: [
     BrowserAnimationsModule,
