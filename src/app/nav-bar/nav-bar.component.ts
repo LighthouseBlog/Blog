@@ -26,6 +26,14 @@ export class NavBarComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.auth.checkJwtExpiration()
+      .then(result => {
+        console.log('Result', result);
+      })
+      .catch(err => {
+        console.error(err);
+        this.logout();
+      })
   }
 
   loggedIn() {

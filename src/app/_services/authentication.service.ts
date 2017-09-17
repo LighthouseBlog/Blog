@@ -9,12 +9,18 @@ export class AuthenticationService {
     public token: string;
     private loginUrl = environment.URL + '/login';
     private registerUrl = environment.URL + '/register';
+    private jwtUrl = environment.URL + '/jwt';
+    private expirationUrl = this.jwtUrl + '/expired';
 
     constructor(
       private http: Http) {
         // set token if saved in local storage
-        const currentUser = JSON.parse(localStorage.getItem('currentUser'));
-        this.token = currentUser && currentUser.token;
+        try {
+            const currentUser = JSON.parse(localStorage.getItem('currentUser'));
+            this.token = currentUser && currentUser.token;
+        } catch (e) {
+            this.logout();
+        }
     }
 
     login(username: string, password: string): Observable<boolean> {
@@ -55,6 +61,27 @@ export class AuthenticationService {
                     return false;
                 }
             });
+    }
+
+    checkJwtExpiration() {
+        return new Promise((resolve, reject) => {
+            if (this.token) {
+                const headers = new Headers();
+                headers.append('Authorization', 'Bearer ' + this.token);
+
+                const options = new RequestOptions({ headers });
+                return this.http.post(this.expirationUrl, '', options)
+                    .map((response: Response) => {
+                        console.log('Response', response.json());
+                        resolve('Token is not expired')
+                    }, err => {
+                        console.error('Error', err);
+                        reject(err);
+                    })
+            } else {
+                reject('No token available');
+            }
+        })
     }
 
     logout(): void {
