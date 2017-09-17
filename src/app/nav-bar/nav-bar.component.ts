@@ -1,7 +1,10 @@
 import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { Router } from '@angular/router';
+import { MdDialog } from '@angular/material';
 
 import { AuthenticationService } from '../_services/authentication.service';
+
+import { LoginModalComponent } from '../login-modal/login-modal.component';
 
 @Component({
   selector: 'app-nav-bar',
@@ -18,7 +21,8 @@ export class NavBarComponent implements OnInit {
 
   constructor(
     private auth: AuthenticationService,
-    private router: Router
+    private router: Router,
+    private dialog: MdDialog
   ) { }
 
   onMenuClick() {
@@ -34,6 +38,10 @@ export class NavBarComponent implements OnInit {
         console.error(err);
         this.logout();
       })
+  }
+
+  login() {
+    this.dialog.open(LoginModalComponent);
   }
 
   loggedIn() {
