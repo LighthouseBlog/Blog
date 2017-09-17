@@ -6,7 +6,7 @@
     <span class="spacer"></span>
     <div>
       <a *ngIf="!loggedIn()" md-button (click)="login()">Login</a>
-      <a md-button *ngIf="!loggedIn()" routerLink="/register">Register</a>
+      <a md-button *ngIf="!loggedIn()" (click)="register()">Register</a>
       <a md-button *ngIf="loggedIn()" routerLink="/articles">Your Articles</a>
       <button md-button *ngIf="loggedIn()" [mdMenuTriggerFor]="menu">
           <span>Sam Pastoriza</span>

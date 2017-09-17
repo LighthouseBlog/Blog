@@ -4,29 +4,29 @@
       <md-card-title><h2>{{title}}</h2></md-card-title>
     </md-card-header>
     <form #f="ngForm" [formGroup]="registerGroup" (ngSubmit)="register(f.value, f.valid)" novalidate>
-      <md-card-content align="center">
+      <md-card-content align="center" class="align-input">
         <md-input-container>
           <input mdInput type="text" placeholder="Username" formControlName="username" required />
           <md-hint *ngIf="registerGroup.hasError('required','username')" [ngStyle]="{'color': 'red'}" >Username is required</md-hint>
-	      </md-input-container><br />
+	      </md-input-container>
         <md-input-container>
           <input mdInput type="email" placeholder="Email" formControlName="email" required />
           <md-hint *ngIf="registerGroup.hasError('required','email')" [ngStyle]="{'color': 'red'}" >Email is required</md-hint>
-        </md-input-container><br /> 
+        </md-input-container> 
         <md-input-container>
           <input mdInput type="text" placeholder="Name" formControlName="name" required />
-          <md-hint *ngIf="registerGroup.hasError('required','name')" [ngStyle]="{'color': 'red'}" >Username is required</md-hint>
-        </md-input-container><br />
+          <md-hint *ngIf="registerGroup.hasError('required','name')" [ngStyle]="{'color': 'red'}" >Name is required</md-hint>
+        </md-input-container>
         <div formGroupName="passwordsGroup">
-          <md-input-container>
-            <input mdInput type="password" placeholder="Password" formControlName="password" required />
-            <md-hint *ngIf="registerGroup.hasError('required', ['passwordsGroup', 'password'])" [ngStyle]="{'color': 'red'}" >Password is required</md-hint>
-          </md-input-container><br />
-          <md-input-container>
-            <input mdInput type="password" placeholder="Confirm Password" formControlName="confirmPassword" required />
-            <md-hint *ngIf="registerGroup.hasError('equal', 'passwordsGroup')" [ngStyle]="{'color': 'red'}" >Passwords must match</md-hint>
-          </md-input-container>
-        </div>
+            <md-input-container>
+              <input mdInput type="password" placeholder="Password" formControlName="password" required />
+              <md-hint *ngIf="registerGroup.hasError('required', ['passwordsGroup', 'password'])" [ngStyle]="{'color': 'red'}" >Password is required</md-hint>
+            </md-input-container>
+            <md-input-container>
+              <input mdInput type="password" placeholder="Confirm Password" formControlName="confirmPassword" required />
+              <md-hint *ngIf="registerGroup.hasError('equal', 'passwordsGroup')" [ngStyle]="{'color': 'red'}" >Passwords must match</md-hint>
+            </md-input-container>
+          </div>
       </md-card-content>
       <md-card-actions align="end">
         <button md-raised-button (click)="register()" [disabled]="!f.valid" color="accent">Register</button>

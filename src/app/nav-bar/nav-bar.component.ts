@@ -5,6 +5,7 @@ import { MdDialog } from '@angular/material';
 import { AuthenticationService } from '../_services/authentication.service';
 
 import { LoginModalComponent } from '../login-modal/login-modal.component';
+import { RegisterModalComponent } from '../register-modal/register-modal.component';
 
 @Component({
   selector: 'app-nav-bar',
@@ -42,6 +43,10 @@ export class NavBarComponent implements OnInit {
 
   login() {
     this.dialog.open(LoginModalComponent);
+  }
+
+  register() {
+    this.dialog.open(RegisterModalComponent);
   }
 
   loggedIn() {

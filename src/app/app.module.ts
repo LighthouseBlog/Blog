@@ -12,7 +12,7 @@ import { Ng2SmartTableModule } from 'ng2-smart-table';
 import { AppComponent } from './app.component';
 import { NavBarComponent } from './nav-bar/nav-bar.component';
 import { LoginModalComponent } from './login-modal/login-modal.component';
-import { RegisterComponent } from './register/register.component';
+import { RegisterModalComponent } from './register-modal/register-modal.component';
 
 import {Router} from './app.routing';
 import { EditorComponent } from './editor/editor.component';
@@ -36,7 +36,7 @@ import { DeleteArticleModalComponent } from './delete-article-modal/delete-artic
     AppComponent,
     NavBarComponent,
     LoginModalComponent,
-    RegisterComponent,
+    RegisterModalComponent,
     EditorComponent,
     UserArticlesComponent,
     CreateArticleModalComponent,
@@ -62,7 +62,8 @@ import { DeleteArticleModalComponent } from './delete-article-modal/delete-artic
   entryComponents: [
     CreateArticleModalComponent,
     DeleteArticleModalComponent,
-    LoginModalComponent
+    LoginModalComponent,
+    RegisterModalComponent
   ],
   providers: [
     AuthGuard,

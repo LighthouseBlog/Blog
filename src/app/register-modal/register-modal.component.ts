@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { MdDialogRef, MdSnackBar } from '@angular/material';
 
 import { AuthenticationService } from '../_services/authentication.service';
 
@@ -13,10 +14,10 @@ function equalValidator({value}: FormGroup) : {[key: string]: any} {
 
 @Component({
   selector: 'app-register',
-  templateUrl: './register.component.html',
-  styleUrls: ['./register.component.scss']
+  templateUrl: './register-modal.component.html',
+  styleUrls: ['./register-modal.component.scss']
 })
-export class RegisterComponent implements OnInit {
+export class RegisterModalComponent implements OnInit {
 
   title = 'Register';
   registerGroup: FormGroup;
@@ -24,7 +25,9 @@ export class RegisterComponent implements OnInit {
   constructor(
     fb: FormBuilder,
     private router: Router,
-    private auth: AuthenticationService
+    private auth: AuthenticationService,
+    private dialogRef: MdDialogRef<RegisterModalComponent>,
+    private snackBar: MdSnackBar
   ) {
     this.registerGroup = fb.group({
       'username': new FormControl('', Validators.required),
@@ -52,13 +55,16 @@ export class RegisterComponent implements OnInit {
       this.auth.register(username, password, email, name)
         .subscribe(result => {
           if (result === true) {
+              this.dialogRef.close();
               this.router.navigate(['articles']);
           } else {
               console.error('Failed to login, please try again')
           }
+        }, error => {
+          this.snackBar.open('Error! This username has already been selected', '', {
+            duration: 4000
+          });
         });
     }
   }
-
-
 }

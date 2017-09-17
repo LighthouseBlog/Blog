@@ -1,16 +1,10 @@
 import { Routes, RouterModule } from '@angular/router';
-import { RegisterComponent } from './register/register.component';
 import { UserArticlesComponent } from './user-articles/user-articles.component';
 import { EditorComponent } from './editor/editor.component';
 import { ArticleComponent } from './article/article.component';
 import { AuthGuard } from './_guards/auth.guard';
 
 const routes: Routes = [
-  // /register
-  {
-    path: 'register',
-    component: RegisterComponent
-  },
   // /articles
   {
     path: 'articles',
