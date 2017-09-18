@@ -14,8 +14,8 @@
         </md-input-container>
         <input type="file" formControlName="profilePicture"/>
       </md-card-content>
+      <md-card-actions align="end">
+        <button md-raised-button type="submit" [disabled]="!f.valid" color="accent"> Save Settings </button>
+      </md-card-actions>
     </form>
-    <md-card-actions align="end">
-      <button md-raised-button type="submit" [disabled]="!f.valid" color="accent"> Save Settings </button>
-    </md-card-actions>
 </md-card>

@@ -7,6 +7,7 @@ import 'rxjs/add/operator/map';
 
 import { AuthenticationService } from '../_services/authentication.service';
 import { Article } from '../_models/Article';
+import { Author } from '../_models/Author';
 import { environment } from '../../environments/environment';
 
 @Injectable()
@@ -20,7 +21,7 @@ export class AuthorService {
     private auth: AuthenticationService
   ) { }
 
-  getAuthor(username: string): Observable<Object> {
+  getAuthor(username: string = this.getAuthorUsername()): Observable<Author> {
     const headers = new Headers();
     headers.append('Authorization', 'Bearer ' + this.auth.token);
 

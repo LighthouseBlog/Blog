@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms'
 import { MdDialogRef } from '@angular/material';
 
 import { AuthenticationService } from '../_services/authentication.service';
+import { AuthorService } from '../_services/author.service'
 import { FileValidator } from '../_directives/fileValidator.directive';
 
 @Component({
@@ -18,7 +19,8 @@ export class SettingsModalComponent implements OnInit {
   constructor(
     fb: FormBuilder,
     private auth: AuthenticationService,
-    private dialogRef: MdDialogRef<SettingsModalComponent>) {
+    private dialogRef: MdDialogRef<SettingsModalComponent>,
+    private authorService: AuthorService) {
       this.settingsGroup = fb.group({
         'name': new FormControl('', Validators.required),
         'email': new FormControl('', Validators.required),
@@ -27,10 +29,29 @@ export class SettingsModalComponent implements OnInit {
     }
 
   ngOnInit() {
+    this.authorService.getAuthor()
+      .subscribe(author => {
+        console.log('Author', author);
+        this.settingsGroup.setValue({
+          'name': author.name,
+          'email': author.email,
+          'profilePicture': {}
+        });
+      }, error => {
+        console.error('Error', error);
+      })
   }
 
   saveSettings(formValue: any, isFormValid: boolean) {
-    console.log('Saving Settings');
+    if (isFormValid) {
+      const name = formValue['author'];
+      const email = formValue['email'];
+      const profilePicture = formValue['profilePicture'];
+      console.log('Profile Picture', profilePicture);
+    } else {
+      console.log('Issues?');
+      console.log('FormValue', formValue);
+    }
   }
 
 }
