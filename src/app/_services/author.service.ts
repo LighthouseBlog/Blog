@@ -46,6 +46,23 @@ export class AuthorService {
                     .catch(this.handleError);
   }
 
+  updateUserSettings(username: string, name: string, email: string, profilePicture?: FormData): Observable<Author> {
+    const headers = new Headers();
+    headers.append('Authorization', 'Bearer ' + this.auth.token);
+
+    const options = new RequestOptions({
+      headers,
+      body: {
+        name,
+        email
+      }
+    });
+
+    return this.http.put(this.authorUrl + username, profilePicture, options)
+      .map(this.extractData)
+      .catch(this.handleError);
+  }
+
   public getAuthorUsername(): string {
     return JSON.parse(localStorage.getItem('currentUser')).username;
   }

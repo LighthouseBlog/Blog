@@ -3,7 +3,7 @@ import { FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms'
 import { MdDialogRef } from '@angular/material';
 
 import { AuthenticationService } from '../_services/authentication.service';
-import { AuthorService } from '../_services/author.service'
+import { AuthorService } from '../_services/author.service';
 import { FileValidator } from '../_directives/fileValidator.directive';
 
 @Component({
@@ -15,6 +15,7 @@ export class SettingsModalComponent implements OnInit {
 
   settingsGroup: FormGroup;
   fileContent: any;
+  username: string;
 
   constructor(
     fb: FormBuilder,
@@ -37,6 +38,7 @@ export class SettingsModalComponent implements OnInit {
           'email': author.email,
           'profilePicture': {}
         });
+        this.username = author.username;
       }, error => {
         console.error('Error', error);
       })
@@ -47,10 +49,23 @@ export class SettingsModalComponent implements OnInit {
       const name = formValue['author'];
       const email = formValue['email'];
       const profilePicture = formValue['profilePicture'];
-      console.log('Profile Picture', profilePicture);
+      console.log('profilepicture', profilePicture);
+      const file = profilePicture.target.files[0];
+      console.log('Profile Picture', file);
+      if (profilePicture) {
+        const formData = new FormData(file);
+        formData.append('profilePicture', file);
+        this.authorService.updateUserSettings(this.username, name, email, profilePicture)
+          .subscribe(result => {
+            console.log('Result', result);
+          }, error => {
+            console.error('Error', error);
+          })
+      }
     } else {
       console.log('Issues?');
       console.log('FormValue', formValue);
+      // TODO: Snackbar time!!
     }
   }
 
