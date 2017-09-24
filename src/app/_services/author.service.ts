@@ -55,7 +55,7 @@ export class AuthorService {
         }, error => {
           reject(error);
         })
-    })
+    });
   }
 
   updateUserSettings(username: string, name: string, email: string, profilePicture?: FormData): Observable<any> {
@@ -81,6 +81,17 @@ export class AuthorService {
         this.http.put(this.authorUrl + username, body, options).map(this.extractData).catch(this.handleError)
       );
     }
+  }
+
+  getProfilePicture(username = this.getAuthorUsername()): Promise<string> {
+    return new Promise<string>((resolve, reject) => {
+      this.getAuthor()
+        .subscribe(author => {
+          resolve(author.profilePicture)
+        }, error => {
+          reject(error);
+        })
+    });
   }
 
   public getAuthorUsername(): string {

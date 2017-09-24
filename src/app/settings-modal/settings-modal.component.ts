@@ -56,23 +56,34 @@ export class SettingsModalComponent implements OnInit {
         formData.append('profilePicture', file);
         this.authorService.updateUserSettings(this.username, name, email, formData)
           .subscribe(result => {
-            this.snackBar.open('Updated user settings');
-            this.dialogRef.close(name);
+            this.snackBar.open('Updated user settings', '', {
+              duration: 4000
+            });
+            this.dialogRef.close({name, image: result.image || ''});
           }, error => {
             console.error('Error', error);
-            this.snackBar.open(`Error updating user settings ${error}`);
+            this.snackBar.open(`Error updating user settings ${error}`, '', {
+              duration: 4000
+            });
           });
       } else {
         this.authorService.updateUserSettings(this.username, name, email)
           .subscribe(result => {
-            this.snackBar.open('Updated user settings');
+            this.snackBar.open('Updated user settings', '', {
+              duration: 4000
+            });
+            this.dialogRef.close({name});
           }, error => {
             console.error('Error', error);
-            this.snackBar.open(`Error updating user settings ${error}`)
+            this.snackBar.open(`Error updating user settings ${error}`, '', {
+              duration: 4000
+            })
           });
       }
     } else {
-      this.snackBar.open('There was an error with the form before submission');
+      this.snackBar.open('There was an error with the form before submission', '', {
+        duration: 4000
+      });
     }
   }
 

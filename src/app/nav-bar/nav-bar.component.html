@@ -9,6 +9,7 @@
       <a md-button *ngIf="!loggedIn()" (click)="register()">Register</a>
       <a md-button *ngIf="loggedIn()" routerLink="/articles">Your Articles</a>
       <button md-button *ngIf="loggedIn()" [mdMenuTriggerFor]="menu">
+            <img [src]="image | async" id="profile-picture" />
             <span>{{name | async}}</span>
         </button>
       <md-menu #menu="mdMenu">
