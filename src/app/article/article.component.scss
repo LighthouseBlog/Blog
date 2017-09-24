@@ -27,3 +27,11 @@
   background-color: ghostwhite;
   border-radius: 5px;
 }
+
+.profile-picture {
+  width: 10%;
+  height: 10%;
+  max-height: 100px;
+  max-width: 100px;
+  object-fit: contain;
+}

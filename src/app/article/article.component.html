@@ -1,5 +1,8 @@
 <div class="article-display">
   <h1 class="title"> {{article?.title}} </h1>
-  <h3 class="author"> {{author?.name}} </h3>
+  <h3 class="author">
+    <img src="{{ author?.profilePicture }}" class="profile-picture" />
+    {{author?.name}}
+  </h3>
   <div class="article" [innerHTML]="article.text"> </div>
 </div>
