@@ -53,24 +53,30 @@ export class NavBarComponent implements OnInit {
   login() {
     this.dialog.open(LoginModalComponent).afterClosed()
       .subscribe(result => {
-        this.name = this.authorService.getAuthorName(result);
-        this.image = this.authorService.getProfilePicture(result);
+        if (result) {
+          this.name = this.authorService.getAuthorName(result);
+          this.image = this.authorService.getProfilePicture(result);
+        }
       });
   }
 
   register() {
     this.dialog.open(RegisterModalComponent).afterClosed()
       .subscribe(result => {
-        this.name = Promise.resolve(result.name);
-        this.image = Promise.resolve(environment.DEFAULT_PROFILE_PICTURE);
+        if (result) {
+          this.name = Promise.resolve(result.name);
+          this.image = Promise.resolve(environment.DEFAULT_PROFILE_PICTURE);
+        }
       });
   }
 
   editSettings() {
     this.dialog.open(SettingsModalComponent).afterClosed()
       .subscribe(result => {
-        this.name = Promise.resolve(result.name);
-        this.image = Promise.resolve(result.image || environment.DEFAULT_PROFILE_PICTURE);
+        if (result) {
+          this.name = Promise.resolve(result.name);
+          this.image = Promise.resolve(result.image || environment.DEFAULT_PROFILE_PICTURE);
+        }
       });
   }
 

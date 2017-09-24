@@ -15,7 +15,7 @@
         <input type="file" name="file" id="file" class="inputfile" formControlName="profilePicture"/>
       </md-card-content>
       <md-card-actions align="end">
-        <button md-raised-button type="submit" [disabled]="!f.valid" color="accent"> Save Settings </button>
+        <button md-raised-button type="submit" [disabled]="!f.valid || !f.dirty" color="accent"> Save Settings </button>
       </md-card-actions>
     </form>
 </md-card>
