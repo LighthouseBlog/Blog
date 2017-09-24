@@ -3,10 +3,12 @@ import { Router } from '@angular/router';
 import { MdDialog } from '@angular/material';
 
 import { AuthenticationService } from '../_services/authentication.service';
+import { AuthorService } from '../_services/author.service';
 
 import { LoginModalComponent } from '../login-modal/login-modal.component';
 import { RegisterModalComponent } from '../register-modal/register-modal.component';
 import { SettingsModalComponent } from '../settings-modal/settings-modal.component';
+import { Observable } from 'rxjs/Observable';
 
 @Component({
   selector: 'app-nav-bar',
@@ -17,12 +19,14 @@ export class NavBarComponent implements OnInit {
 
   title = `Lighthouse`;
   opened = true;
+  name: Promise<string>;
 
   @Output()
   clicked: EventEmitter<boolean> = new EventEmitter();
 
   constructor(
     private auth: AuthenticationService,
+    private authorService: AuthorService,
     private router: Router,
     private dialog: MdDialog
   ) { }
@@ -32,26 +36,37 @@ export class NavBarComponent implements OnInit {
   }
 
   ngOnInit() {
+    console.log('Initialize component?')
     this.auth.checkJwtExpiration()
       .then(result => {
         console.log('Result', result);
+        this.name = this.authorService.getAuthorName();
       })
-      .catch(err => {
-        console.error(err);
+      .catch(error => {
+        console.error('Error', error);
         this.logout();
-      })
+      });
   }
 
   login() {
-    this.dialog.open(LoginModalComponent);
+    this.dialog.open(LoginModalComponent).afterClosed()
+      .subscribe(result => {
+        this.name = this.authorService.getAuthorName(result);
+      });
   }
 
   register() {
-    this.dialog.open(RegisterModalComponent);
+    this.dialog.open(RegisterModalComponent).afterClosed()
+      .subscribe(result => {
+        this.name = Promise.resolve(result);
+      });
   }
 
   editSettings() {
-    this.dialog.open(SettingsModalComponent);
+    this.dialog.open(SettingsModalComponent).afterClosed()
+      .subscribe(result => {
+        this.name = Promise.resolve(result);
+      });
   }
 
   loggedIn() {

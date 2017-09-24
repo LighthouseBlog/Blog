@@ -51,11 +51,10 @@ export class RegisterModalComponent implements OnInit {
       const email = formValue.email;
       const name = formValue.name;
 
-      console.log('Registering');
       this.auth.register(username, password, email, name)
         .subscribe(result => {
           if (result === true) {
-              this.dialogRef.close();
+              this.dialogRef.close(name);
               this.router.navigate(['articles']);
           } else {
               console.error('Failed to login, please try again')

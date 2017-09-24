@@ -47,6 +47,17 @@ export class AuthorService {
                     .catch(this.handleError);
   }
 
+  getAuthorName(username: string = this.getAuthorUsername()): Promise<string> {
+    return new Promise<string>((resolve, reject) => {
+      this.getAuthor()
+        .subscribe(author => {
+          resolve(author.name)
+        }, error => {
+          reject(error);
+        })
+    })
+  }
+
   updateUserSettings(username: string, name: string, email: string, profilePicture?: FormData): Observable<any> {
     const headers = new Headers();
     headers.append('Authorization', 'Bearer ' + this.auth.token);
