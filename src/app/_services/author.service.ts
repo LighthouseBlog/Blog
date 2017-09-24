@@ -87,7 +87,11 @@ export class AuthorService {
     return new Promise<string>((resolve, reject) => {
       this.getAuthor()
         .subscribe(author => {
-          resolve(author.profilePicture)
+          if (author.profilePicture && author.profilePicture.startsWith('http')) {
+            resolve(author.profilePicture)
+          } else {
+            resolve(environment.DEFAULT_PROFILE_PICTURE);
+          }
         }, error => {
           reject(error);
         })

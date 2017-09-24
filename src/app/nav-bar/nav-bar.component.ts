@@ -62,7 +62,7 @@ export class NavBarComponent implements OnInit {
     this.dialog.open(RegisterModalComponent).afterClosed()
       .subscribe(result => {
         this.name = Promise.resolve(result.name);
-        this.name = Promise.resolve(environment.DEFAULT_PROFILE_PICTURE);
+        this.image = Promise.resolve(environment.DEFAULT_PROFILE_PICTURE);
       });
   }
 
@@ -70,7 +70,7 @@ export class NavBarComponent implements OnInit {
     this.dialog.open(SettingsModalComponent).afterClosed()
       .subscribe(result => {
         this.name = Promise.resolve(result.name);
-        this.name = Promise.resolve(result.image || environment.DEFAULT_PROFILE_PICTURE);
+        this.image = Promise.resolve(result.image || environment.DEFAULT_PROFILE_PICTURE);
       });
   }
 
