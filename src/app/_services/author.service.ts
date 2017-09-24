@@ -4,6 +4,7 @@ import { Http, Response, RequestOptions, Headers } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/catch';
 import 'rxjs/add/operator/map';
+import 'rxjs/add/observable/forkJoin';
 
 import { AuthenticationService } from '../_services/authentication.service';
 import { Article } from '../_models/Article';
@@ -46,21 +47,29 @@ export class AuthorService {
                     .catch(this.handleError);
   }
 
-  updateUserSettings(username: string, name: string, email: string, profilePicture?: FormData): Observable<Author> {
+  updateUserSettings(username: string, name: string, email: string, profilePicture?: FormData): Observable<any> {
     const headers = new Headers();
     headers.append('Authorization', 'Bearer ' + this.auth.token);
 
     const options = new RequestOptions({
-      headers,
-      body: {
-        name,
-        email
-      }
+      headers
     });
 
-    return this.http.put(this.authorUrl + username, profilePicture, options)
-      .map(this.extractData)
-      .catch(this.handleError);
+    const body = {
+      name,
+      email
+    }
+
+    if (profilePicture) {
+      return Observable.forkJoin(
+        this.http.put(this.authorUrl + username, body, options).map(this.extractData).catch(this.handleError),
+        this.http.post(this.authorUrl + username, profilePicture, options).map(this.extractData).catch(this.handleError)
+      );
+    } else {
+      return Observable.forkJoin(
+        this.http.put(this.authorUrl + username, body, options).map(this.extractData).catch(this.handleError)
+      );
+    }
   }
 
   public getAuthorUsername(): string {

@@ -46,21 +46,28 @@ export class SettingsModalComponent implements OnInit {
 
   saveSettings(formValue: any, isFormValid: boolean) {
     if (isFormValid) {
-      const name = formValue['author'];
+      const name = formValue['name'];
       const email = formValue['email'];
       const profilePicture = formValue['profilePicture'];
       console.log('profilepicture', profilePicture);
-      const file = profilePicture.target.files[0];
-      console.log('Profile Picture', file);
-      if (profilePicture) {
-        const formData = new FormData(file);
+      if (profilePicture.target) {
+        const formData = new FormData();
+        const file = profilePicture.target.files[0];
+        console.log('Profile Picture', file);
         formData.append('profilePicture', file);
-        this.authorService.updateUserSettings(this.username, name, email, profilePicture)
+        this.authorService.updateUserSettings(this.username, name, email, formData)
           .subscribe(result => {
             console.log('Result', result);
           }, error => {
             console.error('Error', error);
-          })
+          });
+      } else {
+        this.authorService.updateUserSettings(this.username, name, email)
+          .subscribe(result => {
+            console.log('Result', result);
+          }, error => {
+            console.error('Error', error);
+          });
       }
     } else {
       console.log('Issues?');

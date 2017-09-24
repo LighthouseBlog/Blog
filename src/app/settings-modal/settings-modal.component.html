@@ -13,7 +13,6 @@
           <md-hint *ngIf="settingsGroup.hasError('required','email')" [ngStyle]="{'color': 'red'}" >Email is required</md-hint>
         </md-input-container>
         <input type="file" name="file" id="file" class="inputfile" formControlName="profilePicture"/>
-        <label for="file">Choose a file</label>
       </md-card-content>
       <md-card-actions align="end">
         <button md-raised-button type="submit" [disabled]="!f.valid" color="accent"> Save Settings </button>
