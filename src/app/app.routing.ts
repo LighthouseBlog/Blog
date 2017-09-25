@@ -5,7 +5,6 @@ import { ArticleComponent } from './article/article.component';
 import { AuthGuard } from './_guards/auth.guard';
 
 const routes: Routes = [
-  // /articles
   {
     path: 'articles',
     component: UserArticlesComponent,

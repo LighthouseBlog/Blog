@@ -1,0 +1,22 @@
+<md-card class="settings-card">
+    <md-card-header>
+      <md-card-title><h2>User Settings</h2></md-card-title>
+    </md-card-header>
+    <form class="form-container" #f="ngForm" [formGroup]="settingsGroup" (ngSubmit)="saveSettings(f.value, f.valid)" novalidate>
+      <md-card-content align="center" class="align-input">
+        <md-input-container class="form-input">
+          <input mdInput type="text" placeholder="Name" formControlName="name" required />
+          <md-hint *ngIf="settingsGroup.hasError('required','name')" [ngStyle]="{'color': 'red'}" >Name is required</md-hint>
+        </md-input-container>
+        <md-input-container class="form-input">
+          <input mdInput type="text" placeholder="Email" formControlName="email" required />
+          <md-hint *ngIf="settingsGroup.hasError('required','email')" [ngStyle]="{'color': 'red'}" >Email is required</md-hint>
+        </md-input-container>
+        <input type="file" name="file" id="file" class="inputfile" formControlName="profilePicture"/>
+        <label for="file" class="choose-picture">Choose a profile picture</label>
+      </md-card-content>
+      <md-card-actions align="end">
+        <button md-raised-button type="submit" [disabled]="!f.valid || !f.dirty" color="accent"> Save Settings </button>
+      </md-card-actions>
+    </form>
+</md-card>

@@ -7,3 +7,10 @@
 .link:hover {
   cursor: pointer;
 }
+
+#profile-picture {
+  padding-inline-start: 5px;
+  width: 30px;
+  height: 30px;
+  object-fit: contain;
+}

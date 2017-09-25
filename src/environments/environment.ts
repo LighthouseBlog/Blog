@@ -5,5 +5,6 @@
 
 export const environment = {
   production: false,
-  URL: 'http://localhost:3000/api'
+  URL: 'http://localhost:3000/api',
+  DEFAULT_PROFILE_PICTURE: 'https://s3.amazonaws.com/lighthouseblogimg/profile_pictures/User_No-Frame.png'
 };

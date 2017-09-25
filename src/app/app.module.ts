@@ -25,11 +25,14 @@ import { EditorService } from './_services/editor.service';
 import { ArticleService } from './_services/article.service';
 import { AuthorService } from './_services/author.service';
 import { ImagesService } from './_services/images.service';
+import { FileValidator } from './_directives/fileValidator.directive';
+import { FileValueAccessor } from './_directives/fileValueAccessor.directive';
 
 import { BaseRequestOptions } from '@angular/http';
 import { ArticlesComponent } from './articles/articles.component';
 import { ArticleComponent } from './article/article.component';
 import { DeleteArticleModalComponent } from './delete-article-modal/delete-article-modal.component';
+import { SettingsModalComponent } from './settings-modal/settings-modal.component';
 
 @NgModule({
   declarations: [
@@ -42,7 +45,10 @@ import { DeleteArticleModalComponent } from './delete-article-modal/delete-artic
     CreateArticleModalComponent,
     ArticlesComponent,
     ArticleComponent,
-    DeleteArticleModalComponent
+    DeleteArticleModalComponent,
+    SettingsModalComponent,
+    FileValidator,
+    FileValueAccessor
   ],
   imports: [
     BrowserAnimationsModule,
@@ -63,7 +69,8 @@ import { DeleteArticleModalComponent } from './delete-article-modal/delete-artic
     CreateArticleModalComponent,
     DeleteArticleModalComponent,
     LoginModalComponent,
-    RegisterModalComponent
+    RegisterModalComponent,
+    SettingsModalComponent
   ],
   providers: [
     AuthGuard,

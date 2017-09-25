@@ -1,0 +1,30 @@
+.settings-card {
+  height: 0;
+  padding-bottom: 40vh;
+  width: 20vw;
+}
+
+.align-input {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.inputfile {
+  width: 0.1px;
+  height: 0.1px;
+  opacity: 0;
+  overflow: hidden;
+  position: absolute;
+  z-index: -1;
+}
+
+.choose-picture {
+  &:hover {
+    cursor: pointer;
+    background-color: lightblue;
+  }
+  background-color: blue;
+  padding: 1vw;
+}

@@ -38,7 +38,7 @@ export class LoginModalComponent implements OnInit {
       this.auth.login(username, password)
         .subscribe(result => {
           if (result === true) {
-              this.dialogRef.close('closed');
+              this.dialogRef.close(username);
               this.router.navigate(['articles']);
           } else {
               console.error('Error (result is false?)');
