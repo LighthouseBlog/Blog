@@ -11,6 +11,8 @@ import initializeFroalaGistPlugin from '../_plugins/gist.plugin'
 
 import { environment } from '../../environments/environment';
 
+declare var $: any;
+
 @Component({
   selector: 'app-editor',
   templateUrl: './editor.component.html',
