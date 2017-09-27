@@ -6,12 +6,14 @@ import 'rxjs/add/operator/catch';
 import 'rxjs/add/operator/map';
 
 import { AuthenticationService } from '../_services/authentication.service';
+import { Gist } from '../_models/Gist';
 import { environment } from '../../environments/environment';
 
 @Injectable()
 export class EditorService {
 
   private editorUrl = environment.URL + '/blog/';
+  private gistUrl = environment.URL + '/gist/';
   private title = '';
   private description = '';
   private id: string;
@@ -85,6 +87,22 @@ export class EditorService {
     const options = new RequestOptions({ headers });
 
     return this.http.delete(this.editorUrl + article._id, options)
+                    .map(this.extractData)
+                    .catch(this.handleError);
+  }
+
+  convertToHtml(url: string): Observable<Gist> {
+    const headers = new Headers();
+    headers.append('Content-Type', 'application/json');
+    headers.append('Authorization', 'Bearer ' + this.auth.token);
+
+    const options = new RequestOptions({ headers });
+
+    const post = {
+      link: url
+    };
+
+    return this.http.post(this.gistUrl, post, options)
                     .map(this.extractData)
                     .catch(this.handleError);
   }
