@@ -3,13 +3,14 @@ import { EditorService } from '../_services/editor.service';
 declare var $: any;
 
 function initializePlugin(editorService: EditorService) {
+
   $.extend($.FroalaEditor.POPUP_TEMPLATES, {
     'customPlugin.popup': '[_BUTTONS_][_CUSTOM_LAYER_]'
   });
 
   // Define popup buttons.
   $.extend($.FroalaEditor.DEFAULTS, {
-    popupButtons: ['popupClose', '|', 'popupButton1'],
+    popupButtons: ['popupClose', '|'],
   });
 
   // The custom popup is defined inside a plugin (new or existing).
@@ -31,7 +32,15 @@ function initializePlugin(editorService: EditorService) {
         buttons: popup_buttons,
         custom_layer: `
         <div>
-            <input id="git-url" placeholder="Url or Gist Id" value="">
+          <div class="fr-link-insert-layer fr-layer fr-active" id="fr-link-insert-layer-1">
+            <div class="fr-input-line">
+              <input id="fr-link-insert-layer-url-1" name="href" type="text" class="fr-link-attr" placeholder="URL" tabindex="1" dir="auto">
+              <label for="fr-link-insert-layer-url-1">URL</label>
+            </div>
+            <div class="fr-action-buttons">
+              <button class="fr-command" role="button" data-cmd="popupButton1" href="#" tabindex="2" type="button">Convert</button>
+            </div>
+          </div>
         </div>`
       };
 
@@ -42,7 +51,7 @@ function initializePlugin(editorService: EditorService) {
     }
 
     function convertUrl() {
-      const url = $('#git-url').val();
+      const url = $('#fr-link-insert-layer-url-1').val();
       return editorService.convertToHtml(url);
     }
 
@@ -79,6 +88,7 @@ function initializePlugin(editorService: EditorService) {
 
     // Hide the custom popup.
     function hidePopup () {
+      $('#fr-link-insert-layer-url-1').val('');
       editor.popups.hide('customPlugin.popup');
     }
 
@@ -95,8 +105,10 @@ function initializePlugin(editorService: EditorService) {
   $.FroalaEditor.RegisterCommand('github', {
     title: 'Convert Url to GISTlike code',
     icon: 'github',
-    undo: false,
+    undo: true,
     focus: false,
+    showOnMobile: true,
+    refreshAfterCallback: true,
     plugin: 'customPlugin',
     callback: function () {
       this.customPlugin.showPopup();
@@ -117,7 +129,7 @@ function initializePlugin(editorService: EditorService) {
   // Define custom popup 1.
   $.FroalaEditor.DefineIcon('popupButton1', { NAME: 'github' });
   $.FroalaEditor.RegisterCommand('popupButton1', {
-    title: 'convert',
+    title: 'Convert',
     undo: false,
     focus: false,
     callback: function () {
@@ -126,7 +138,6 @@ function initializePlugin(editorService: EditorService) {
           this.html.insert(result.html);
           this.customPlugin.hidePopup();
         }, error => {
-          this.customPlugin.hidePopup();
           alert(error);
         });
     }

@@ -4,6 +4,7 @@ import { Http, Response, RequestOptions, Headers } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/catch';
 import 'rxjs/add/operator/map';
+import 'rxjs/add/observable/throw';
 
 import { AuthenticationService } from '../_services/authentication.service';
 import { Gist } from '../_models/Gist';
