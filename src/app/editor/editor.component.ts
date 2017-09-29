@@ -7,7 +7,11 @@ import { EditorService } from '../_services/editor.service';
 import { ArticleService } from '../_services/article.service';
 import { ImagesService } from '../_services/images.service';
 
+import initializeFroalaGistPlugin from '../_plugins/gist.plugin'
+
 import { environment } from '../../environments/environment';
+
+declare var $: any;
 
 @Component({
   selector: 'app-editor',
@@ -20,6 +24,7 @@ export class EditorComponent implements OnInit {
     heightMin: 400,
     placeholderText: 'Edit Content Here',
     charCounterCount: true,
+    htmlRemoveTags: [],
     events: {
       'froalaEditor.contentChanged': (e, editor) => {
         this.updateContent(editor);
@@ -31,7 +36,14 @@ export class EditorComponent implements OnInit {
             console.log('Result', result);
           })
       }
-    }
+    },
+    toolbarButtons: ['fullscreen', 'bold', 'italic', 'underline', 'strikeThrough',
+    'subscript', 'superscript', '|', 'fontFamily', 'fontSize', 'color', 'inlineStyle',
+    'paragraphStyle', '|', 'paragraphFormat', 'align', 'formatOL', 'formatUL', 'outdent',
+    'indent', 'quote', '-', 'insertLink', 'insertImage', 'insertVideo', 'insertFile',
+    'insertTable', '|', 'emoticons', 'specialCharacters', 'insertHR', 'selectAll',
+    'clearFormatting', '|', 'print', 'spellChecker', 'help', 'html', '|', 'undo', 'redo', 'github'],
+    pluginsEnabled: ['customPlugin']
   };
   private content: string;
 
@@ -67,6 +79,7 @@ export class EditorComponent implements OnInit {
   }
 
   ngOnInit() {
+    initializeFroalaGistPlugin(this.editorService);
     this.editing = true;
     this.route.params.subscribe(params => {
       const id = params['id'];
