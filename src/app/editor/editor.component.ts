@@ -20,11 +20,18 @@ declare var $: any;
 })
 export class EditorComponent implements OnInit {
 
+  private tb = ['fullscreen', 'bold', 'italic', 'underline', 'strikeThrough',
+  'subscript', 'superscript', '|', 'fontFamily', 'fontSize', 'color', 'inlineStyle',
+  'paragraphStyle', '|', 'paragraphFormat', 'align', 'formatOL', 'formatUL', 'outdent',
+  'indent', 'quote', '-', 'insertLink', 'insertImage', 'insertVideo', 'insertFile',
+  'insertTable', '|', 'emoticons', 'specialCharacters', 'insertHR', 'selectAll',
+  'clearFormatting', '|', 'print', 'spellChecker', 'help', 'html', '|', 'undo', 'redo', 'github']
   private options: Object = {
     heightMin: 400,
     placeholderText: 'Edit Content Here',
     charCounterCount: true,
     htmlRemoveTags: [],
+    toolbarInline: false,
     events: {
       'froalaEditor.contentChanged': (e, editor) => {
         this.updateContent(editor);
@@ -37,13 +44,10 @@ export class EditorComponent implements OnInit {
           })
       }
     },
-    toolbarButtons: ['fullscreen', 'bold', 'italic', 'underline', 'strikeThrough',
-    'subscript', 'superscript', '|', 'fontFamily', 'fontSize', 'color', 'inlineStyle',
-    'paragraphStyle', '|', 'paragraphFormat', 'align', 'formatOL', 'formatUL', 'outdent',
-    'indent', 'quote', '-', 'insertLink', 'insertImage', 'insertVideo', 'insertFile',
-    'insertTable', '|', 'emoticons', 'specialCharacters', 'insertHR', 'selectAll',
-    'clearFormatting', '|', 'print', 'spellChecker', 'help', 'html', '|', 'undo', 'redo', 'github'],
-    pluginsEnabled: ['customPlugin']
+    toolbarButtons: this.tb,
+    toolbarButtonsMD: this.tb,
+    toolbarButtonsSM: this.tb,
+    toolbarButtonsXS: this.tb,
   };
   private content: string;
 
