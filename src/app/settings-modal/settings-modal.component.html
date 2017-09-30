@@ -12,8 +12,10 @@
           <input matInput type="text" placeholder="Email" formControlName="email" required />
           <mat-hint *ngIf="settingsGroup.hasError('required','email')" [ngStyle]="{'color': 'red'}" >Email is required</mat-hint>
         </mat-input-container>
-        <input type="file" name="file" id="file" class="inputfile" formControlName="profilePicture"/>
-        <label for="file" class="choose-picture">Choose a profile picture</label>
+        <button mat-button class="btn-file" color="accent">
+          Upload Profile Picture
+          <input type="file" name="file" id="file" class="inputfile" formControlName="profilePicture"/>
+        </button>
       </mat-card-content>
       <mat-card-actions align="end">
         <button mat-raised-button type="submit" [disabled]="!f.valid || !f.dirty" color="accent"> Save Settings </button>
