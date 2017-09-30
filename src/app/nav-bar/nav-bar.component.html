@@ -1,26 +1,26 @@
-<md-toolbar color="primary">
-    <button md-icon-button (click)="onMenuClick()">
-        <md-icon>map</md-icon>
+<mat-toolbar color="primary">
+    <button mat-icon-button (click)="onMenuClick()">
+        <mat-icon>map</mat-icon>
     </button>
     <span routerLink="/" class="link">{{title}}</span>
     <span class="spacer"></span>
     <div>
-      <a *ngIf="!loggedIn()" md-button (click)="login()">Login</a>
-      <a md-button *ngIf="!loggedIn()" (click)="register()">Register</a>
-      <a md-button *ngIf="loggedIn()" routerLink="/articles">Your Articles</a>
-      <button md-button *ngIf="loggedIn()" [mdMenuTriggerFor]="menu">
+      <a *ngIf="!loggedIn()" mat-button (click)="login()">Login</a>
+      <a mat-button *ngIf="!loggedIn()" (click)="register()">Register</a>
+      <a mat-button *ngIf="loggedIn()" routerLink="/articles">Your Articles</a>
+      <button mat-button *ngIf="loggedIn()" [mdMenuTriggerFor]="menu">
           <span>{{name | async}}</span>
           <img src="{{ image | async }}" id="profile-picture" />
         </button>
-      <md-menu #menu="mdMenu">
-        <button md-menu-item (click)="editSettings()">
-            <md-icon>settings</md-icon>
+      <mat-menu #menu="mdMenu">
+        <button mat-menu-item (click)="editSettings()">
+            <mat-icon>settings</mat-icon>
             <span>User Settings</span>
         </button>
-        <button md-menu-item (click)="logout()">
-            <md-icon>exit_to_app</md-icon>
+        <button mat-menu-item (click)="logout()">
+            <mat-icon>exit_to_app</mat-icon>
             <span>Logout</span>
         </button>
-      </md-menu>
+      </mat-menu>
     </div>
-</md-toolbar>
+</mat-toolbar>

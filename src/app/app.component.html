@@ -1,17 +1,17 @@
-<md-sidenav-container class="sidenav-container" color="primary">
-  <md-sidenav mode="push" opened="{{opened}}" (close)="onClose()" class="sidenav">
+<mat-sidenav-container class="sidenav-container" color="primary">
+  <mat-sidenav #sidenav mode="push" opened="{{opened}}" (close)="onClose()" class="sidenav">
     <div class="sidenav-content">
-      <md-input-container>
-        <input mdInput placeholder="Article Title" [mdAutocomplete]="auto" [formControl]="articleCtrl">
-      </md-input-container>
-      <md-autocomplete #auto="mdAutocomplete">
-        <md-option *ngFor="let article of filteredArticles | async filteredArticles" [value]="article">
+      <mat-input-container>
+        <input matInput placeholder="Article Title" [mdAutocomplete]="auto" [formControl]="articleCtrl">
+      </mat-input-container>
+      <mat-autocomplete #auto="mdAutocomplete">
+        <mat-option *ngFor="let article of filteredArticles | async filteredArticles" [value]="article">
           {{ article?.name }}
-        </md-option>
-      </md-autocomplete>
+        </mat-option>
+      </mat-autocomplete>
     </div>
-  </md-sidenav>
+  </mat-sidenav>
   <app-nav-bar (clicked)="clicked($event)"></app-nav-bar>
   <app-articles *ngIf="showArticles"></app-articles>
   <router-outlet></router-outlet>
-</md-sidenav-container>
+</mat-sidenav-container>

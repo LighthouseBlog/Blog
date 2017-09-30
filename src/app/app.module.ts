@@ -2,7 +2,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpModule, JsonpModule, RequestOptions, RequestOptionsArgs } from '@angular/http';
-import { MaterialModule, MdGridListModule, MdDialogModule } from '@angular/material';
+import { MdGridListModule, MdDialogModule } from '@angular/material';
 
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import { FroalaEditorModule, FroalaViewModule } from 'angular2-froala-wysiwyg';
@@ -33,6 +33,7 @@ import { ArticlesComponent } from './articles/articles.component';
 import { ArticleComponent } from './article/article.component';
 import { DeleteArticleModalComponent } from './delete-article-modal/delete-article-modal.component';
 import { SettingsModalComponent } from './settings-modal/settings-modal.component';
+import { MaterialModule } from './material.module';
 
 @NgModule({
   declarations: [
@@ -57,12 +58,10 @@ import { SettingsModalComponent } from './settings-modal/settings-modal.componen
     ReactiveFormsModule,
     HttpModule,
     JsonpModule,
-    MaterialModule,
     Router,
     FroalaEditorModule.forRoot(),
     FroalaViewModule.forRoot(),
-    MdGridListModule,
-    MdDialogModule,
+    MaterialModule,
     Ng2SmartTableModule
   ],
   entryComponents: [

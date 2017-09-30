@@ -1,22 +1,22 @@
 <div class="login">
-  <md-card class="login-card">
-    <md-card-header>
-      <md-card-title><h2>{{title}}</h2></md-card-title>
-    </md-card-header>
+  <mat-card class="login-card">
+    <mat-card-header>
+      <mat-card-title><h2>{{title}}</h2></mat-card-title>
+    </mat-card-header>
     <form #f="ngForm" [formGroup]="formGroup" (ngSubmit)="login(f.value, f.valid)" novalidate>
-      <md-card-content align="center">
-        <md-input-container>
-          <input mdInput type="text" placeholder="Username" formControlName="username" required />
-          <md-hint *ngIf="formGroup.hasError('required','username')" [ngStyle]="{'color': 'red'}" >Username is required</md-hint>
-        </md-input-container>
-        <md-input-container>
-          <input mdInput type="password" placeholder="Password" formControlName="password" required />
-          <md-hint *ngIf="formGroup.hasError('required','password')" [ngStyle]="{'color': 'red'}">Password is required</md-hint>
-        </md-input-container>
-      </md-card-content>
-      <md-card-actions align="end">
-        <button md-raised-button type="submit" [disabled]="!f.valid" color="accent">Login</button>
-      </md-card-actions>
+      <mat-card-content align="center">
+        <mat-input-container>
+          <input matInput type="text" placeholder="Username" formControlName="username" required />
+          <mat-hint *ngIf="formGroup.hasError('required','username')" [ngStyle]="{'color': 'red'}" >Username is required</mat-hint>
+        </mat-input-container>
+        <mat-input-container>
+          <input matInput type="password" placeholder="Password" formControlName="password" required />
+          <mat-hint *ngIf="formGroup.hasError('required','password')" [ngStyle]="{'color': 'red'}">Password is required</mat-hint>
+        </mat-input-container>
+      </mat-card-content>
+      <mat-card-actions align="end">
+        <button mat-raised-button type="submit" [disabled]="!f.valid" color="accent">Login</button>
+      </mat-card-actions>
     </form>
-  </md-card>
+  </mat-card>
 </div>

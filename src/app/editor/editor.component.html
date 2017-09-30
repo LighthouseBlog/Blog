@@ -1,16 +1,16 @@
 <div class="editor-form">
   <form class="form-container" #f="ngForm" [formGroup]="formGroup" (ngSubmit)="saveArticle(f.value, f.valid)" novalidate>
-    <button md-raised-button type="submit" [disabled]="!f.valid" color="accent" class="save"> Save Article </button>
-    <md-input-container class="form-input">
-      <input mdInput type="text" placeholder="Article Title" formControlName="articleTitle" required />
-      <md-hint *ngIf="formGroup.hasError('required','articleTitle')" [ngStyle]="{'color': 'red'}" >Article Title is required</md-hint>
-    </md-input-container>
-    <md-input-container class="form-input">
-      <textarea mdInput type="text" placeholder="Article Description" formControlName="articleDescription" rows="5" required></textarea>
-      <md-hint *ngIf="formGroup.hasError('required','articleDescription')" [ngStyle]="{'color': 'red'}" >Article Description is required</md-hint>
-    </md-input-container>
+    <button mat-raised-button type="submit" [disabled]="!f.valid" color="accent" class="save"> Save Article </button>
+    <mat-input-container class="form-input">
+      <input matInput type="text" placeholder="Article Title" formControlName="articleTitle" required />
+      <mat-hint *ngIf="formGroup.hasError('required','articleTitle')" [ngStyle]="{'color': 'red'}" >Article Title is required</mat-hint>
+    </mat-input-container>
+    <mat-input-container class="form-input">
+      <textarea matInput type="text" placeholder="Article Description" formControlName="articleDescription" rows="5" required></textarea>
+      <mat-hint *ngIf="formGroup.hasError('required','articleDescription')" [ngStyle]="{'color': 'red'}" >Article Description is required</mat-hint>
+    </mat-input-container>
   </form>
-  <div mdInput class="editor">
+  <div matInput class="editor">
     <div *ngIf="editing" (froalaInit)="initialize($event)" [froalaEditor]="options" [(froalaModel)]="editorContent"></div>
   </div>
 </div>
