@@ -15,6 +15,7 @@ export class EditorService {
 
   private editorUrl = environment.URL + '/blog/';
   private gistUrl = environment.URL + '/gist/';
+  private tagUrl = environment.URL + '/tags/'
   private title = '';
   private description = '';
   private id: string;
@@ -57,7 +58,7 @@ export class EditorService {
                     .catch(this.handleError);
   }
 
-  saveArticle(edits: string): Observable<boolean> {
+  saveArticle(edits: string, tags: string[]): Observable<boolean> {
     const headers = new Headers();
     headers.append('Content-Type', 'application/json');
     headers.append('Authorization', 'Bearer ' + this.auth.token);
@@ -68,6 +69,7 @@ export class EditorService {
       text: edits,
       title: this.title,
       description: this.description,
+      tags,
       author: author.username
     };
 
@@ -106,6 +108,40 @@ export class EditorService {
     return this.http.post(this.gistUrl, post, options)
                     .map(this.extractData)
                     .catch(this.handleError);
+  }
+
+  getTags(text: string): Observable<string[]> {
+    if (!text) {
+      return Observable.of([]);
+    }
+    const headers = new Headers();
+    headers.append('Content-Type', 'application/json');
+    headers.append('Authorization', 'Bearer ' + this.auth.token);
+
+    const options = new RequestOptions({ headers });
+
+    const body = {
+      prefix: text,
+      count: 50
+    }
+
+    return this.http.put(this.tagUrl, body, options)
+      .map(this.extractData)
+      .catch(this.handleError);
+  }
+
+  addTag(tag: string): Observable<Response> {
+    const headers = new Headers();
+    headers.append('Content-Type', 'application/json');
+    headers.append('Authorization', 'Bearer ' + this.auth.token);
+
+    const options = new RequestOptions({ headers });
+
+    const body = {
+      tag
+    }
+
+    return this.http.post(this.tagUrl, body, options);
   }
 
   private extractData(res: Response) {
