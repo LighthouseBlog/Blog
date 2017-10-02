@@ -17,6 +17,6 @@ before_deploy:
 deploy:
   provider: script
   skip_cleanup: true
-  script: rsync -r --delete-after --quiet $TRAVIS_BUILD_DIR/dist $USER@$HOST:/home/ubuntu
+  script: scp -i deploy_key.pem $TRAVIS_BUILD_DIR/dist $USER@$HOST:/home/ubuntu
   on:
     all_branches: true
