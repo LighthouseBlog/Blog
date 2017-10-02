@@ -17,8 +17,12 @@ before_deploy:
 deploy:
   provider: script
   skip_cleanup: true
-  script: bash -s deploy.sh
+  script:
+  - scp -vvv -i deploy_key.pem -r $TRAVIS_BUILD_DIR/dist $USER@$HOST:/home/ubuntu
+  - exit 0
   on:
     all_branches: true
 after_deploy:
+- echo Successfully deployed
+- exit 0
 
