@@ -19,4 +19,4 @@ deploy:
   skip_cleanup: true
   script: scp -i deploy_key.pem -r $TRAVIS_BUILD_DIR/dist $USER@$HOST:/home/ubuntu
   on:
-    all_branches: true
+    branch: master
