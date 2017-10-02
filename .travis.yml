@@ -12,7 +12,7 @@ before_install:
 - ssh-add deploy_key.pem
 install:
 - npm install
-after_install:
+before_deploy:
 - npm run build
 deploy:
   provider: script
