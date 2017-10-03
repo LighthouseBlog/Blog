@@ -1,4 +1,4 @@
-# Lighthouse Blog
+# Lighthouse Blog [![Build Status](https://travis-ci.org/LighthouseBlog/Blog.svg?branch=master)](https://travis-ci.org/LighthouseBlog/Blog)
 
 ### Authors
 Sam Pastoriza
