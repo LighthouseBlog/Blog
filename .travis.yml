@@ -18,10 +18,11 @@ deploy:
   provider: script
   skip_cleanup: true
   script:
-  - scp -vvv -i deploy_key.pem -r $TRAVIS_BUILD_DIR/dist $USER@$HOST:/home/ubuntu
+  - scp -o "StrictHostKeyChecking no" -r $TRAVIS_BUILD_DIR/dist $USER@$HOST:/home/ubuntu
   on:
     all_branches: true
-after_deploy:
-- echo Successfully deployed
-- exit 0
+after_script:
+- eval "$(ssh-agent -k)"
+- echo "Killed SSH Agent"
+- rm -rf deploy_key.pem
 
