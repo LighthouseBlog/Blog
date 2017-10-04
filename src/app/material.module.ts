@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { MatAutocompleteModule, MatGridListModule, MatDialogModule, MatInputModule, MatSelectModule,
   MatMenuModule, MatSidenavModule, MatToolbarModule, MatListModule,
   MatCardModule, MatButtonModule, MatIconModule, MatSnackBarModule, MatTableModule,
-  NoConflictStyleCompatibilityMode } from '@angular/material';
+  NoConflictStyleCompatibilityMode, MatChipsModule } from '@angular/material';
 
 @NgModule({
   imports: [
@@ -20,6 +20,7 @@ import { MatAutocompleteModule, MatGridListModule, MatDialogModule, MatInputModu
     MatIconModule,
     MatSnackBarModule,
     MatTableModule,
+    MatChipsModule,
     NoConflictStyleCompatibilityMode
   ],
   exports: [
@@ -37,6 +38,7 @@ import { MatAutocompleteModule, MatGridListModule, MatDialogModule, MatInputModu
     MatIconModule,
     MatSnackBarModule,
     MatTableModule,
+    MatChipsModule,
     NoConflictStyleCompatibilityMode
   ]
 })

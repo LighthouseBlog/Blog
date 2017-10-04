@@ -3,6 +3,8 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { FormBuilder, FormGroup, FormControl, Validators, FormsModule } from '@angular/forms';
 import { MdSnackBar } from '@angular/material';
 
+import { Observable } from 'rxjs/Observable';
+
 import { EditorService } from '../_services/editor.service';
 import { ArticleService } from '../_services/article.service';
 import { ImagesService } from '../_services/images.service';
@@ -55,6 +57,10 @@ export class EditorComponent implements OnInit {
   public editing = false;
   public formGroup: FormGroup;
   public initControls: any;
+  public filteredTags: Observable<string[]>;
+  public selectedTags: Set<string>;
+  public tagInput: string;
+  public removable = true;
 
   constructor(
     private editorService: EditorService,
@@ -67,7 +73,8 @@ export class EditorComponent implements OnInit {
   ) {
     this.formGroup = this.fb.group({
       'articleTitle': new FormControl('', Validators.required),
-      'articleDescription': new FormControl('', Validators.required)
+      'articleDescription': new FormControl('', Validators.required),
+      'tags': new FormControl('')
     });
   }
 
@@ -83,6 +90,12 @@ export class EditorComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.selectedTags = new Set<string>();
+    this.formGroup.get('tags').valueChanges
+      .subscribe((input) => {
+        this.filteredTags = this.filterTags(input);
+      });
+
     initializeFroalaGistPlugin(this.editorService);
     this.editing = true;
     this.route.params.subscribe(params => {
@@ -94,10 +107,14 @@ export class EditorComponent implements OnInit {
         .subscribe(article => {
           this.formGroup.setValue({
             'articleTitle': article.title,
-            'articleDescription': article.description
+            'articleDescription': article.description,
+            'tags': ''
           });
+          if (article.tags instanceof Array) {
+            this.selectedTags = new Set<string>(article.tags);
+          }
           this.editorContent = article.text;
-        })
+        });
     });
   }
 
@@ -109,11 +126,12 @@ export class EditorComponent implements OnInit {
     if (isFormValid) {
       const articleTitle = formValue['articleTitle'];
       const articleDescription = formValue['articleDescription'];
+      const tags = Array.from(this.selectedTags);
 
       this.editorService.setArticleTitle(articleTitle);
       this.editorService.setArticleDescription(articleDescription);
 
-      this.editorService.saveArticle(this.content)
+      this.editorService.saveArticle(this.content, tags)
         .subscribe(result => {
           if (result['text'] === this.content) {
               this.snackBar.open('Successfully saved article', '', {
@@ -132,8 +150,49 @@ export class EditorComponent implements OnInit {
     }
   }
 
-  previewArticle() {
-
+  filterTags(text: string): Observable<string[]> {
+    return this.editorService.getTags(text);
   }
 
+  removeTag(tag: string) {
+    this.selectedTags.delete(tag);
+  }
+
+  tagSelected(tag: string) {
+    if (this.selectedTags.has(this.tagInput)) {
+      this.snackBar.open('Tag already exists', '', {
+        duration: 2000
+      });
+    } else {
+      this.selectedTags.add(tag);
+      this.snackBar.open(`Added the tag: ${tag}`, '', {
+        duration: 2000
+      });
+      this.formGroup.get('tags').patchValue('');
+    }
+  }
+
+  onEnter(event: any) {
+    if (event.keyCode === 13) {
+      if (this.selectedTags.has(this.tagInput)) {
+        this.snackBar.open('Tag already exists', '', {
+          duration: 2000
+        });
+      } else {
+        const input = this.tagInput;
+        this.editorService.addTag(input)
+          .subscribe(result => {
+            this.selectedTags.add(input);
+            this.snackBar.open(`Added the tag: ${input}`, '', {
+              duration: 2000
+            });
+            this.formGroup.get('tags').patchValue('');
+          }, error => {
+            this.snackBar.open('Error adding tag', '', {
+              duration: 2000
+            });
+          });
+      }
+    }
+  }
 }
