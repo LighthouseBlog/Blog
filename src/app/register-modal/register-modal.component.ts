@@ -20,7 +20,7 @@ function equalValidator({value}: FormGroup): {[key: string]: any} {
 export class RegisterModalComponent implements OnInit {
 
   title = 'Register';
-  registerGroup: FormGroup;
+  public registerGroup: FormGroup;
 
   constructor(
     fb: FormBuilder,

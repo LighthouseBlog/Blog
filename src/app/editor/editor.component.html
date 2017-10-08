@@ -3,11 +3,11 @@
     <button mat-raised-button type="submit" [disabled]="!f.valid" color="accent" class="save"> Save Article </button>
     <mat-input-container class="form-input">
       <input matInput type="text" placeholder="Article Title" formControlName="articleTitle" required />
-      <mat-hint *ngIf="formGroup.hasError('required','articleTitle')" [ngStyle]="{'color': 'red'}" >Article Title is required</mat-hint>
+      <mat-error *ngIf="formGroup.hasError('required', ['articleTitle'])">Article Title is required</mat-error>
     </mat-input-container>
     <mat-input-container class="form-input">
       <textarea matInput type="text" placeholder="Article Description" formControlName="articleDescription" rows="5" required></textarea>
-      <mat-hint *ngIf="formGroup.hasError('required','articleDescription')" [ngStyle]="{'color': 'red'}" >Article Description is required</mat-hint>
+      <mat-error *ngIf="formGroup.hasError('required', ['articleDescription'])">Article Description is required</mat-error>
     </mat-input-container>
   </form>
   <div matInput class="editor">

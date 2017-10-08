@@ -6,11 +6,11 @@
       <mat-card-content align="center" class="align-input">
         <mat-input-container class="form-input">
           <input matInput type="text" placeholder="Name" formControlName="name" required />
-          <mat-hint *ngIf="settingsGroup.hasError('required','name')" [ngStyle]="{'color': 'red'}" >Name is required</mat-hint>
+          <mat-error *ngIf="settingsGroup.hasError('required', ['name'])">Name is required</mat-error>
         </mat-input-container>
         <mat-input-container class="form-input">
           <input matInput type="text" placeholder="Email" formControlName="email" required />
-          <mat-hint *ngIf="settingsGroup.hasError('required','email')" [ngStyle]="{'color': 'red'}" >Email is required</mat-hint>
+          <mat-error *ngIf="settingsGroup.hasError('required', ['email'])">Email is required</mat-error>
         </mat-input-container>
         <button mat-button class="btn-file" color="accent">
           Upload Profile Picture

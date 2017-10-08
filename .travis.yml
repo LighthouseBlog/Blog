@@ -13,7 +13,7 @@ before_install:
 install:
 - npm install
 before_deploy:
-- npm run build-prod
+- npm run predeploy
 deploy:
   provider: script
   skip_cleanup: true
@@ -26,4 +26,9 @@ after_script:
 - eval "$(ssh-agent -k)"
 - echo "Killed SSH Agent"
 - rm -rf deploy_key.pem
+after_failure:
+- eval "$(ssh-agent -k)"
+- echo "Killed SSH Agent"
+- rm -rf deploy_key.pem
+
 

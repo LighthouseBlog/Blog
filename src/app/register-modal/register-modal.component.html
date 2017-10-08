@@ -7,29 +7,29 @@
       <mat-card-content align="center" class="align-input">
         <mat-input-container>
           <input matInput type="text" placeholder="Username" formControlName="username" required />
-          <mat-hint *ngIf="registerGroup.hasError('required','username')" [ngStyle]="{'color': 'red'}" >Username is required</mat-hint>
+          <mat-error *ngIf="registerGroup.hasError('required', ['username'])">Username is required</mat-error>
 	      </mat-input-container>
         <mat-input-container>
           <input matInput type="email" placeholder="Email" formControlName="email" required />
-          <mat-hint *ngIf="registerGroup.hasError('required','email')" [ngStyle]="{'color': 'red'}" >Email is required</mat-hint>
+          <mat-error *ngIf="registerGroup.hasError('required', ['email'])">Email is required</mat-error>
         </mat-input-container> 
         <mat-input-container>
           <input matInput type="text" placeholder="Name" formControlName="name" required />
-          <mat-hint *ngIf="registerGroup.hasError('required','name')" [ngStyle]="{'color': 'red'}" >Name is required</mat-hint>
+          <mat-error *ngIf="registerGroup.hasError('required', ['name'])">Name is required</mat-error>
         </mat-input-container>
         <div formGroupName="passwordsGroup">
             <mat-input-container>
               <input matInput type="password" placeholder="Password" formControlName="password" required />
-              <mat-hint *ngIf="registerGroup.hasError('required', ['passwordsGroup', 'password'])" [ngStyle]="{'color': 'red'}" >Password is required</mat-hint>
+              <mat-error *ngIf="registerGroup.hasError('required', ['passwordsGroup', 'password'])">Password is required</mat-error>
             </mat-input-container>
             <mat-input-container>
               <input matInput type="password" placeholder="Confirm Password" formControlName="confirmPassword" required />
-              <mat-hint *ngIf="registerGroup.hasError('equal', 'passwordsGroup')" [ngStyle]="{'color': 'red'}" >Passwords must match</mat-hint>
+              <mat-error *ngIf="registerGroup.hasError('equal', ['passwordsGroup'])">Passwords must match</mat-error>
             </mat-input-container>
           </div>
       </mat-card-content>
       <mat-card-actions align="end">
-        <button mat-raised-button (click)="register()" [disabled]="!f.valid" color="accent">Register</button>
+        <button mat-raised-button type="submit" [disabled]="!f.valid" color="accent">Register</button>
       </mat-card-actions>
     </form>
   </mat-card>
