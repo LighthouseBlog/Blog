@@ -1,0 +1,26 @@
+{
+  "name": "Lighthouse",
+  "short_name": "Lighthouse",
+  "icons": [
+    {
+      "src": "assets/icons/LighthouseLogo.png",
+      "sizes": "192x192",
+      "type": "image\/png"
+    },
+    {
+      "src": "assets/img/LighthouseLogo.png",
+      "sizes": "256x256",
+      "type": "image\/png"
+    },
+    {
+      "src": "assets/img/LighthouseLogo.png",
+      "sizes": "512x512",
+      "type": "image\/png"
+    }
+  ],
+  "theme_color": "#b92b27",
+  "background_color": "#ffffff",
+  "display": "standalone",
+  "orientation": "portrait",
+  "start_url": "./?utm_source=web_app_manifest"
+}
