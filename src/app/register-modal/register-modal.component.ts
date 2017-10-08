@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { MdDialogRef, MdSnackBar } from '@angular/material';
+import { MatDialogRef, MatSnackBar } from '@angular/material';
 
 import { AuthenticationService } from '../_services/authentication.service';
 
@@ -26,8 +26,8 @@ export class RegisterModalComponent implements OnInit {
     fb: FormBuilder,
     private router: Router,
     private auth: AuthenticationService,
-    private dialogRef: MdDialogRef<RegisterModalComponent>,
-    private snackBar: MdSnackBar
+    private dialogRef: MatDialogRef<RegisterModalComponent>,
+    private snackBar: MatSnackBar
   ) {
     this.registerGroup = fb.group({
       'username': new FormControl('', Validators.required),

@@ -2,9 +2,9 @@
   <mat-sidenav #sidenav mode="push" opened="{{opened}}" (close)="onClose()" class="sidenav">
     <div class="sidenav-content">
       <mat-input-container>
-        <input matInput placeholder="Article Title" [mdAutocomplete]="auto" [formControl]="articleCtrl">
+        <input matInput placeholder="Article Title" [matAutocomplete]="auto" [formControl]="articleCtrl">
       </mat-input-container>
-      <mat-autocomplete #auto="mdAutocomplete">
+      <mat-autocomplete #auto="matAutocomplete">
         <mat-option *ngFor="let article of filteredArticles | async filteredArticles" [value]="article">
           {{ article?.name }}
         </mat-option>

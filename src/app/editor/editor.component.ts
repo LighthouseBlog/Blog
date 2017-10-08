@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { FormBuilder, FormGroup, FormControl, Validators, FormsModule } from '@angular/forms';
-import { MdSnackBar } from '@angular/material';
+import { MatSnackBar } from '@angular/material';
 
 import { EditorService } from '../_services/editor.service';
 import { ArticleService } from '../_services/article.service';
@@ -63,7 +63,7 @@ export class EditorComponent implements OnInit {
     private fb: FormBuilder,
     private router: Router,
     private route: ActivatedRoute,
-    private snackBar: MdSnackBar
+    private snackBar: MatSnackBar
   ) {
     this.formGroup = this.fb.group({
       'articleTitle': new FormControl('', Validators.required),

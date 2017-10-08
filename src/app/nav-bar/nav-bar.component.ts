@@ -1,6 +1,6 @@
 import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { Router } from '@angular/router';
-import { MdDialog } from '@angular/material';
+import { MatDialog } from '@angular/material';
 
 import { Observable } from 'rxjs/Observable';
 
@@ -31,7 +31,7 @@ export class NavBarComponent implements OnInit {
     private auth: AuthenticationService,
     private authorService: AuthorService,
     private router: Router,
-    private dialog: MdDialog
+    private dialog: MatDialog
   ) { }
 
   onMenuClick() {

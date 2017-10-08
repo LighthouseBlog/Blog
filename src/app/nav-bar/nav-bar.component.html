@@ -8,11 +8,11 @@
       <a *ngIf="!loggedIn()" mat-button (click)="login()">Login</a>
       <a mat-button *ngIf="!loggedIn()" (click)="register()">Register</a>
       <a mat-button *ngIf="loggedIn()" routerLink="/articles">Your Articles</a>
-      <button mat-button *ngIf="loggedIn()" [mdMenuTriggerFor]="menu">
+      <button mat-button *ngIf="loggedIn()" [matMenuTriggerFor]="menu">
           <span>{{name | async}}</span>
           <img src="{{ image | async }}" id="profile-picture" />
         </button>
-      <mat-menu #menu="mdMenu">
+      <mat-menu #menu="matMenu">
         <button mat-menu-item (click)="editSettings()">
             <mat-icon>settings</mat-icon>
             <span>User Settings</span>
