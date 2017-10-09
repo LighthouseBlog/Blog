@@ -20,7 +20,8 @@ deploy:
   script:
   - scp -o "StrictHostKeyChecking no" -r $TRAVIS_BUILD_DIR/dist $USER@$HOST:/home/ubuntu
   on:
-    all_branches: true
+    branch: master
+    tags: true
 after_script:
 - ssh -o "StrictHostKeyChecking no" $USER@$HOST "bash -s" < deploy.sh
 - eval "$(ssh-agent -k)"
