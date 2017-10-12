@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {MdDialog, MdDialogRef} from '@angular/material';
+import {MatDialog, MatDialogRef} from '@angular/material';
 import { CreateArticleModalComponent } from '../create-article-modal/create-article-modal.component';
 import { DeleteArticleModalComponent } from '../delete-article-modal/delete-article-modal.component';
 
@@ -19,7 +19,7 @@ export class UserArticlesComponent implements OnInit {
   source: LocalDataSource;
 
   constructor(
-    public dialog: MdDialog,
+    public dialog: MatDialog,
     private authorService: AuthorService,
     private router: Router) {
     this.settings = {

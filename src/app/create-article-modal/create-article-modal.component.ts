@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, FormControl, Validators, FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
-import { MdDialogRef } from '@angular/material';
+import { MatDialogRef } from '@angular/material';
 
 import { EditorService } from '../_services/editor.service';
 
@@ -18,7 +18,7 @@ export class CreateArticleModalComponent implements OnInit {
   constructor(
     private fb: FormBuilder,
     private router: Router,
-    private dialogRef: MdDialogRef<CreateArticleModalComponent>,
+    private dialogRef: MatDialogRef<CreateArticleModalComponent>,
     private editorService: EditorService
   ) {
     this.formGroup = this.fb.group({

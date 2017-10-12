@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms';
-import { MdDialogRef, MdSnackBar } from '@angular/material';
+import { MatDialogRef, MatSnackBar } from '@angular/material';
 
 import { AuthenticationService } from '../_services/authentication.service';
 import { AuthorService } from '../_services/author.service';
@@ -20,8 +20,8 @@ export class SettingsModalComponent implements OnInit {
   constructor(
     fb: FormBuilder,
     private auth: AuthenticationService,
-    private dialogRef: MdDialogRef<SettingsModalComponent>,
-    private snackBar: MdSnackBar,
+    private dialogRef: MatDialogRef<SettingsModalComponent>,
+    private snackBar: MatSnackBar,
     private authorService: AuthorService) {
       this.settingsGroup = fb.group({
         'name': new FormControl('', Validators.required),

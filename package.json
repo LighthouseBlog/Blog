@@ -5,21 +5,24 @@
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
+    "https": "ng serve --ssl --ssl-key key.pem --ssl-cert certificate.pem",
     "build": "ng build",
-    "build-prod": "ng build --env=prod",
+    "predeploy": "npm run build-prod && npm run precache",
+    "build-prod": "ng build --prod --aot",
+    "precache": "sw-precache --verbose --config=sw-precache.config.js",
     "lint": "ng lint",
     "e2e": "ng e2e"
   },
   "private": true,
   "dependencies": {
     "@angular/animations": "^4.4.4",
-    "@angular/cdk": "^2.0.0-beta.11",
+    "@angular/cdk": "^2.0.0-beta.12",
     "@angular/common": "^4.4.4",
     "@angular/compiler": "^4.4.4",
     "@angular/core": "^4.4.4",
     "@angular/forms": "^4.4.4",
     "@angular/http": "^4.4.4",
-    "@angular/material": "^2.0.0-beta.11",
+    "@angular/material": "^2.0.0-beta.12",
     "@angular/platform-browser": "^4.4.4",
     "@angular/platform-browser-dynamic": "^4.4.4",
     "@angular/router": "^4.4.4",
@@ -31,7 +34,7 @@
     "zone.js": "^0.8.18"
   },
   "devDependencies": {
-    "@angular/cli": "1.4.1",
+    "@angular/cli": "1.4.5",
     "@angular/compiler-cli": "^4.4.4",
     "@types/jasmine": "2.6.0",
     "@types/node": "^8.0.31",
@@ -45,6 +48,7 @@
     "karma-jasmine": "~1.1.0",
     "karma-jasmine-html-reporter": "^0.2.2",
     "protractor": "~5.1.2",
+    "sw-precache": "^5.2.0",
     "ts-node": "~3.3.0",
     "tslint": "~5.7.0",
     "typescript": "~2.4.0"

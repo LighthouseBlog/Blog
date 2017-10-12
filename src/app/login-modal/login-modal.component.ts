@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, FormControl, Validators, FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
-import { MdSnackBar, MdDialogRef } from '@angular/material'
+import { MatSnackBar, MatDialogRef } from '@angular/material'
 
 import { AuthenticationService } from '../_services/authentication.service';
 
@@ -19,8 +19,8 @@ export class LoginModalComponent implements OnInit {
     fb: FormBuilder,
     private router: Router,
     private auth: AuthenticationService,
-    private snackBar: MdSnackBar,
-    private dialogRef: MdDialogRef<LoginModalComponent>) {
+    private snackBar: MatSnackBar,
+    private dialogRef: MatDialogRef<LoginModalComponent>) {
     this.formGroup = fb.group({
       'username': new FormControl('', Validators.required),
       'password': new FormControl('', Validators.required)

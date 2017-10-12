@@ -11,7 +11,7 @@ import { ArticleService } from './_services/article.service';
 })
 export class AppComponent implements OnInit {
 
-  private opened = false;
+  public opened = false;
   public articles;
   public mainArticles;
   public filteredArticles;

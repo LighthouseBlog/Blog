@@ -1,7 +1,8 @@
 import { Component, OnInit, Inject } from '@angular/core';
-import { MD_DIALOG_DATA, MdDialogRef } from '@angular/material';
+import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material';
 
 import { EditorService } from '../_services/editor.service';
+import { Article } from '../_models/Article';
 
 @Component({
   selector: 'app-delete-article-modal',
@@ -10,13 +11,12 @@ import { EditorService } from '../_services/editor.service';
 })
 export class DeleteArticleModalComponent implements OnInit {
 
-  public article: Object;
+  public article: Article;
 
   constructor(
-    @Inject(MD_DIALOG_DATA) public data: Object,
+    @Inject(MAT_DIALOG_DATA) public data: Article,
     private editorService: EditorService,
-    private dialogRef: MdDialogRef<DeleteArticleModalComponent>) {
-    console.log('Data', data);
+    private dialogRef: MatDialogRef<DeleteArticleModalComponent>) {
     this.article = data;
   }
 

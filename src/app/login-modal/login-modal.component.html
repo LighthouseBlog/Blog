@@ -7,11 +7,11 @@
       <mat-card-content align="center">
         <mat-input-container>
           <input matInput type="text" placeholder="Username" formControlName="username" required />
-          <mat-hint *ngIf="formGroup.hasError('required','username')" [ngStyle]="{'color': 'red'}" >Username is required</mat-hint>
+          <mat-error *ngIf="formGroup.hasError('required', ['username'])">Username is required</mat-error>
         </mat-input-container>
         <mat-input-container>
           <input matInput type="password" placeholder="Password" formControlName="password" required />
-          <mat-hint *ngIf="formGroup.hasError('required','password')" [ngStyle]="{'color': 'red'}">Password is required</mat-hint>
+          <mat-error *ngIf="formGroup.hasError('required', ['password'])">Password is required</mat-error>
         </mat-input-container>
       </mat-card-content>
       <mat-card-actions align="end">
