@@ -11,12 +11,12 @@
       <mat-error *ngIf="formGroup.hasError('required', ['articleDescription'])">Article Description is required</mat-error>
     </mat-input-container>
     <span class="vertical-quarter-spacer"></span>
-    <md-chip-list class="tag-container">
+    <mat-chip-list class="tag-container">
       <mat-chip *ngFor="let tag of selectedTags" [value]="tag" [removable]="removable" (remove)="removeTag(tag)">
         {{ tag }}
         <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
       </mat-chip>
-    </md-chip-list>
+    </mat-chip-list>
     <span class="vertical-quarter-spacer"></span>
     <mat-input-container class="form-input">
       <input matInput type="text" placeholder="Tags" formControlName="tags" [matAutocomplete]="auto" (window:keydown)="onEnter($event)" [(ngModel)]="tagInput" />

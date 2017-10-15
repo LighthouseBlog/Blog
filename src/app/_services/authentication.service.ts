@@ -74,7 +74,7 @@ export class AuthenticationService {
                         reject(`Error ${error}`);
                     });
             } else {
-                reject('No token available');
+                reject();
             }
         })
     }
