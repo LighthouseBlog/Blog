@@ -1,35 +1,58 @@
 <div class="articles">
-    <section class="section">
-      <div class="container">
-          <div class="columns">
-            <div class="column is-two-thirds">
-                <mat-card *ngFor="let article of articles | async">
-                  <mat-card-header>
-                    <mat-card-title>{{article?.title}}</mat-card-title>
-                  </mat-card-header>
-                  <mat-card-content>
-                    <p>
-                      {{article?.description}}
-                    </p>
-                  </mat-card-content>
-                  <mat-card-actions>
-                    <button mat-button (click)="selectedArticle(article)"> Read </button> 
-                  </mat-card-actions>
-                </mat-card>
-            </div>
-            <div class="column">
-                <mat-card>
-                    <mat-card-header>
-                      <mat-card-title>About</mat-card-title>
-                    </mat-card-header>
-                    <mat-card-content>
-                      <p>
-                       This site was developed by...
-                      </p>
-                    </mat-card-content>
-                  </mat-card>
-            </div>
+  <section class="section">
+    <div class="container">
+        <div class="columns">
+          <div class="column is-two-thirds">
+            <mat-card *ngFor="let article of articles | async">
+              <mat-card-header>
+                <mat-card-title>
+                  {{article?.title}}
+                </mat-card-title>
+                <mat-card-subtitle>
+                  By {{article?.author}} {{article?.datePosted | date:'longDate'}}
+                </mat-card-subtitle>
+              </mat-card-header>
+              <mat-card-content>
+                  {{article?.description}}
+              </mat-card-content>
+              <mat-card-actions align="end">
+                <button mat-button (click)="selectedArticle(article)"> Continue Reading... </button> 
+              </mat-card-actions>
+            </mat-card>
           </div>
-      </div>
-    </section>
+          <div class="column">
+            <mat-card>
+              <mat-card-header>
+                <mat-card-title>About</mat-card-title>
+              </mat-card-header>
+              <mat-card-content>
+                <p>
+                  This site was developed by <a href="https://github.com/pastorsj">Sam Pastoriza</a>
+                  and <a href="https://github.com/https://github.com/Prescientje">James Edwards</a>. 
+                  We wanted a blog that was self sustaining and easily modifiable.
+                  We are using the Angular framework developed by Google and a combination of 
+                  Angular Material and Bulma to style and layout the site respectively. An express based 
+                  backend application utilizes MongoDb and Redis to store data on users and articles. The 
+                  blog is completely open-sourced on Github and contributers are more than welcome. The end goal 
+                  is a fully functional blog mainly covering technical topics, but can be reused 
+                  as a base for other blogs.                  
+                </p>
+              </mat-card-content>
+              <mat-card-footer>
+                <mat-list>
+                  <mat-list-item class="repo">
+                    <mat-icon mat-list-icon>developer_board</mat-icon>
+                    <a mat-list-item href="https://github.com/LighthouseBlog/Blog"> Blog </a>
+                  </mat-list-item>
+                  <mat-list-item class="repo">
+                    <mat-icon mat-list-icon>developer_board</mat-icon>
+                    <a mat-list-item href="https://github.com/pastorsj/blog-api"> Backend Api </a>
+                  </mat-list-item>
+                </mat-list>
+              </mat-card-footer>
+            </mat-card>
+          </div>
+        </div>
+    </div>
+  </section>
 </div>
