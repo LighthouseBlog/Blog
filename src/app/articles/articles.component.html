@@ -3,7 +3,7 @@
     <div class="container">
         <div class="columns">
           <div class="column is-two-thirds">
-            <mat-card *ngFor="let article of articles | async">
+            <mat-card class="article" *ngFor="let article of articles | async">
               <mat-card-header>
                 <mat-card-title>
                   {{article?.title}}
@@ -21,7 +21,7 @@
             </mat-card>
           </div>
           <div class="column">
-            <mat-card>
+            <mat-card class="card-sections">
               <mat-card-header>
                 <mat-card-title>About</mat-card-title>
               </mat-card-header>
@@ -51,6 +51,16 @@
                 </mat-list>
               </mat-card-footer>
             </mat-card>
+            <mat-card class="card-sections">
+                <mat-card-header>
+                  <mat-card-title>Tags</mat-card-title>
+                </mat-card-header>
+                <mat-card-content>
+                    <a *ngFor="let tag of tags | async" (click)="getArticlesByTag(tag)">
+                      {{ tag }}
+                    </a>
+                </mat-card-content>
+              </mat-card>
           </div>
         </div>
     </div>

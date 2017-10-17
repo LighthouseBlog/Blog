@@ -25,6 +25,8 @@ import { EditorService } from './_services/editor.service';
 import { ArticleService } from './_services/article.service';
 import { AuthorService } from './_services/author.service';
 import { ImagesService } from './_services/images.service';
+import { TagService } from './_services/tags.service';
+
 import { FileValidator } from './_directives/fileValidator.directive';
 import { FileValueAccessor } from './_directives/fileValueAccessor.directive';
 
@@ -78,6 +80,7 @@ import { MaterialModule } from './material.module';
     ArticleService,
     AuthorService,
     ImagesService,
+    TagService,
     BaseRequestOptions
   ],
   bootstrap: [
