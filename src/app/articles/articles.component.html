@@ -21,14 +21,29 @@
             </mat-card>
           </div>
           <div class="column">
+              <mat-card class="card-sections">
+                  <mat-card-header>
+                    <mat-card-title>Search Articles By Title</mat-card-title>
+                  </mat-card-header>
+                  <mat-card-content>
+                      <mat-input-container class="title-search">
+                          <input matInput type="text" placeholder="Articles" [matAutocomplete]="auto" #title (keyup)="filterArticles(title.value)"/>
+                          <mat-autocomplete #auto="matAutocomplete">
+                              <mat-option class="article-option" *ngFor="let article of filteredArticles | async" [value]="article.title" (onSelectionChange)="articleSelected(article)">
+                                 {{ article.title }}
+                              </mat-option>
+                           </mat-autocomplete>
+                        </mat-input-container>
+                  </mat-card-content>
+                </mat-card>
             <mat-card class="card-sections">
               <mat-card-header>
                 <mat-card-title>About</mat-card-title>
               </mat-card-header>
               <mat-card-content>
                 <p>
-                  This site was developed by <a href="https://github.com/pastorsj">Sam Pastoriza</a>
-                  and <a href="https://github.com/Prescientje">James Edwards</a>. 
+                  This site was developed by <a href="https://github.com/pastorsj" target="_blank">Sam Pastoriza</a>
+                  and <a href="https://github.com/Prescientje" target="_blank">James Edwards</a>. 
                   We wanted a blog that was self sustaining and easily modifiable.
                   We are using the Angular framework developed by Google and a combination of 
                   Angular Material and Bulma to style and layout the site respectively. An express based 
