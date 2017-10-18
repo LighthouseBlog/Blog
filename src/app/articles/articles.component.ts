@@ -3,6 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { ArticleService } from '../_services/article.service';
 import { Router } from '@angular/router';
 import { TagService } from '../_services/tags.service';
+import { TagComponent } from './tag/tag.component';
 
 @Component({
   selector: 'app-articles',
@@ -13,7 +14,8 @@ export class ArticlesComponent implements OnInit {
 
   public articles;
   public tags: Promise<Array<String>>;
-  private tagData: Object;
+  public tagData: Object;
+  public maxSize: Number
 
   constructor(
     private articleService: ArticleService,
@@ -27,6 +29,11 @@ export class ArticlesComponent implements OnInit {
       .subscribe((tags) => {
         this.tagData = tags;
         this.tags = Promise.resolve(Object.keys(tags));
+        this.maxSize = Object.keys(tags).map((tag) => {
+            return parseInt(tags[tag], 10);
+          }).reduce((accumulator, currentValue) => {
+            return Math.max(accumulator, currentValue);
+          }, 0);
       });
   }
 

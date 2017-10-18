@@ -18,6 +18,7 @@ import {Router} from './app.routing';
 import { EditorComponent } from './editor/editor.component';
 import { UserArticlesComponent } from './user-articles/user-articles.component';
 import { CreateArticleModalComponent } from './create-article-modal/create-article-modal.component';
+import { TagComponent } from './articles/tag/tag.component';
 
 import { AuthGuard } from './_guards/auth.guard';
 import { AuthenticationService } from './_services/authentication.service';
@@ -51,7 +52,8 @@ import { MaterialModule } from './material.module';
     DeleteArticleModalComponent,
     SettingsModalComponent,
     FileValidator,
-    FileValueAccessor
+    FileValueAccessor,
+    TagComponent
   ],
   imports: [
     BrowserAnimationsModule,
