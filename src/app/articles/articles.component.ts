@@ -46,7 +46,7 @@ export class ArticlesComponent implements OnInit {
     this.router.navigate(['article', e._id]);
   }
 
-  getArticlesByTitle(tag: string) {
+  getArticlesByTag(tag: string) {
     this.articles = this.tagService.getArticlesByTag(tag);
   }
 
@@ -55,7 +55,7 @@ export class ArticlesComponent implements OnInit {
   }
 
   articleSelected(article: ArticleList) {
-    console.log('Article selected', article);
+    this.router.navigate(['article', article._id]);
   }
 
 }

@@ -1,4 +1,4 @@
-import { Component, Input, HostBinding, OnChanges } from '@angular/core';
+import { Component, Input, HostBinding, OnInit } from '@angular/core';
 
 import { Router } from '@angular/router';
 
@@ -9,15 +9,14 @@ const MAX_SIZE = 30;
   templateUrl: './tag.component.html',
   styleUrls: ['./tag.component.scss']
 })
-export class TagComponent implements OnChanges {
+export class TagComponent implements OnInit {
   @Input() tag: string;
   @Input() fontSize: number;
   @Input() maxSize: number;
 
   @HostBinding('style.font-size.pt') size: number;
 
-  ngOnChanges() {
-    this.size = (this.fontSize / this.maxSize) * MAX_SIZE
-    console.log('size', this.size);
+  ngOnInit() {
+    this.size = (this.fontSize / this.maxSize) * MAX_SIZE;
   }
 }

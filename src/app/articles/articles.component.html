@@ -9,7 +9,7 @@
                   {{article?.title}}
                 </mat-card-title>
                 <mat-card-subtitle>
-                  By {{article?.author}} {{article?.datePosted | date:'longDate'}}
+                  By {{article?.author?.name}}, {{article?.datePosted | date:'longDate'}}
                 </mat-card-subtitle>
               </mat-card-header>
               <mat-card-content>
