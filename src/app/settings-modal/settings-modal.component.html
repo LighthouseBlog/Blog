@@ -1,8 +1,13 @@
 <mat-card class="settings-card">
-    <mat-card-header>
+    <mat-card-header *ngIf="!saveInProgress">
       <mat-card-title><h2>User Settings</h2></mat-card-title>
     </mat-card-header>
-    <form class="form-container" #f="ngForm" [formGroup]="settingsGroup" (ngSubmit)="saveSettings(f.value, f.valid)" novalidate>
+    <div *ngIf="saveInProgress" class="spinner">
+      <mat-spinner></mat-spinner>
+      <div class="vertical-spacer"></div>
+      Saving User Settings...
+    </div>
+    <form *ngIf="!saveInProgress" class="form-container" #f="ngForm" [formGroup]="settingsGroup" (ngSubmit)="saveSettings(f.value, f.valid)" novalidate>
       <mat-card-content align="center" class="align-input">
         <mat-input-container class="form-input">
           <input matInput type="text" placeholder="Name" formControlName="name" required />
