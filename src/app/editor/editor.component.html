@@ -26,6 +26,10 @@
           </mat-option>
        </mat-autocomplete>
     </mat-input-container>
+    <button mat-button class="btn-file" color="accent">
+      Upload Cover Photo
+      <input type="file" name="file" id="file" class="inputfile" formControlName="coverPhoto"/>
+    </button>
   </form>
   <div matInput class="editor">
     <div *ngIf="editing" (froalaInit)="initialize($event)" [froalaEditor]="options" [(froalaModel)]="editorContent"></div>

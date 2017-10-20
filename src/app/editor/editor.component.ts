@@ -12,6 +12,7 @@ import { ImagesService } from '../_services/images.service';
 import initializeFroalaGistPlugin from '../_plugins/gist.plugin'
 
 import { environment } from '../../environments/environment';
+import { FileValidator } from '../_directives/fileValidator.directive';
 
 @Component({
   selector: 'app-editor',
@@ -72,7 +73,8 @@ export class EditorComponent implements OnInit {
     this.formGroup = this.fb.group({
       'articleTitle': new FormControl('', Validators.required),
       'articleDescription': new FormControl('', Validators.required),
-      'tags': new FormControl('')
+      'tags': new FormControl(''),
+      'coverPhoto': new FormControl('', [FileValidator.validate])
     });
   }
 
@@ -106,7 +108,8 @@ export class EditorComponent implements OnInit {
           this.formGroup.setValue({
             'articleTitle': article.title,
             'articleDescription': article.description,
-            'tags': ''
+            'tags': '',
+            'coverPhoto': {}
           });
           if (article.tags instanceof Array) {
             this.selectedTags = new Set<string>(article.tags);
@@ -124,25 +127,35 @@ export class EditorComponent implements OnInit {
     if (isFormValid) {
       const articleTitle = formValue['articleTitle'];
       const articleDescription = formValue['articleDescription'];
+      const coverPhoto = formValue['coverPhoto'];
       const tags = Array.from(this.selectedTags);
 
-      this.editorService.setArticleTitle(articleTitle);
-      this.editorService.setArticleDescription(articleDescription);
-
-      this.editorService.saveArticle(this.content, tags)
+      if (coverPhoto.target) {
+        const formData = new FormData();
+        const file = coverPhoto.target.files[0];
+        formData.append('coverPhoto', file);
+        this.editorService.saveArticle(this.content, articleTitle, articleDescription, tags, formData)
         .subscribe(result => {
-          if (result['text'] === this.content) {
-              this.snackBar.open('Successfully saved article', '', {
-                duration: 4000
-              });
-          } else {
-              console.error('Failed to save article, please try again');
-          }
+          this.snackBar.open('Successfully saved article', '', {
+            duration: 4000
+          });
         }, error => {
           this.snackBar.open('There was an error while attempting to save this article', '', {
             duration: 4000
           });
         });
+      } else {
+        this.editorService.saveArticle(this.content, articleTitle, articleDescription, tags)
+        .subscribe(result => {
+          this.snackBar.open('Successfully saved article', '', {
+            duration: 4000
+          });
+        }, error => {
+          this.snackBar.open('There was an error while attempting to save this article', '', {
+            duration: 4000
+          });
+        });
+      }
     } else {
       console.error('Form is not valid', formValue);
     }
