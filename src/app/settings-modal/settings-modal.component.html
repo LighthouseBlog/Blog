@@ -17,10 +17,11 @@
           <input matInput type="text" placeholder="Email" formControlName="email" required />
           <mat-error *ngIf="settingsGroup.hasError('required', ['email'])">Email is required</mat-error>
         </mat-input-container>
-        <button mat-button class="btn-file" color="accent">
-          Upload Profile Picture
-          <input type="file" name="file" id="file" class="inputfile" formControlName="profilePicture"/>
-        </button>
+        <button mat-button class="btn-file">
+            <mat-icon>add</mat-icon>
+            Upload Profile Picture
+            <input type="file" name="file" id="file" class="inputfile" formControlName="profilePicture"/>
+          </button>
       </mat-card-content>
       <mat-card-actions align="end">
         <button mat-raised-button type="submit" [disabled]="!f.valid || !f.dirty" color="accent"> Save Settings </button>

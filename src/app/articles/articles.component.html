@@ -12,6 +12,7 @@
                   By {{article?.author?.name}}, {{article?.datePosted | date:'longDate'}}
                 </mat-card-subtitle>
               </mat-card-header>
+              <img class="cover-photo" mat-card-image *ngIf="article?.coverPhoto" src="{{article?.coverPhoto}}" />
               <mat-card-content>
                   {{article?.description}}
               </mat-card-content>
@@ -48,7 +49,7 @@
                   We are using the Angular framework developed by Google and a combination of 
                   Angular Material and Bulma to style and layout the site respectively. An express based 
                   backend application utilizes MongoDb and Redis to store data on users and articles. The 
-                  blog is completely open-sourced on Github and contributers are more than welcome. The end goal 
+                  blog is completely open-sourced on GitHub and contributers are more than welcome. The end goal 
                   is a fully functional blog mainly covering technical topics, but can be reused 
                   as a base for other blogs.                  
                 </p>

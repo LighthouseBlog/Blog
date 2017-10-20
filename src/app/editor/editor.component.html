@@ -1,37 +1,43 @@
 <div class="editor-form">
-  <form class="form-container" #f="ngForm" [formGroup]="formGroup" (ngSubmit)="saveArticle(f.value, f.valid)" (keydown.enter)="$event.preventDefault()" novalidate>
-    <button mat-raised-button type="submit" [disabled]="!f.valid" color="accent" class="save"> Save Article </button>
-    <mat-input-container class="form-input">
-      <input matInput type="text" placeholder="Article Title" formControlName="articleTitle" required />
-      <mat-error *ngIf="formGroup.hasError('required', ['articleTitle'])">Article Title is required</mat-error>
-    </mat-input-container>
-    <span class="vertical-quarter-spacer"></span>
-    <mat-input-container class="form-input">
-      <textarea matInput type="text" placeholder="Article Description" formControlName="articleDescription" rows="5" required></textarea>
-      <mat-error *ngIf="formGroup.hasError('required', ['articleDescription'])">Article Description is required</mat-error>
-    </mat-input-container>
-    <span class="vertical-quarter-spacer"></span>
-    <mat-chip-list class="tag-container">
-      <mat-chip *ngFor="let tag of selectedTags" [value]="tag" [removable]="removable" (remove)="removeTag(tag)">
-        {{ tag }}
-        <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
-      </mat-chip>
-    </mat-chip-list>
-    <span class="vertical-quarter-spacer"></span>
-    <mat-input-container class="form-input">
-      <input matInput type="text" placeholder="Tags" formControlName="tags" [matAutocomplete]="auto" (window:keydown)="onEnter($event)" [(ngModel)]="tagInput" />
-      <mat-autocomplete #auto="matAutocomplete">
-          <mat-option *ngFor="let tag of filteredTags | async" [value]="tag" (onSelectionChange)="tagSelected(tag)">
-             {{ tag }}
-          </mat-option>
-       </mat-autocomplete>
-    </mat-input-container>
-    <button mat-button class="btn-file" color="accent">
-      Upload Cover Photo
-      <input type="file" name="file" id="file" class="inputfile" formControlName="coverPhoto"/>
-    </button>
-  </form>
-  <div matInput class="editor">
-    <div *ngIf="editing" (froalaInit)="initialize($event)" [froalaEditor]="options" [(froalaModel)]="editorContent"></div>
-  </div>
+    <section class="section">
+        <div class="container">
+            <form #f="ngForm" [formGroup]="formGroup" (ngSubmit)="saveArticle(f.value, f.valid)" (keydown.enter)="$event.preventDefault()" novalidate>
+              <button mat-raised-button type="submit" [disabled]="!f.valid" color="accent" class="save"> Save Article </button>
+              <mat-input-container class="form-input">
+                <input matInput type="text" placeholder="Article Title" formControlName="articleTitle" required />
+                <mat-error *ngIf="formGroup.hasError('required', ['articleTitle'])">Article Title is required</mat-error>
+              </mat-input-container>
+              <span class="vertical-quarter-spacer"></span>
+              <mat-input-container class="form-input">
+                <textarea matInput type="text" placeholder="Article Description" formControlName="articleDescription" rows="5" required></textarea>
+                <mat-error *ngIf="formGroup.hasError('required', ['articleDescription'])">Article Description is required</mat-error>
+              </mat-input-container>
+              <span class="vertical-quarter-spacer"></span>
+              <mat-chip-list class="tag-container">
+                <mat-chip *ngFor="let tag of selectedTags" [value]="tag" [removable]="removable" (remove)="removeTag(tag)">
+                  {{ tag }}
+                  <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
+                </mat-chip>
+              </mat-chip-list>
+              <span class="vertical-quarter-spacer"></span>
+              <mat-input-container class="form-input">
+                <input matInput type="text" placeholder="Tags" formControlName="tags" [matAutocomplete]="auto" (window:keydown)="onEnter($event)" [(ngModel)]="tagInput" />
+                <mat-autocomplete #auto="matAutocomplete">
+                    <mat-option *ngFor="let tag of filteredTags | async" [value]="tag" (onSelectionChange)="tagSelected(tag)">
+                      {{ tag }}
+                    </mat-option>
+                </mat-autocomplete>
+              </mat-input-container>
+              <button mat-button class="btn-file">
+                <mat-icon>add</mat-icon>
+                Upload Cover Photo
+                <input type="file" name="file" id="file" class="inputfile" formControlName="coverPhoto"/>
+              </button>
+            </form>
+            <span class="vertical-spacer"></span>
+            <div matInput class="editor">
+              <div *ngIf="editing" (froalaInit)="initialize($event)" [froalaEditor]="options" [(froalaModel)]="editorContent"></div>
+            </div>
+        </div>
+    </section>
 </div>
