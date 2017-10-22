@@ -5,22 +5,22 @@
     <span routerLink="/" class="link">{{title}}</span>
     <span class="spacer"></span>
     <div>
-      <a *ngIf="!loggedIn()" mat-button (click)="login()">Login</a>
-      <a mat-button *ngIf="!loggedIn()" (click)="register()">Register</a>
-      <a mat-button *ngIf="loggedIn()" routerLink="/articles">Your Articles</a>
-      <button mat-button *ngIf="loggedIn()" [matMenuTriggerFor]="menu">
-          <span>{{name | async}}</span>
-          <img src="{{ image | async }}" id="profile-picture" />
+        <a *ngIf="!loggedIn()" mat-button (click)="login()">Login</a>
+        <a mat-button *ngIf="!loggedIn()" (click)="register()">Register</a>
+        <a mat-button *ngIf="loggedIn()" routerLink="/articles">Your Articles</a>
+        <button mat-button *ngIf="loggedIn()" [matMenuTriggerFor]="menu">
+            <span>{{name | async}}</span>
+            <img src="{{ image | async }}" id="profile-picture" />
         </button>
-      <mat-menu #menu="matMenu">
-        <button mat-menu-item (click)="editSettings()">
-            <mat-icon>settings</mat-icon>
-            <span>User Settings</span>
-        </button>
-        <button mat-menu-item (click)="logout()">
-            <mat-icon>exit_to_app</mat-icon>
-            <span>Logout</span>
-        </button>
-      </mat-menu>
+        <mat-menu #menu="matMenu">
+            <button mat-menu-item (click)="editSettings()">
+                <mat-icon>settings</mat-icon>
+                <span>User Settings</span>
+            </button>
+            <button mat-menu-item (click)="logout()">
+                <mat-icon>exit_to_app</mat-icon>
+                <span>Logout</span>
+            </button>
+        </mat-menu>
     </div>
 </mat-toolbar>

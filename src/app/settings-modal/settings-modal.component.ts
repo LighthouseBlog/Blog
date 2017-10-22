@@ -16,6 +16,7 @@ export class SettingsModalComponent implements OnInit {
   settingsGroup: FormGroup;
   fileContent: any;
   username: string;
+  public saveInProgress: boolean;
 
   constructor(
     fb: FormBuilder,
@@ -42,11 +43,13 @@ export class SettingsModalComponent implements OnInit {
         this.username = author.username;
       }, error => {
         console.error('Error', error);
-      })
+      });
+    this.saveInProgress = false;
   }
 
   saveSettings(formValue: any, isFormValid: boolean) {
     if (isFormValid) {
+      this.saveInProgress = true;
       const name = formValue['name'];
       const email = formValue['email'];
       const profilePicture = formValue['profilePicture'];
@@ -56,11 +59,13 @@ export class SettingsModalComponent implements OnInit {
         formData.append('profilePicture', file);
         this.authorService.updateUserSettings(this.username, name, email, formData)
           .subscribe(result => {
+            this.saveInProgress = false;
             this.snackBar.open('Updated user settings', '', {
               duration: 4000
             });
             this.dialogRef.close({name, image: result.image || ''});
           }, error => {
+            this.saveInProgress = false;
             console.error('Error', error);
             this.snackBar.open(`Error updating user settings ${error}`, '', {
               duration: 4000
@@ -69,11 +74,13 @@ export class SettingsModalComponent implements OnInit {
       } else {
         this.authorService.updateUserSettings(this.username, name, email)
           .subscribe(result => {
+            this.saveInProgress = false;
             this.snackBar.open('Updated user settings', '', {
               duration: 4000
             });
             this.dialogRef.close({name});
           }, error => {
+            this.saveInProgress = false;
             console.error('Error', error);
             this.snackBar.open(`Error updating user settings ${error}`, '', {
               duration: 4000

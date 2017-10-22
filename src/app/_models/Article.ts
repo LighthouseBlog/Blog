@@ -1,9 +1,10 @@
+import { Author } from './Author';
 export class Article {
   _id: number;
   title: string;
   description: string;
-  datePosted: string;
+  datePosted: Date;
   text: string;
-  author: string;
+  author: Author;
   tags: Array<string>;
 }

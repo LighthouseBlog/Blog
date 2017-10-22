@@ -23,11 +23,17 @@
   min-width: 100%;
   min-height: 100%;
   font-size: 100px;
-  text-align: right;
   filter: alpha(opacity=0);
   opacity: 0;
   outline: none;
   background: white;
   cursor: inherit;
   display: block;
+}
+
+.spinner {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }

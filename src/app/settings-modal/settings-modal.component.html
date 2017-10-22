@@ -1,8 +1,13 @@
 <mat-card class="settings-card">
-    <mat-card-header>
+    <mat-card-header *ngIf="!saveInProgress">
       <mat-card-title><h2>User Settings</h2></mat-card-title>
     </mat-card-header>
-    <form class="form-container" #f="ngForm" [formGroup]="settingsGroup" (ngSubmit)="saveSettings(f.value, f.valid)" novalidate>
+    <div *ngIf="saveInProgress" class="spinner">
+      <mat-spinner></mat-spinner>
+      <div class="vertical-spacer"></div>
+      Saving User Settings...
+    </div>
+    <form *ngIf="!saveInProgress" class="form-container" #f="ngForm" [formGroup]="settingsGroup" (ngSubmit)="saveSettings(f.value, f.valid)" novalidate>
       <mat-card-content align="center" class="align-input">
         <mat-input-container class="form-input">
           <input matInput type="text" placeholder="Name" formControlName="name" required />
@@ -12,10 +17,11 @@
           <input matInput type="text" placeholder="Email" formControlName="email" required />
           <mat-error *ngIf="settingsGroup.hasError('required', ['email'])">Email is required</mat-error>
         </mat-input-container>
-        <button mat-button class="btn-file" color="accent">
-          Upload Profile Picture
-          <input type="file" name="file" id="file" class="inputfile" formControlName="profilePicture"/>
-        </button>
+        <button mat-button class="btn-file">
+            <mat-icon>add</mat-icon>
+            Upload Profile Picture
+            <input type="file" name="file" id="file" class="inputfile" formControlName="profilePicture"/>
+          </button>
       </mat-card-content>
       <mat-card-actions align="end">
         <button mat-raised-button type="submit" [disabled]="!f.valid || !f.dirty" color="accent"> Save Settings </button>

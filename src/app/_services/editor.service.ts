@@ -58,26 +58,32 @@ export class EditorService {
                     .catch(this.handleError);
   }
 
-  saveArticle(edits: string, tags: string[]): Observable<boolean> {
+  saveArticle(edits: string, title: string, description: string, tags: string[], coverPhoto?: FormData): Observable<any> {
     const headers = new Headers();
-    headers.append('Content-Type', 'application/json');
     headers.append('Authorization', 'Bearer ' + this.auth.token);
+
+    const options = new RequestOptions({ headers });
 
     const author = JSON.parse(localStorage.getItem('currentUser'));
 
     const post = {
       text: edits,
-      title: this.title,
-      description: this.description,
+      title: title,
+      description: description,
       tags,
       author: author.username
     };
 
-    const options = new RequestOptions({ headers });
-
-    return this.http.put(this.editorUrl + this.id, post, options)
-                    .map(this.extractData)
-                    .catch(this.handleError);
+    if (coverPhoto) {
+      return Observable.forkJoin(
+        this.http.put(this.editorUrl + this.id, post, options).map(this.extractData).catch(this.handleError),
+        this.http.post(this.editorUrl + this.id, coverPhoto, options).map(this.extractData).catch(this.handleError)
+      );
+    } else {
+      return Observable.forkJoin(
+        this.http.put(this.editorUrl + this.id, post, options).map(this.extractData).catch(this.handleError)
+      );
+    }
   }
 
   deleteArticle(article): Observable<boolean> {

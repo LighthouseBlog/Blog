@@ -1,1 +1,21 @@
 /* You can add global styles to this file, and also import other style files */
+.vertical-spacer {
+  width: 100%;
+  display: block;
+  clear: all;
+  padding-top: 2em;
+}
+
+.vertical-half-spacer {
+  width: 100%;
+  display: block;
+  clear: all;
+  padding-top: 1em;
+}
+
+.vertical-quarter-spacer {
+  width: 100%;
+  display: block;
+  clear: all;
+  padding-top: 0.5em;
+}

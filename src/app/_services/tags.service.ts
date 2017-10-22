@@ -7,48 +7,26 @@ import 'rxjs/add/operator/map';
 
 import { AuthenticationService } from '../_services/authentication.service';
 import { Article } from '../_models/Article';
-import { ArticleList } from '../_models/ArticleList';
 import { environment } from '../../environments/environment';
 
 @Injectable()
-export class ArticleService {
+export class TagService {
 
-  private blogUrl = environment.URL + '/blog/';
-  private title = '';
-  private id: string;
+  private tagUrl = environment.URL + '/tags/';
 
   constructor(
     private http: Http,
     private auth: AuthenticationService
   ) { }
 
-  setArticleId(id: string) {
-    this.id = id;
-  }
-
-  setArticleTitle(title: string) {
-    this.title = title;
-  }
-
-  getAllArticles(): Observable<Array<Article>> {
-    const headers = new Headers();
-    headers.append('Authorization', 'Bearer ' + this.auth.token);
-
-    const options = new RequestOptions({ headers });
-
-    return this.http.get(this.blogUrl, options)
+  getAllTags(): Observable<Array<String>> {
+    return this.http.get(this.tagUrl)
                     .map(this.extractData)
                     .catch(this.handleError);
   }
 
-  getArticle(id: number): Observable<Article> {
-    return this.http.get(this.blogUrl + id)
-                    .map(this.extractData)
-                    .catch(this.handleError);
-  }
-
-  getArticlesByTitle(title: string): Observable<ArticleList[]> {
-    return this.http.get(this.blogUrl + 'title/' + title)
+  getArticlesByTag(tag: string): Observable<Article> {
+    return this.http.get(this.tagUrl + tag)
                     .map(this.extractData)
                     .catch(this.handleError);
   }

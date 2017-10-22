@@ -1,9 +1,7 @@
 .editor {
   display: flex;
   justify-content: center;
-  align-items: center;
-  flex-direction: column;
-  margin-top: 7vh;
+  flex-direction: row;
 }
 
 .save {
@@ -18,7 +16,7 @@
 }
 
 .form-container {
-  text-align: center;
+  text-align: left;
 }
 
 .editor-form {
@@ -26,23 +24,23 @@
   margin-right: 1vw;
 }
 
-.vertical-spacer {
-  width: 100%;
-  display: block;
-  clear: all;
-  padding-top: 2em;
+.btn-file {
+  position: relative;
+  overflow: hidden;
 }
 
-.vertical-half-spacer {
-  width: 100%;
+.btn-file input[type=file] {
+  position: absolute;
+  top: 0;
+  right: 0;
+  min-width: 100%;
+  min-height: 100%;
+  font-size: 100px;
+  text-align: right;
+  filter: alpha(opacity=0);
+  opacity: 0;
+  outline: none;
+  background: white;
+  cursor: inherit;
   display: block;
-  clear: all;
-  padding-top: 1em;
-}
-
-.vertical-quarter-spacer {
-  width: 100%;
-  display: block;
-  clear: all;
-  padding-top: 0.5em;
 }
