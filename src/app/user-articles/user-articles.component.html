@@ -2,12 +2,8 @@
   <button mat-raised-button class="create" (click)="createArticle()" color="accent">
     New Article
   </button>
-  <ng2-smart-table
-    [settings]="settings" 
-    [source]="source"
-    (edit)="onEdit($event)"
-    (delete)="onDelete($event)">
-  </ng2-smart-table>
+  <span class="vertical-spacer"></span>
+  <app-article-list></app-article-list>
 </div>
 
 <router-outlet></router-outlet>

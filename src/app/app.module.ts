@@ -37,6 +37,8 @@ import { ArticleComponent } from './article/article.component';
 import { DeleteArticleModalComponent } from './delete-article-modal/delete-article-modal.component';
 import { SettingsModalComponent } from './settings-modal/settings-modal.component';
 import { MaterialModule } from './material.module';
+import { ArticleListComponent } from './user-articles/article-list/article-list.component';
+
 
 @NgModule({
   declarations: [
@@ -51,6 +53,7 @@ import { MaterialModule } from './material.module';
     ArticleComponent,
     DeleteArticleModalComponent,
     SettingsModalComponent,
+    ArticleListComponent,
     FileValidator,
     FileValueAccessor,
     TagComponent
