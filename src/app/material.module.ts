@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { MatAutocompleteModule, MatGridListModule, MatDialogModule, MatInputModule, MatSelectModule,
   MatMenuModule, MatSidenavModule, MatToolbarModule, MatListModule,
   MatCardModule, MatButtonModule, MatIconModule, MatSnackBarModule, MatTableModule,
-  NoConflictStyleCompatibilityMode, MatChipsModule, MatProgressSpinnerModule } from '@angular/material';
+  NoConflictStyleCompatibilityMode, MatChipsModule, MatProgressSpinnerModule, MatSortModule } from '@angular/material';
 
 @NgModule({
   imports: [
@@ -21,6 +21,7 @@ import { MatAutocompleteModule, MatGridListModule, MatDialogModule, MatInputModu
     MatSnackBarModule,
     MatTableModule,
     MatChipsModule,
+    MatSortModule,
     MatProgressSpinnerModule,
     NoConflictStyleCompatibilityMode
   ],
