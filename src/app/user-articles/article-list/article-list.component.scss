@@ -5,3 +5,31 @@
 .mat-header-cell .mat-sort-header-sorted {
   color: black;
 }
+
+.table-container {
+  display: flex;
+  flex-direction: column;
+  min-width: 300px;
+  margin: 0 auto;
+  max-width: 90%;
+}
+
+.table-header {
+  min-height: 64px;
+  display: flex;
+  align-items: baseline;
+  padding: 8px 24px 0;
+  font-size: 20px;
+  justify-content: space-between;
+}
+
+.mat-form-field {
+  font-size: 14px;
+  flex-grow: 1;
+  margin-left: 32px;
+}
+
+.mat-table {
+  overflow: auto;
+  max-height: 500px;
+}

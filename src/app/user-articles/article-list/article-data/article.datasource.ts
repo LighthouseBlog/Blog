@@ -1,36 +1,61 @@
 import { DataSource } from '@angular/cdk/collections';
-import { MatSort } from '@angular/material';
+import { MatSort, MatPaginator } from '@angular/material';
 import {Observable} from 'rxjs/Observable';
 import 'rxjs/add/operator/startWith';
 import 'rxjs/add/observable/merge';
+import 'rxjs/add/observable/concat';
+import 'rxjs/add/observable/of';
 import 'rxjs/add/operator/map';
 
 import { Article } from '../../../_models/Article';
 import { AuthorService } from '../../../_services/author.service';
+import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 
-export class ArticleDataSource extends DataSource<any> {
-  private articleData: Article[]
+export class ArticleDataSource extends DataSource<Article> {
+  public articleData: Article[];
 
-  constructor(private authorService: AuthorService, private sort: MatSort) {
+  _filterChange = new BehaviorSubject('');
+  get filter(): string { return this._filterChange.value; }
+  set filter(filter: string) {
+    this._filterChange.next(filter);
+  }
+  filteredData: Article[];
+
+  constructor(private authorService: AuthorService, private sort: MatSort, private paginator: MatPaginator) {
     super();
+    this.articleData = [];
   }
 
   connect(): Observable<Article[]> {
     const displayDataChanges = [
       this.authorService.getArticlesByAuthor(),
-      this.sort.sortChange.asObservable(),
+      this._filterChange,
+      this.paginator.page
     ];
 
-    return Observable.merge(...displayDataChanges).map((data) => {
-      this.articleData = data;
-      return this.getSortedData();
+    return Observable.concat(...displayDataChanges).map((data, index) => {
+      console.log('Data', data);
+      if (index === 0) {
+        this.articleData = data;
+      }
+      const filteredData = this.articleData.slice().filter((article: Article) => {
+        const searchStr = (article.title).toLowerCase();
+        return searchStr.indexOf(this.filter.toLowerCase()) !== -1;
+      });
+
+      const startIndex = this.paginator.pageIndex * this.paginator.pageSize;
+      return filteredData.splice(startIndex, this.paginator.pageSize);
     });
+  }
+
+  get articleDataLength(): Number {
+    return this.articleData.length;
   }
 
   disconnect() {}
 
-  getSortedData(): Article[] {
-    const data = this.articleData.slice();
+  getSortedData(articles: Article[]): Article[] {
+    const data = articles.slice();
     if (!this.sort.active || this.sort.direction === '') {
       return data;
     }
