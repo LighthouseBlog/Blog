@@ -42,6 +42,7 @@ import { MatAutocompleteModule, MatGridListModule, MatDialogModule, MatInputModu
     MatSnackBarModule,
     MatTableModule,
     MatChipsModule,
+    MatSortModule,
     MatProgressSpinnerModule,
     MatPaginatorModule,
     NoConflictStyleCompatibilityMode

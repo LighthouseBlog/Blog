@@ -12,49 +12,53 @@ import { AuthorService } from '../../../_services/author.service';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 
 export class ArticleDataSource extends DataSource<Article> {
-  public articleData: Article[];
 
-  _filterChange = new BehaviorSubject('');
+  private _filterChange = new BehaviorSubject('');
   get filter(): string { return this._filterChange.value; }
   set filter(filter: string) {
     this._filterChange.next(filter);
   }
-  filteredData: Article[];
 
-  constructor(private authorService: AuthorService, private sort: MatSort, private paginator: MatPaginator) {
+  constructor(private dataSubject: BehaviorSubject<Article[]>, private sort: MatSort, private paginator: MatPaginator) {
     super();
-    this.articleData = [];
   }
 
   connect(): Observable<Article[]> {
     const displayDataChanges = [
-      this.authorService.getArticlesByAuthor(),
+      this.dataSubject,
+      this.paginator.page,
       this._filterChange,
-      this.paginator.page
+      this.sort.sortChange
     ];
 
-    return Observable.concat(...displayDataChanges).map((data, index) => {
-      console.log('Data', data);
-      if (index === 0) {
-        this.articleData = data;
-      }
-      const filteredData = this.articleData.slice().filter((article: Article) => {
-        const searchStr = (article.title).toLowerCase();
-        return searchStr.indexOf(this.filter.toLowerCase()) !== -1;
-      });
+    return Observable.merge(...displayDataChanges).map(() => {
+      const articleData = this.dataSubject.value.slice()
 
-      const startIndex = this.paginator.pageIndex * this.paginator.pageSize;
-      return filteredData.splice(startIndex, this.paginator.pageSize);
+      const filteredData = this.filterData(articleData);
+      const sortedData = this.sortData(filteredData);
+      const paginatedData = this.paginateData(sortedData);
+
+      return paginatedData;
     });
   }
 
-  get articleDataLength(): Number {
-    return this.articleData.length;
+  disconnect() {
+    this._filterChange.complete();
   }
 
-  disconnect() {}
+  filterData(articles: Article[]): Article[] {
+    return articles.filter((article: Article) => {
+      const searchStr = (article.title).toLowerCase();
+      return searchStr.indexOf(this.filter.toLowerCase()) !== -1;
+    });
+  }
 
-  getSortedData(articles: Article[]): Article[] {
+  paginateData(articles: Article[]): Article[] {
+    const startIndex = this.paginator.pageIndex * this.paginator.pageSize;
+    return articles.splice(startIndex, this.paginator.pageSize);
+  }
+
+  sortData(articles: Article[]): Article[] {
     const data = articles.slice();
     if (!this.sort.active || this.sort.direction === '') {
       return data;
