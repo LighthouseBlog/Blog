@@ -23,6 +23,15 @@
       <mat-cell *matCellDef="let row"> {{row.datePosted | date:'longDate'}} </mat-cell>
     </ng-container>
 
+    <ng-container matColumnDef="actions">
+        <mat-header-cell *matHeaderCellDef mat-sort-header> Actions </mat-header-cell>
+        <mat-cell *matCellDef="let row">
+            <button mat-button class="action-button" (click)="viewArticle(row)">View</button>
+            <button mat-button class="action-button" (click)="editArticle(row)">Edit</button>
+            <button mat-button class="action-button" (click)="deleteArticle(row)">Delete</button>
+        </mat-cell>
+      </ng-container>
+
     <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
     <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
   </mat-table>

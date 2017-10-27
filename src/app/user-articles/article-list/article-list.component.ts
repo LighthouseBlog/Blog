@@ -10,6 +10,7 @@ import 'rxjs/add/observable/fromEvent';
 import { AuthorService } from '../../_services/author.service';
 import { ArticleDataSource } from './article-data/article.datasource';
 import { Article } from '../../_models/Article';
+import { DeleteArticleModalComponent } from '../../delete-article-modal/delete-article-modal.component';
 
 @Component({
   selector: 'app-article-list',
@@ -30,7 +31,7 @@ export class ArticleListComponent implements OnInit {
     private authorService: AuthorService,
     private router: Router
   ) {
-    this.displayedColumns = ['title', 'description', 'datePosted']
+    this.displayedColumns = ['title', 'description', 'datePosted', 'actions']
   }
 
   ngOnInit() {
@@ -45,5 +46,26 @@ export class ArticleListComponent implements OnInit {
         if (!this.dataSource) { return; }
         this.dataSource.filter = this.filter.nativeElement.value;
       });
+  }
+
+  viewArticle(article: Article) {
+    console.log('Viewing article', article);
+  }
+
+  editArticle(article: Article) {
+    const id = article._id;
+    this.router.navigateByUrl('/edit/' + id);
+  }
+
+  deleteArticle(article: Article) {
+    console.log('Deleting article', article);
+    const dialogRef = this.dialog.open(DeleteArticleModalComponent, {
+      data: article,
+      height: '40vh',
+      width: '40vw'
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      // this.source.remove(e.data);
+    });
   }
 }

@@ -33,3 +33,12 @@
   overflow: auto;
   max-height: 500px;
 }
+
+.action-button {
+  border: 1px solid black;
+  max-width: 75px;
+  max-height: 40px;
+  min-width: 60px;
+  min-height: 35px;
+  padding: 0px 5px;
+}
