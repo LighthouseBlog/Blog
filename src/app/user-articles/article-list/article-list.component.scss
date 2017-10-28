@@ -1,0 +1,44 @@
+.mat-table {
+  max-height: 500px;
+}
+
+.mat-header-cell .mat-sort-header-sorted {
+  color: black;
+}
+
+.table-container {
+  display: flex;
+  flex-direction: column;
+  min-width: 300px;
+  margin: 0 auto;
+  max-width: 90%;
+}
+
+.table-header {
+  min-height: 64px;
+  display: flex;
+  align-items: baseline;
+  padding: 8px 24px 0;
+  font-size: 20px;
+  justify-content: space-between;
+}
+
+.mat-form-field {
+  font-size: 14px;
+  flex-grow: 1;
+  margin-left: 32px;
+}
+
+.mat-table {
+  overflow: auto;
+  max-height: 500px;
+}
+
+.action-button {
+  border: 1px solid black;
+  max-width: 75px;
+  max-height: 40px;
+  min-width: 60px;
+  min-height: 35px;
+  padding: 0px 5px;
+}

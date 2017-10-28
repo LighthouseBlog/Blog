@@ -7,7 +7,6 @@ import { MatGridListModule, MatDialogModule } from '@angular/material';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import { FroalaEditorModule, FroalaViewModule } from 'angular2-froala-wysiwyg';
 import 'hammerjs';
-import { Ng2SmartTableModule } from 'ng2-smart-table';
 
 import { AppComponent } from './app.component';
 import { NavBarComponent } from './nav-bar/nav-bar.component';
@@ -37,6 +36,8 @@ import { ArticleComponent } from './article/article.component';
 import { DeleteArticleModalComponent } from './delete-article-modal/delete-article-modal.component';
 import { SettingsModalComponent } from './settings-modal/settings-modal.component';
 import { MaterialModule } from './material.module';
+import { ArticleListComponent } from './user-articles/article-list/article-list.component';
+
 
 @NgModule({
   declarations: [
@@ -51,6 +52,7 @@ import { MaterialModule } from './material.module';
     ArticleComponent,
     DeleteArticleModalComponent,
     SettingsModalComponent,
+    ArticleListComponent,
     FileValidator,
     FileValueAccessor,
     TagComponent
@@ -65,8 +67,7 @@ import { MaterialModule } from './material.module';
     Router,
     FroalaEditorModule.forRoot(),
     FroalaViewModule.forRoot(),
-    MaterialModule,
-    Ng2SmartTableModule
+    MaterialModule
   ],
   entryComponents: [
     CreateArticleModalComponent,
