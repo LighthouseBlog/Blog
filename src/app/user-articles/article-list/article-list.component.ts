@@ -49,7 +49,7 @@ export class ArticleListComponent implements OnInit {
   }
 
   viewArticle(article: Article) {
-    console.log('Viewing article', article);
+    this.router.navigateByUrl('/article/' + article._id);
   }
 
   editArticle(article: Article) {
@@ -57,15 +57,14 @@ export class ArticleListComponent implements OnInit {
     this.router.navigateByUrl('/edit/' + id);
   }
 
-  deleteArticle(article: Article) {
-    console.log('Deleting article', article);
+  deleteArticle(article: Article, articles: Article[]) {
     const dialogRef = this.dialog.open(DeleteArticleModalComponent, {
       data: article,
       height: '40vh',
       width: '40vw'
     });
-    dialogRef.afterClosed().subscribe(result => {
-      // this.source.remove(e.data);
+    dialogRef.afterClosed().subscribe(() => {
+      this.dataSubject.next(articles.filter(a => a !== article));
     });
   }
 }
