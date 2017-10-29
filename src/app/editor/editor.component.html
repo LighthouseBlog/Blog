@@ -2,7 +2,8 @@
     <section class="section">
         <div class="container">
             <form #f="ngForm" [formGroup]="formGroup" (ngSubmit)="saveArticle(f.value, f.valid)" (keydown.enter)="$event.preventDefault()" novalidate>
-              <button mat-raised-button type="submit" [disabled]="!f.valid" color="accent" class="save"> Save Article </button>
+              <button mat-raised-button type="submit" [disabled]="!f.valid" color="primary" class="save"> Save Article </button>
+              <button mat-raised-button [disabled]="!f.valid" color="warn" class="save" (click)="publishArticle()"> Publish Article </button>
               <mat-input-container class="form-input">
                 <input matInput type="text" placeholder="Article Title" formControlName="articleTitle" required />
                 <mat-error *ngIf="formGroup.hasError('required', ['articleTitle'])">Article Title is required</mat-error>

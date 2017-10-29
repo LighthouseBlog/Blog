@@ -32,6 +32,7 @@ Issue Number: N/A
 [ ] Yes
 [ ] No
 ```
+If yes, is the package.json file updated accordingly
 
 <!-- If this PR contains a breaking change, please describe the impact and migration path for existing applications below. -->
 

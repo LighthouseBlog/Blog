@@ -86,9 +86,16 @@ export class EditorService {
     }
   }
 
+  publishArticle(): Observable<any> {
+    const headers = new Headers();
+    headers.append('Authorization', 'Bearer ' + this.auth.token);
+
+    const options = new RequestOptions({ headers });
+    return this.http.put(this.editorUrl + this.id, { isPublished: true }, options).map(this.extractData).catch(this.handleError)
+  }
+
   deleteArticle(article): Observable<boolean> {
     const headers = new Headers();
-    headers.append('Content-Type', 'application/json');
     headers.append('Authorization', 'Bearer ' + this.auth.token);
 
     const author = JSON.parse(localStorage.getItem('currentUser'));
@@ -102,7 +109,6 @@ export class EditorService {
 
   convertToHtml(url: string): Observable<Gist> {
     const headers = new Headers();
-    headers.append('Content-Type', 'application/json');
     headers.append('Authorization', 'Bearer ' + this.auth.token);
 
     const options = new RequestOptions({ headers });
@@ -121,7 +127,6 @@ export class EditorService {
       return Observable.of([]);
     }
     const headers = new Headers();
-    headers.append('Content-Type', 'application/json');
     headers.append('Authorization', 'Bearer ' + this.auth.token);
 
     const options = new RequestOptions({ headers });
@@ -138,7 +143,6 @@ export class EditorService {
 
   addTag(tag: string): Observable<Response> {
     const headers = new Headers();
-    headers.append('Content-Type', 'application/json');
     headers.append('Authorization', 'Bearer ' + this.auth.token);
 
     const options = new RequestOptions({ headers });
