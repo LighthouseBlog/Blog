@@ -4,7 +4,13 @@
       <input matInput #filter placeholder="Filter articles">
     </mat-form-field>
   </div>
-  <mat-table #table [dataSource]="dataSource" matSort>    
+  <mat-table #table [dataSource]="dataSource" matSort>
+    <ng-container matColumnDef="isPublished">
+      <mat-header-cell *matHeaderCellDef class="icon-column"></mat-header-cell>
+      <mat-cell *matCellDef="let row" class="icon-column">
+         <mat-icon *ngIf="row.isPublished">cloud_done</mat-icon>
+      </mat-cell>
+    </ng-container> 
     <!-- Title Column -->
     <ng-container matColumnDef="title">
       <mat-header-cell *matHeaderCellDef mat-sort-header> Title </mat-header-cell>

@@ -31,7 +31,7 @@ export class ArticleListComponent implements OnInit {
     private authorService: AuthorService,
     private router: Router
   ) {
-    this.displayedColumns = ['title', 'description', 'datePosted', 'actions']
+    this.displayedColumns = ['isPublished', 'title', 'description', 'datePosted', 'actions']
   }
 
   ngOnInit() {
