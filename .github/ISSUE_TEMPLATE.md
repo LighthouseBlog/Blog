@@ -16,18 +16,15 @@ ISSUES MISSING IMPORTANT INFORMATION MAY BE CLOSED WITHOUT INVESTIGATION.
 ## Current behavior
 <!-- Describe how the issue manifests. -->
 
-
 ## Expected behavior
 <!-- Describe what the desired behavior would be. -->
 
 ## What is the motivation for this change?
 <!-- Describe the motivation or the concrete use case. -->
 
-
 ## Environment
 
 <pre><code>
-
 Browser:
 - [ ] Chrome (desktop) version XX
 - [ ] Firefox version XX
