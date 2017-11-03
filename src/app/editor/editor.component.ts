@@ -161,6 +161,19 @@ export class EditorComponent implements OnInit {
     }
   }
 
+  publishArticle() {
+    this.editorService.publishArticle()
+    .subscribe(result => {
+      this.snackBar.open('Successfully published article', '', {
+        duration: 4000
+      });
+    }, error => {
+      this.snackBar.open('There was an error while attempting to publish this article', '', {
+        duration: 4000
+      });
+    });
+  }
+
   filterTags(text: string): Observable<string[]> {
     return this.editorService.getTags(text);
   }
