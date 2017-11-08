@@ -1,6 +1,6 @@
 # Lighthouse Blog [![Build Status](https://travis-ci.org/LighthouseBlog/Blog.svg?branch=master)](https://travis-ci.org/LighthouseBlog/Blog)
 
-[![Greenkeeper badge](https://badges.greenkeeper.io/LighthouseBlog/Blog.svg)](https://greenkeeper.io/)
+[![Greenkeeper badge](https://badges.greenkeeper.io/LighthouseBlog/Blog.svg)](https://greenkeeper.io/) [![Build Status](https://travis-ci.org/LighthouseBlog/Blog.svg?branch=master)](https://travis-ci.org/LighthouseBlog/Blog)
 
 ### Authors
 Sam Pastoriza
@@ -9,13 +9,6 @@ Sam Pastoriza
 This is my personal blog that documents everything that I have questions about and did not find simple answers to. Every article is supplemented by a github repository belonging to the LighthouseBlog organization that I started and will be maintained.
 
 ### Future Plans
-
-#### Development Side
-* Add an extension to the editor to allow for Gists and Github links
-* Allow for profile pictures
-* Allow for tags once angular material 2 allows for multi select
-* Add Google analytics extension
-* Full support Froala Editor
 
 #### Blog Topics
 At some point, I will complete all or most of these topics
