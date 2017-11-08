@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { MatAutocompleteModule, MatGridListModule, MatDialogModule, MatInputModule, MatSelectModule,
   MatMenuModule, MatSidenavModule, MatToolbarModule, MatListModule,
   MatCardModule, MatButtonModule, MatIconModule, MatSnackBarModule, MatTableModule,
-  NoConflictStyleCompatibilityMode, MatChipsModule, MatProgressSpinnerModule, MatSortModule, MatPaginatorModule } from '@angular/material';
+  MatChipsModule, MatProgressSpinnerModule, MatSortModule, MatPaginatorModule } from '@angular/material';
 
 @NgModule({
   imports: [
@@ -23,8 +23,7 @@ import { MatAutocompleteModule, MatGridListModule, MatDialogModule, MatInputModu
     MatChipsModule,
     MatSortModule,
     MatProgressSpinnerModule,
-    MatPaginatorModule,
-    NoConflictStyleCompatibilityMode
+    MatPaginatorModule
   ],
   exports: [
     MatAutocompleteModule,
@@ -44,8 +43,7 @@ import { MatAutocompleteModule, MatGridListModule, MatDialogModule, MatInputModu
     MatChipsModule,
     MatSortModule,
     MatProgressSpinnerModule,
-    MatPaginatorModule,
-    NoConflictStyleCompatibilityMode
+    MatPaginatorModule
   ]
 })
 export class MaterialModule { }
