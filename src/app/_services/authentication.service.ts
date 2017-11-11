@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Http, Headers, Response, RequestOptions } from '@angular/http';
+import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/map';
 import { environment } from '../../environments/environment';
@@ -13,7 +13,7 @@ export class AuthenticationService {
     private expirationUrl = this.jwtUrl + '/expired';
 
     constructor(
-      private http: Http) {
+      private http: HttpClient) {
         // set token if saved in local storage
         try {
             const currentUser = JSON.parse(localStorage.getItem('currentUser'));

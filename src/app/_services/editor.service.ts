@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Http, Response, RequestOptions, Headers } from '@angular/http';
+import { HttpClient } from '@angular/common/http';
 
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/catch';
@@ -21,7 +21,7 @@ export class EditorService {
   private id: string;
 
   constructor(
-    private http: Http,
+    private http: HttpClient,
     private auth: AuthenticationService
   ) { }
 
@@ -38,9 +38,9 @@ export class EditorService {
   }
 
   createArticle(): Observable<boolean> {
-    const headers = new Headers();
-    headers.append('Content-Type', 'application/json');
-    headers.append('Authorization', 'Bearer ' + this.auth.token);
+    // const headers = new Headers();
+    // headers.append('Content-Type', 'application/json');
+    // headers.append('Authorization', 'Bearer ' + this.auth.token);
 
     const author = JSON.parse(localStorage.getItem('currentUser'));
 
@@ -51,18 +51,16 @@ export class EditorService {
       author: author.username
     };
 
-    const options = new RequestOptions({ headers });
+    // const options = new RequestOptions({ headers });
 
-    return this.http.post(this.editorUrl, post, options)
-                    .map(this.extractData)
-                    .catch(this.handleError);
+    return this.http.post<boolean>(this.editorUrl, post);
   }
 
   saveArticle(edits: string, title: string, description: string, tags: string[], coverPhoto?: FormData): Observable<any> {
-    const headers = new Headers();
-    headers.append('Authorization', 'Bearer ' + this.auth.token);
+    // const headers = new Headers();
+    // headers.append('Authorization', 'Bearer ' + this.auth.token);
 
-    const options = new RequestOptions({ headers });
+    // const options = new RequestOptions({ headers });
 
     const author = JSON.parse(localStorage.getItem('currentUser'));
 
@@ -76,12 +74,12 @@ export class EditorService {
 
     if (coverPhoto) {
       return Observable.forkJoin(
-        this.http.put(this.editorUrl + this.id, post, options).map(this.extractData).catch(this.handleError),
-        this.http.post(this.editorUrl + this.id, coverPhoto, options).map(this.extractData).catch(this.handleError)
+        this.http.put(this.editorUrl + this.id, post),
+        this.http.post(this.editorUrl + this.id, coverPhoto)
       );
     } else {
       return Observable.forkJoin(
-        this.http.put(this.editorUrl + this.id, post, options).map(this.extractData).catch(this.handleError)
+        this.http.put(this.editorUrl + this.id, post)
       );
     }
   }
