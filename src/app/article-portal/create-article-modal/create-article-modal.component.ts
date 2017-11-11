@@ -1,16 +1,16 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, FormControl, Validators, FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
 import { MatDialogRef } from '@angular/material';
 
-import { EditorService } from '../_services/editor.service';
+import { EditorService } from 'app/_services/editor.service';
 
 @Component({
   selector: 'app-create-article-modal',
   templateUrl: './create-article-modal.component.html',
   styleUrls: ['./create-article-modal.component.scss']
 })
-export class CreateArticleModalComponent implements OnInit {
+export class CreateArticleModalComponent {
 
   title = 'Create a new article';
   formGroup: FormGroup;
@@ -25,9 +25,6 @@ export class CreateArticleModalComponent implements OnInit {
       'articleTitle': new FormControl('', Validators.required),
       'articleDescription': new FormControl('', Validators.required)
     });
-  }
-
-  ngOnInit() {
   }
 
   create(formValue: any, isFormValid: boolean) {

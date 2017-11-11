@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-
-import { ArticleService } from '../_services/article.service';
-import { AuthorService } from '../_services/author.service';
 import { ActivatedRoute } from '@angular/router';
+
+import { ArticleService } from 'app/_services/article.service';
+import { AuthorService } from 'app/_services/author.service';
 
 @Component({
   selector: 'app-article',

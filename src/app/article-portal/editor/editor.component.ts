@@ -5,14 +5,14 @@ import { MatSnackBar } from '@angular/material';
 
 import { Observable } from 'rxjs/Observable';
 
-import { EditorService } from '../_services/editor.service';
-import { ArticleService } from '../_services/article.service';
-import { ImagesService } from '../_services/images.service';
+import { EditorService } from 'app/_services/editor.service';
+import { ArticleService } from 'app/_services/article.service';
+import { ImagesService } from 'app/_services/images.service';
 
-import initializeFroalaGistPlugin from '../_plugins/gist.plugin'
+import initializeFroalaGistPlugin from 'app/_plugins/gist.plugin'
 
-import { environment } from '../../environments/environment';
-import { FileValidator } from '../_directives/fileValidator.directive';
+import { environment } from 'environments/environment';
+import { FileValidator } from 'app/_directives/fileValidator.directive';
 
 @Component({
   selector: 'app-editor',

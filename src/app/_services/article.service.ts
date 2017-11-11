@@ -31,11 +31,6 @@ export class ArticleService {
   }
 
   getAllArticles(): Observable<Array<Article>> {
-    // const headers = new Headers();
-    // headers.append('Authorization', 'Bearer ' + this.auth.token);
-
-    // const options = new RequestOptions({ headers });
-
     return this.http.get<Array<Article>>(this.blogUrl);
   }
 

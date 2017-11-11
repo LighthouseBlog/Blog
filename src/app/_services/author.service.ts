@@ -23,23 +23,11 @@ export class AuthorService {
   ) { }
 
   getAuthor(username: string = this.getAuthorUsername()): Observable<Author> {
-    // const headers = new Headers();
-    // headers.append('Authorization', 'Bearer ' + this.auth.token);
-
-    // const options = new RequestOptions({ headers });
-
     return this.http.get<Author>(this.authorUrl + username);
   }
 
   getArticlesByAuthor(): Observable<Array<Article>> {
-    // const headers = new Headers();
-    // headers.append('Content-Type', 'application/json');
-    // headers.append('Authorization', 'Bearer ' + this.auth.token);
-
     const author = JSON.parse(localStorage.getItem('currentUser')).username;
-
-    // const options = new RequestOptions({ headers });
-
     return this.http.get<Array<Article>>(this.articlesUrl + author);
   }
 
@@ -55,13 +43,6 @@ export class AuthorService {
   }
 
   updateUserSettings(username: string, name: string, email: string, profilePicture?: FormData): Observable<any> {
-    // const headers = new Headers();
-    // headers.append('Authorization', 'Bearer ' + this.auth.token);
-
-    // const options = new RequestOptions({
-    //   headers
-    // });
-
     const body = {
       name,
       email

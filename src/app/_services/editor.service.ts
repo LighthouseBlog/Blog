@@ -57,11 +57,6 @@ export class EditorService {
   }
 
   saveArticle(edits: string, title: string, description: string, tags: string[], coverPhoto?: FormData): Observable<any> {
-    // const headers = new Headers();
-    // headers.append('Authorization', 'Bearer ' + this.auth.token);
-
-    // const options = new RequestOptions({ headers });
-
     const author = JSON.parse(localStorage.getItem('currentUser'));
 
     const post = {

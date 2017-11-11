@@ -23,32 +23,36 @@ export class AuthenticationService {
         }
     }
 
+    getBearer() {
+        return `Bearer ${this.token}`;
+    }
+
     login(username: string, password: string): Observable<boolean> {
-        const headers = new Headers();
-        headers.append('Authorization', username + ':' + password);
+        // const headers = new Headers();
+        // headers.append('Authorization', username + ':' + password);
 
-        const options = new RequestOptions({
-          headers
-        });
+        // const options = new RequestOptions({
+        //   headers
+        // });
 
-        return this.http.post(this.loginUrl, {}, options)
-            .map((response: Response) => {
-                const token = response.json() && response.json().token;
-                if (token) {
-                    this.token = token;
-                    localStorage.setItem('currentUser', JSON.stringify({ username: username, token: token }));
-                    return true;
-                } else {
-                    return false;
-                }
-            });
+        // return this.http.post(this.loginUrl, {}, options)
+        //     .map((response: Response) => {
+        //         const token = response.json() && response.json().token;
+        //         if (token) {
+        //             this.token = token;
+        //             localStorage.setItem('currentUser', JSON.stringify({ username: username, token: token }));
+        //             return true;
+        //         } else {
+        //             return false;
+        //         }
+        //     });
     }
 
     register(username: string, password: string, email: string, name: string): Observable<boolean> {
 
         return this.http.post(this.registerUrl, {username, password, email, name})
             .map((response: Response) => {
-                const token = response.json() && response.json().token;
+                const token = response.token;
                 if (token) {
                     this.token = token;
                     localStorage.setItem('currentUser', JSON.stringify({ username: username, token: token }));
@@ -62,12 +66,12 @@ export class AuthenticationService {
     checkJwtExpiration(): Promise<string> {
         return new Promise((resolve, reject) => {
             if (this.token) {
-                const headers = new Headers();
-                headers.append('Authorization', 'Bearer ' + this.token);
+                // const headers = new Headers();
+                // headers.append('Authorization', 'Bearer ' + this.token);
 
-                const options = new RequestOptions({ headers });
+                // const options = new RequestOptions({ headers });
 
-                this.http.post(this.expirationUrl, {}, options)
+                this.http.post(this.expirationUrl, {})
                     .subscribe((response: Response) => {
                         resolve('Token is not expired');
                     }, error => {

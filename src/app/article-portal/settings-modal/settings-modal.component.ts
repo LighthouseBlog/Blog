@@ -2,9 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms';
 import { MatDialogRef, MatSnackBar } from '@angular/material';
 
-import { AuthenticationService } from '../_services/authentication.service';
-import { AuthorService } from '../_services/author.service';
-import { FileValidator } from '../_directives/fileValidator.directive';
+import { AuthenticationService } from 'app/_services/authentication.service';
+import { AuthorService } from 'app/_services/author.service';
+import { FileValidator } from 'app/_directives/fileValidator.directive';
 
 @Component({
   selector: 'app-settings-modal',

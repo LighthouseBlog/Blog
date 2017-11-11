@@ -1,9 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { MatDialogRef, MatSnackBar } from '@angular/material';
 
-import { AuthenticationService } from '../_services/authentication.service';
+import { AuthenticationService } from 'app/_services/authentication.service';
 
 // pg 225 Angular 2 Development with Typescript
 function equalValidator({value}: FormGroup): {[key: string]: any} {
@@ -17,7 +17,7 @@ function equalValidator({value}: FormGroup): {[key: string]: any} {
   templateUrl: './register-modal.component.html',
   styleUrls: ['./register-modal.component.scss']
 })
-export class RegisterModalComponent implements OnInit {
+export class RegisterModalComponent {
 
   title = 'Register';
   public registerGroup: FormGroup;
@@ -38,9 +38,6 @@ export class RegisterModalComponent implements OnInit {
         'confirmPassword': new FormControl(''),
       }, {validator: equalValidator})
     });
-  }
-
-  ngOnInit() {
   }
 
   register(formValue: any, isFormValid: boolean) {

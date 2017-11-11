@@ -20,11 +20,6 @@ export class ImagesService {
   ) { }
 
   getHash(): Observable<string> {
-    // const headers = new Headers();
-    // headers.append('Authorization', 'Bearer ' + this.auth.token);
-
-    // const options = new RequestOptions({ headers });
-
     return this.http.get<string>(this.imagesUrl + 'gethash');
   }
 

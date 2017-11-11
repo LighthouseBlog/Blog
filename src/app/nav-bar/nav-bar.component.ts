@@ -4,13 +4,13 @@ import { MatDialog } from '@angular/material';
 
 import { Observable } from 'rxjs/Observable';
 
-import { AuthenticationService } from '../_services/authentication.service';
-import { AuthorService } from '../_services/author.service';
-import { environment } from '../../environments/environment';
+import { AuthenticationService } from 'app/_services/authentication.service';
+import { AuthorService } from 'app/_services/author.service';
+import { environment } from 'environments/environment';
 
-import { LoginModalComponent } from '../login-modal/login-modal.component';
-import { RegisterModalComponent } from '../register-modal/register-modal.component';
-import { SettingsModalComponent } from '../settings-modal/settings-modal.component';
+import { LoginModalComponent } from 'app/public/login-modal/login-modal.component';
+import { RegisterModalComponent } from 'app/public/register-modal/register-modal.component';
+import { SettingsModalComponent } from 'app/article-portal/settings-modal/settings-modal.component';
 
 @Component({
   selector: 'app-nav-bar',
