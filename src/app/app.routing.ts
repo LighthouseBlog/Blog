@@ -3,6 +3,7 @@ import { UserArticlesComponent } from 'app/article-portal/user-articles/user-art
 import { EditorComponent } from 'app/article-portal/editor/editor.component';
 import { ArticleComponent } from 'app/article/article.component';
 import { AuthGuard } from 'app/_guards/auth.guard';
+import { ArticlesComponent } from 'app/articles/articles.component';
 
 const routes: Routes = [
   {
@@ -18,6 +19,10 @@ const routes: Routes = [
   {
     path: 'article/:id',
     component: ArticleComponent
+  },
+  {
+    path: '',
+    component: ArticlesComponent
   },
   {
     path: '**',

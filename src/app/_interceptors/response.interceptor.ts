@@ -9,11 +9,6 @@ export class ResponseInterceptor implements HttpInterceptor {
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
 
     return next.handle(req)
-      .do((event: HttpEvent<any>) => {
-        if (event instanceof HttpResponse) {
-          console.log('Event', event.body.data);
-        }
-      })
       .catch(err => {
         return Observable.throw(this.handleError(err));
       })

@@ -30,8 +30,9 @@ export class AuthenticationService {
     }
 
     login(username: string, password: string): Observable<boolean> {
-        const headers = new HttpHeaders();
-        headers.append('Authorization', username + ':' + password);
+        const headers = new HttpHeaders({
+            'Authorization': username + ':' + password
+        });
 
         return this.http.post<Token>(this.loginUrl, {}, { headers })
             .map((response: Token) => {

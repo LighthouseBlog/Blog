@@ -84,7 +84,6 @@ export class EditorComponent implements OnInit {
         this.options['imageUploadToS3'] = hash;
 
         this.initControls = initControls;
-        console.log('Initializing!', initControls);
         this.initControls.initialize();
       });
   }

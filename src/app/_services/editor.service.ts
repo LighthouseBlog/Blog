@@ -13,6 +13,7 @@ import { Gist } from 'app/_models/Gist';
 
 import { environment } from 'environments/environment';
 import { Response } from 'app/_models/Response';
+import { Article } from 'app/_models/Article';
 
 @Injectable()
 export class EditorService {
@@ -22,7 +23,7 @@ export class EditorService {
   private tagUrl = environment.URL + '/tags/'
   private title = '';
   private description = '';
-  private id: string;
+  private id: number;
 
   constructor(
     private http: HttpClient,
@@ -30,29 +31,21 @@ export class EditorService {
     private authorService: AuthorService
   ) { }
 
-  setArticleId(id: string) {
+  setArticleId(id: number) {
     this.id = id;
   }
 
-  setArticleTitle(title: string) {
-    this.title = title;
-  }
-
-  setArticleDescription(description: string) {
-    this.description = description;
-  }
-
-  createArticle(): Observable<boolean> {
+  createArticle(title: string, description: string): Observable<Article> {
     const author = this.authorService.getAuthorUsername();
 
     const post = {
       text: 'New Article',
-      title: this.title,
-      description: this.description,
+      title,
+      description,
       author
     };
 
-    return this.http.post<boolean>(this.editorUrl, post);
+    return this.http.post<Article>(this.editorUrl, post);
   }
 
   saveArticle(edits: string, title: string, description: string, tags: string[], coverPhoto?: FormData): Observable<any> {

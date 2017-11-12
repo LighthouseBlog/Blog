@@ -34,15 +34,14 @@ export class CreateArticleModalComponent {
       const articleTitle = formValue['articleTitle'];
       const articleDescription = formValue['articleDescription'];
 
-      this.editorService.setArticleTitle(articleTitle);
-      this.editorService.setArticleDescription(articleDescription);
-
-      this.editorService.createArticle()
+      this.editorService.createArticle(articleTitle, articleDescription)
         .subscribe(results => {
-          if (!isNaN(results['_id'])) {
-            this.editorService.setArticleId(results['_id']);
+          console.log('Results', results);
+          const id = results._id;
+          if (!Number.isNaN(id)) {
+            this.editorService.setArticleId(id);
             this.dialogRef.close('closed');
-            this.router.navigate(['edit', results['_id']]);
+            this.router.navigateByUrl('/edit/' + id);
           } else {
             console.error('An error has occured, the article title was saved.');
           }
