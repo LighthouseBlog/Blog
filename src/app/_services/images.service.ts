@@ -24,11 +24,6 @@ export class ImagesService {
   }
 
   deleteImage(source: string): Observable<string> {
-    // const headers = new Headers();
-    // headers.append('Authorization', 'Bearer ' + this.auth.token);
-
-    // const options = new RequestOptions({headers, body: {src: source} });
-
-    return this.http.delete<string>(this.imagesUrl);
+    return this.http.request<string>('delete', this.imagesUrl, { body: {src: source }});
   }
 }

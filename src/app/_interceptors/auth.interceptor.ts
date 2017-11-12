@@ -6,8 +6,7 @@ import { Observable } from 'rxjs/Observable';
 export class AuthInterceptor implements HttpInterceptor {
 
   private getBearerToken() {
-    const currentUser = JSON.parse(localStorage.getItem('currentUser'));
-    const token = currentUser && currentUser.token;
+    const token = localStorage.getItem('access_token');
     return `Bearer ${token}`;
   }
 

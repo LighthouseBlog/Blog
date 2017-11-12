@@ -77,6 +77,6 @@ export class AuthorService {
   }
 
   public getAuthorUsername(): string {
-    return JSON.parse(localStorage.getItem('currentUser')).username;
+    return localStorage.getItem('currentUser');
   }
 }

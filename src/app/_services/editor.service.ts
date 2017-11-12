@@ -76,7 +76,7 @@ export class EditorService {
   }
 
   deleteArticle(article): Observable<boolean> {
-    const author = JSON.parse(localStorage.getItem('currentUser'));
+    const author = this.authorService.getAuthorUsername();
 
     return this.http.delete<boolean>(this.editorUrl + article._id)
   }

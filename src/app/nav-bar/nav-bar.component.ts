@@ -83,7 +83,7 @@ export class NavBarComponent implements OnInit {
   }
 
   loggedIn() {
-    return localStorage.getItem('currentUser');
+    return this.auth.isAuthenticated();
   }
 
   logout() {
