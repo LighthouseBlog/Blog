@@ -45,7 +45,7 @@ export class EditorService {
       author
     };
 
-    return this.http.post<Article>(this.editorUrl, post);
+    return this.http.post<Response>(this.editorUrl, post).map((res) => Object.assign(new Article(), res.data));
   }
 
   saveArticle(edits: string, title: string, description: string, tags: string[], coverPhoto?: FormData): Observable<any> {
