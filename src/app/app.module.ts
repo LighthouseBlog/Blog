@@ -1,15 +1,15 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { HttpClientModule, HttpClientJsonpModule, HTTP_INTERCEPTORS } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 
-import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import 'hammerjs';
 
 import { AppComponent } from './app.component';
 import { NavBarComponent } from './nav-bar/nav-bar.component';
 
-import {Router} from 'app/app.routing';
+import { Router } from 'app/app.routing';
 
 import { AuthGuard } from 'app/_guards/auth.guard';
 import { AuthenticationService } from 'app/_services/authentication.service';
@@ -19,21 +19,29 @@ import { AuthorService } from 'app/_services/author.service';
 import { ImagesService } from 'app/_services/images.service';
 import { TagService } from 'app/_services/tags.service';
 
-import { FileValidator } from 'app/_directives/fileValidator.directive';
-import { FileValueAccessor } from 'app/_directives/fileValueAccessor.directive';
+import { LoginModalComponent } from './login-modal/login-modal.component';
+import { RegisterModalComponent } from './register-modal/register-modal.component';
+
+import { TagComponent } from './articles/tag/tag.component';
+
+import { ArticlesComponent } from './articles/articles.component';
+import { ArticleComponent } from './article/article.component';
 
 import { ResponseInterceptor } from 'app/_interceptors/response.interceptor';
+import { AuthInterceptor } from 'app/_interceptors/auth.interceptor';
 
 import { MaterialModule } from 'app/material.module';
 import { ArticlePortalModule } from 'app/article-portal/article-portal.module';
-import { PublicModule } from 'app/public/public.module';
 
 @NgModule({
   declarations: [
     AppComponent,
     NavBarComponent,
-    FileValidator,
-    FileValueAccessor
+    LoginModalComponent,
+    RegisterModalComponent,
+    ArticlesComponent,
+    ArticleComponent,
+    TagComponent
   ],
   imports: [
     BrowserAnimationsModule,
@@ -41,11 +49,9 @@ import { PublicModule } from 'app/public/public.module';
     FormsModule,
     ReactiveFormsModule,
     HttpClientModule,
-    HttpClientJsonpModule,
     Router,
     MaterialModule,
-    ArticlePortalModule,
-    PublicModule
+    ArticlePortalModule
   ],
   providers: [
     AuthGuard,
@@ -59,7 +65,16 @@ import { PublicModule } from 'app/public/public.module';
       provide: HTTP_INTERCEPTORS,
       useClass: ResponseInterceptor,
       multi: true
+    },
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: AuthInterceptor,
+      multi: true
     }
+  ],
+  entryComponents: [
+    LoginModalComponent,
+    RegisterModalComponent,
   ],
   bootstrap: [
     AppComponent

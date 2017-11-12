@@ -8,8 +8,8 @@ import { AuthenticationService } from 'app/_services/authentication.service';
 import { AuthorService } from 'app/_services/author.service';
 import { environment } from 'environments/environment';
 
-import { LoginModalComponent } from 'app/public/login-modal/login-modal.component';
-import { RegisterModalComponent } from 'app/public/register-modal/register-modal.component';
+import { LoginModalComponent } from 'app/login-modal/login-modal.component';
+import { RegisterModalComponent } from 'app/register-modal/register-modal.component';
 import { SettingsModalComponent } from 'app/article-portal/settings-modal/settings-modal.component';
 
 @Component({

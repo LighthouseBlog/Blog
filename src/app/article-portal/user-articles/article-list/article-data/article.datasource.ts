@@ -6,10 +6,10 @@ import 'rxjs/add/observable/merge';
 import 'rxjs/add/observable/concat';
 import 'rxjs/add/observable/of';
 import 'rxjs/add/operator/map';
-
-import { Article } from '../../../_models/Article';
-import { AuthorService } from '../../../_services/author.service';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
+
+import { Article } from 'app/_models/Article';
+import { AuthorService } from 'app/_services/author.service';
 
 export class ArticleDataSource extends DataSource<Article> {
 

@@ -10,6 +10,7 @@ import { AuthenticationService } from '../_services/authentication.service';
 import { Article } from '../_models/Article';
 import { Author } from '../_models/Author';
 import { environment } from '../../environments/environment';
+import { Response } from 'app/_models/Response';
 
 @Injectable()
 export class AuthorService {
@@ -23,12 +24,12 @@ export class AuthorService {
   ) { }
 
   getAuthor(username: string = this.getAuthorUsername()): Observable<Author> {
-    return this.http.get<Author>(this.authorUrl + username);
+    return this.http.get<Response>(this.authorUrl + username).map((res) => Object.assign(new Author(), res.data));
   }
 
   getArticlesByAuthor(): Observable<Array<Article>> {
-    const author = JSON.parse(localStorage.getItem('currentUser')).username;
-    return this.http.get<Array<Article>>(this.articlesUrl + author);
+    const author = this.getAuthorUsername();
+    return this.http.get<Response>(this.articlesUrl + author).map((res) => Object.assign(new Array<Article>(), res.data));
   }
 
   getAuthorName(username: string = this.getAuthorUsername()): Promise<string> {
@@ -50,12 +51,12 @@ export class AuthorService {
 
     if (profilePicture) {
       return Observable.forkJoin(
-        this.http.put(this.authorUrl + username, body),
-        this.http.post(this.authorUrl + username, profilePicture)
+        this.http.put<any>(this.authorUrl + username, body),
+        this.http.post<any>(this.authorUrl + username, profilePicture)
       );
     } else {
       return Observable.forkJoin(
-        this.http.put(this.authorUrl + username, body)
+        this.http.put<any>(this.authorUrl + username, body)
       );
     }
   }

@@ -9,6 +9,7 @@ import { AuthenticationService } from '../_services/authentication.service';
 import { Article } from '../_models/Article';
 import { ArticleList } from '../_models/ArticleList';
 import { environment } from '../../environments/environment';
+import { Response } from 'app/_models/Response';
 
 @Injectable()
 export class ArticleService {
@@ -31,14 +32,14 @@ export class ArticleService {
   }
 
   getAllArticles(): Observable<Array<Article>> {
-    return this.http.get<Array<Article>>(this.blogUrl);
+    return this.http.get<Response>(this.blogUrl).map((res) => Object.assign(new Array<Article>(), res.data));
   }
 
   getArticle(id: number): Observable<Article> {
-    return this.http.get<Article>(this.blogUrl + id);
+    return this.http.get<Response>(this.blogUrl + id).map((res) => Object.assign(new Article(), res.data));
   }
 
-  getArticlesByTitle(title: string): Observable<ArticleList[]> {
-    return this.http.get<ArticleList[]>(this.blogUrl + 'title/' + title);
+  getArticlesByTitle(title: string): Observable<Array<ArticleList>> {
+    return this.http.get<Response>(this.blogUrl + 'title/' + title).map((res) => Object.assign(new Array<ArticleList>(), res.data));
   }
 }
