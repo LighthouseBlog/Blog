@@ -19,7 +19,7 @@ import { SettingsModalComponent } from 'app/article-portal/settings-modal/settin
 })
 export class NavBarComponent implements OnInit {
 
-  title = `Lighthouse`;
+  title = `The Lighthouse`;
   opened = true;
   name: Promise<string>;
   image: Promise<string>;
