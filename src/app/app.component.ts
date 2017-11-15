@@ -43,7 +43,6 @@ export class AppComponent implements OnInit {
     this.articleCtrl.valueChanges
       .subscribe(results => {
         this.selectedArticle = results;
-        console.log('Selected Article', this.selectedArticle);
       })
   }
 

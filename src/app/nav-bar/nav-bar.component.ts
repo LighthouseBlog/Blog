@@ -44,10 +44,7 @@ export class NavBarComponent implements OnInit {
         this.name = this.authorService.getAuthorName();
         this.image = this.authorService.getProfilePicture();
       })
-      .catch(error => {
-        if (error) {
-          console.error('Error', error);
-        }
+      .catch(() => {
         this.logout();
       });
   }

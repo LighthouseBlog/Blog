@@ -42,7 +42,7 @@ export class EditorComponent implements OnInit {
         const src = $img.attr('src');
         this.imagesService.deleteImage(src)
           .subscribe(result => {
-            console.log('Result', result);
+
           })
       }
     },
@@ -160,8 +160,6 @@ export class EditorComponent implements OnInit {
           });
         });
       }
-    } else {
-      console.error('Form is not valid', formValue);
     }
   }
 

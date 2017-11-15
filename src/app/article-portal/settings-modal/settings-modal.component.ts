@@ -38,7 +38,6 @@ export class SettingsModalComponent implements OnInit {
   ngOnInit() {
     this.authorService.getAuthor()
       .subscribe(author => {
-        console.log('Author', author);
         this.settingsGroup.setValue({
           'name': author.name,
           'email': author.email,
@@ -46,8 +45,6 @@ export class SettingsModalComponent implements OnInit {
         });
         this.image = author.profilePicture;
         this.username = author.username;
-      }, error => {
-        console.error('Error', error);
       });
     this.saveInProgress = false;
   }
@@ -71,7 +68,6 @@ export class SettingsModalComponent implements OnInit {
             this.dialogRef.close({name, image: result.image || ''});
           }, error => {
             this.saveInProgress = false;
-            console.error('Error', error);
             this.snackBar.open(`Error updating user settings ${error}`, '', {
               duration: 4000
             });
@@ -86,7 +82,6 @@ export class SettingsModalComponent implements OnInit {
             this.dialogRef.close({name});
           }, error => {
             this.saveInProgress = false;
-            console.error('Error', error);
             this.snackBar.open(`Error updating user settings ${error}`, '', {
               duration: 4000
             })

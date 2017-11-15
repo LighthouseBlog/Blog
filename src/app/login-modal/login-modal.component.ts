@@ -41,7 +41,9 @@ export class LoginModalComponent implements OnInit {
               this.dialogRef.close(username);
               this.router.navigate(['articles']);
           } else {
-              console.error('Error (result is false?)');
+            this.snackBar.open('Failed to login', '', {
+              duration: 4000
+            });
           }
         }, error => {
           if (error.status === 401) {

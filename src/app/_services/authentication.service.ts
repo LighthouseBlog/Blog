@@ -106,7 +106,6 @@ export class AuthenticationService {
 
             // Use the delay in a timer to
             // run the refresh at the proper time
-            console.log('ExpiresIn: ', Math.max(1, expiresAt - now));
             return Observable.timer(Math.max(1, expiresAt - now));
         });
 
@@ -114,7 +113,6 @@ export class AuthenticationService {
         // reached, get a new JWT and schedule
         // additional refreshes
         this.refreshSubscription = source.subscribe(() => {
-            console.log('Expired');
             this.renewToken().subscribe();
         });
     }

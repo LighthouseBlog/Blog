@@ -54,7 +54,9 @@ export class RegisterModalComponent {
               this.dialogRef.close(name);
               this.router.navigate(['articles']);
           } else {
-              console.error('Failed to login, please try again')
+            this.snackBar.open('Registration failed.', '', {
+              duration: 4000
+            });
           }
         }, error => {
           this.snackBar.open('Error! This username has already been selected', '', {
