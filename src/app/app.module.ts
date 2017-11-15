@@ -1,43 +1,37 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { HttpModule, JsonpModule, RequestOptions, RequestOptionsArgs } from '@angular/http';
-import { MatGridListModule, MatDialogModule } from '@angular/material';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 
-import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
-import { FroalaEditorModule, FroalaViewModule } from 'angular2-froala-wysiwyg';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import 'hammerjs';
 
 import { AppComponent } from './app.component';
 import { NavBarComponent } from './nav-bar/nav-bar.component';
+
+import { Router } from 'app/app.routing';
+
+import { AuthGuard } from 'app/_guards/auth.guard';
+import { AuthenticationService } from 'app/_services/authentication.service';
+import { EditorService } from 'app/_services/editor.service';
+import { ArticleService } from 'app/_services/article.service';
+import { AuthorService } from 'app/_services/author.service';
+import { ImagesService } from 'app/_services/images.service';
+import { TagService } from 'app/_services/tags.service';
+
 import { LoginModalComponent } from './login-modal/login-modal.component';
 import { RegisterModalComponent } from './register-modal/register-modal.component';
 
-import {Router} from './app.routing';
-import { EditorComponent } from './editor/editor.component';
-import { UserArticlesComponent } from './user-articles/user-articles.component';
-import { CreateArticleModalComponent } from './create-article-modal/create-article-modal.component';
 import { TagComponent } from './articles/tag/tag.component';
 
-import { AuthGuard } from './_guards/auth.guard';
-import { AuthenticationService } from './_services/authentication.service';
-import { EditorService } from './_services/editor.service';
-import { ArticleService } from './_services/article.service';
-import { AuthorService } from './_services/author.service';
-import { ImagesService } from './_services/images.service';
-import { TagService } from './_services/tags.service';
-
-import { FileValidator } from './_directives/fileValidator.directive';
-import { FileValueAccessor } from './_directives/fileValueAccessor.directive';
-
-import { BaseRequestOptions } from '@angular/http';
 import { ArticlesComponent } from './articles/articles.component';
 import { ArticleComponent } from './article/article.component';
-import { DeleteArticleModalComponent } from './delete-article-modal/delete-article-modal.component';
-import { SettingsModalComponent } from './settings-modal/settings-modal.component';
-import { MaterialModule } from './material.module';
-import { ArticleListComponent } from './user-articles/article-list/article-list.component';
 
+import { ResponseInterceptor } from 'app/_interceptors/response.interceptor';
+import { AuthInterceptor } from 'app/_interceptors/auth.interceptor';
+
+import { MaterialModule } from 'app/material.module';
+import { ArticlePortalModule } from 'app/article-portal/article-portal.module';
 
 @NgModule({
   declarations: [
@@ -45,16 +39,8 @@ import { ArticleListComponent } from './user-articles/article-list/article-list.
     NavBarComponent,
     LoginModalComponent,
     RegisterModalComponent,
-    EditorComponent,
-    UserArticlesComponent,
-    CreateArticleModalComponent,
     ArticlesComponent,
     ArticleComponent,
-    DeleteArticleModalComponent,
-    SettingsModalComponent,
-    ArticleListComponent,
-    FileValidator,
-    FileValueAccessor,
     TagComponent
   ],
   imports: [
@@ -62,19 +48,10 @@ import { ArticleListComponent } from './user-articles/article-list/article-list.
     BrowserModule,
     FormsModule,
     ReactiveFormsModule,
-    HttpModule,
-    JsonpModule,
+    HttpClientModule,
     Router,
-    FroalaEditorModule.forRoot(),
-    FroalaViewModule.forRoot(),
-    MaterialModule
-  ],
-  entryComponents: [
-    CreateArticleModalComponent,
-    DeleteArticleModalComponent,
-    LoginModalComponent,
-    RegisterModalComponent,
-    SettingsModalComponent
+    MaterialModule,
+    ArticlePortalModule
   ],
   providers: [
     AuthGuard,
@@ -84,7 +61,20 @@ import { ArticleListComponent } from './user-articles/article-list/article-list.
     AuthorService,
     ImagesService,
     TagService,
-    BaseRequestOptions
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: ResponseInterceptor,
+      multi: true
+    },
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: AuthInterceptor,
+      multi: true
+    }
+  ],
+  entryComponents: [
+    LoginModalComponent,
+    RegisterModalComponent,
   ],
   bootstrap: [
     AppComponent

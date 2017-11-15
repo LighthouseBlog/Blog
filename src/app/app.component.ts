@@ -2,7 +2,7 @@ import { Component, OnInit, Input } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { Router, RoutesRecognized } from '@angular/router';
 
-import { ArticleService } from './_services/article.service';
+import { ArticleService } from 'app/_services/article.service';
 
 @Component({
   selector: 'app-root',

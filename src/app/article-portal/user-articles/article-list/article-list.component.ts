@@ -7,10 +7,10 @@ import 'rxjs/add/operator/debounceTime';
 import 'rxjs/add/operator/distinctUntilChanged';
 import 'rxjs/add/observable/fromEvent';
 
-import { AuthorService } from '../../_services/author.service';
+import { AuthorService } from 'app/_services/author.service';
 import { ArticleDataSource } from './article-data/article.datasource';
-import { Article } from '../../_models/Article';
-import { DeleteArticleModalComponent } from '../../delete-article-modal/delete-article-modal.component';
+import { Article } from 'app/_models/Article';
+import { DeleteArticleModalComponent } from 'app/article-portal/delete-article-modal/delete-article-modal.component';
 
 @Component({
   selector: 'app-article-list',
