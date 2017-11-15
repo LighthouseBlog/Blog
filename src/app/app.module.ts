@@ -18,6 +18,7 @@ import { ArticleService } from 'app/_services/article.service';
 import { AuthorService } from 'app/_services/author.service';
 import { ImagesService } from 'app/_services/images.service';
 import { TagService } from 'app/_services/tags.service';
+import { SnackbarMessagingService } from 'app/_services/snackbar-messaging.service';
 
 import { LoginModalComponent } from './login-modal/login-modal.component';
 import { RegisterModalComponent } from './register-modal/register-modal.component';
@@ -61,6 +62,7 @@ import { ArticlePortalModule } from 'app/article-portal/article-portal.module';
     AuthorService,
     ImagesService,
     TagService,
+    SnackbarMessagingService,
     {
       provide: HTTP_INTERCEPTORS,
       useClass: ResponseInterceptor,

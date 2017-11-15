@@ -1,9 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, FormControl, Validators, FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
-import { MatSnackBar, MatDialogRef } from '@angular/material'
+import { MatDialogRef } from '@angular/material'
 
 import { AuthenticationService } from 'app/_services/authentication.service';
+import { SnackbarMessagingService } from 'app/_services/snackbar-messaging.service';
 
 @Component({
   selector: 'app-login',
@@ -19,7 +20,7 @@ export class LoginModalComponent implements OnInit {
     fb: FormBuilder,
     private router: Router,
     private auth: AuthenticationService,
-    private snackBar: MatSnackBar,
+    private snackbarMessagingService: SnackbarMessagingService,
     private dialogRef: MatDialogRef<LoginModalComponent>) {
     this.formGroup = fb.group({
       'username': new FormControl('', Validators.required),
@@ -41,17 +42,15 @@ export class LoginModalComponent implements OnInit {
               this.dialogRef.close(username);
               this.router.navigate(['articles']);
           } else {
-            this.snackBar.open('Failed to login', '', {
-              duration: 4000
-            });
+            this.snackbarMessagingService.displayError('Failed to login', 4000);
           }
         }, error => {
           if (error.status === 401) {
-            this.snackBar.open('User or Password was incorrect', '', {
-              duration: 4000
-            });
+            this.snackbarMessagingService.displayError('User or Password was incorrect', 4000);
           }
         });
+    } else {
+      this.snackbarMessagingService.displayError('Validation errors exist', 4000);
     }
   }
 

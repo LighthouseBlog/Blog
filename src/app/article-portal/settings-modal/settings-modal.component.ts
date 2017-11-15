@@ -1,9 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms';
-import { MatDialogRef, MatSnackBar, MatDialog } from '@angular/material';
+import { MatDialogRef, MatDialog } from '@angular/material';
 
 import { AuthenticationService } from 'app/_services/authentication.service';
 import { AuthorService } from 'app/_services/author.service';
+import { SnackbarMessagingService } from 'app/_services/snackbar-messaging.service';
 
 import { FileValidator } from 'app/_directives/fileValidator.directive';
 import { ImagePreviewComponent } from 'app/article-portal/image-preview/image-preview.component';
@@ -26,7 +27,7 @@ export class SettingsModalComponent implements OnInit {
     private auth: AuthenticationService,
     private dialogRef: MatDialogRef<SettingsModalComponent>,
     private dialog: MatDialog,
-    private snackBar: MatSnackBar,
+    private snackBarMessagingService: SnackbarMessagingService,
     private authorService: AuthorService) {
       this.settingsGroup = fb.group({
         'name': new FormControl('', Validators.required),
@@ -62,35 +63,25 @@ export class SettingsModalComponent implements OnInit {
         this.authorService.updateUserSettings(this.username, name, email, formData)
           .subscribe(result => {
             this.saveInProgress = false;
-            this.snackBar.open('Updated user settings', '', {
-              duration: 4000
-            });
+            this.snackBarMessagingService.displayError('Updated user settings', 4000);
             this.dialogRef.close({name, image: result.image || ''});
           }, error => {
             this.saveInProgress = false;
-            this.snackBar.open(`Error updating user settings ${error}`, '', {
-              duration: 4000
-            });
+            this.snackBarMessagingService.displayError(`Error updating user settings ${error}`, 4000);
           });
       } else {
         this.authorService.updateUserSettings(this.username, name, email)
           .subscribe(result => {
             this.saveInProgress = false;
-            this.snackBar.open('Updated user settings', '', {
-              duration: 4000
-            });
+            this.snackBarMessagingService.displayError('Updated user settings', 4000);
             this.dialogRef.close({name});
           }, error => {
             this.saveInProgress = false;
-            this.snackBar.open(`Error updating user settings ${error}`, '', {
-              duration: 4000
-            })
+            this.snackBarMessagingService.displayError(`Error updating user settings ${error}`, 4000);
           });
       }
     } else {
-      this.snackBar.open('There was an error with the form before submission', '', {
-        duration: 4000
-      });
+      this.snackBarMessagingService.displayError('Validation errors exists', 4000);
     }
   }
 

@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { FormBuilder, FormGroup, FormControl, Validators, FormsModule } from '@angular/forms';
-import { MatSnackBar, MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
+import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 
 import { Observable } from 'rxjs/Observable';
 
@@ -14,6 +14,7 @@ import initializeFroalaGistPlugin from 'app/_plugins/gist.plugin'
 import { environment } from 'environments/environment';
 import { FileValidator } from 'app/_directives/fileValidator.directive';
 import { ImagePreviewComponent } from 'app/article-portal/image-preview/image-preview.component';
+import { SnackbarMessagingService } from 'app/_services/snackbar-messaging.service';
 
 @Component({
   selector: 'app-editor',
@@ -70,7 +71,7 @@ export class EditorComponent implements OnInit {
     private fb: FormBuilder,
     private router: Router,
     private route: ActivatedRoute,
-    private snackBar: MatSnackBar,
+    private snackbarMessageService: SnackbarMessagingService,
     public dialog: MatDialog
   ) {
     this.formGroup = this.fb.group({
@@ -140,24 +141,16 @@ export class EditorComponent implements OnInit {
 
         this.editorService.saveArticle(this.content, articleTitle, articleDescription, tags, formData)
         .subscribe(result => {
-          this.snackBar.open('Successfully saved article', '', {
-            duration: 4000
-          });
+          this.snackbarMessageService.displayError('Successfully saved article', 4000);
         }, error => {
-          this.snackBar.open('There was an error while attempting to save this article', '', {
-            duration: 4000
-          });
+          this.snackbarMessageService.displayError('There was an error while attempting to save this article', 4000);
         });
       } else {
         this.editorService.saveArticle(this.content, articleTitle, articleDescription, tags)
         .subscribe(result => {
-          this.snackBar.open('Successfully saved article', '', {
-            duration: 4000
-          });
+          this.snackbarMessageService.displayError('Successfully saved article', 4000);
         }, error => {
-          this.snackBar.open('There was an error while attempting to save this article', '', {
-            duration: 4000
-          });
+          this.snackbarMessageService.displayError('There was an error while attempting to save this article', 4000);
         });
       }
     }
@@ -166,13 +159,9 @@ export class EditorComponent implements OnInit {
   publishArticle() {
     this.editorService.publishArticle()
     .subscribe(result => {
-      this.snackBar.open('Successfully published article', '', {
-        duration: 4000
-      });
+      this.snackbarMessageService.displayError('Successfully published article', 4000);
     }, error => {
-      this.snackBar.open('There was an error while attempting to publish this article', '', {
-        duration: 4000
-      });
+      this.snackbarMessageService.displayError('There was an error while attempting to publish this article', 4000);
     });
   }
 
@@ -186,14 +175,10 @@ export class EditorComponent implements OnInit {
 
   tagSelected(tag: string) {
     if (this.selectedTags.has(this.tagInput)) {
-      this.snackBar.open('Tag already exists', '', {
-        duration: 2000
-      });
+      this.snackbarMessageService.displayError('Tag already exists', 2000);
     } else {
       this.selectedTags.add(tag);
-      this.snackBar.open(`Added the tag: ${tag}`, '', {
-        duration: 2000
-      });
+      this.snackbarMessageService.displayError(`Added the tag: ${tag}`, 2000);
       this.formGroup.get('tags').patchValue('');
     }
   }
@@ -201,22 +186,16 @@ export class EditorComponent implements OnInit {
   onEnter(event: any) {
     if (event.keyCode === 13) {
       if (this.selectedTags.has(this.tagInput)) {
-        this.snackBar.open('Tag already exists', '', {
-          duration: 2000
-        });
+        this.snackbarMessageService.displayError('Tag already exists', 2000);
       } else {
         const input = this.tagInput;
         this.editorService.addTag(input)
           .subscribe(result => {
             this.selectedTags.add(input);
-            this.snackBar.open(`Added the tag: ${input}`, '', {
-              duration: 2000
-            });
+            this.snackbarMessageService.displayError(`Added the tag: ${input}`, 2000);
             this.formGroup.get('tags').patchValue('');
           }, error => {
-            this.snackBar.open('Error adding tag', '', {
-              duration: 2000
-            });
+            this.snackbarMessageService.displayError('Error adding tag', 2000);
           });
       }
     }

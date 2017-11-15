@@ -1,9 +1,10 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { MatDialogRef, MatSnackBar } from '@angular/material';
+import { MatDialogRef } from '@angular/material';
 
 import { AuthenticationService } from 'app/_services/authentication.service';
+import { SnackbarMessagingService } from 'app/_services/snackbar-messaging.service';
 
 // pg 225 Angular 2 Development with Typescript
 function equalValidator({value}: FormGroup): {[key: string]: any} {
@@ -27,7 +28,7 @@ export class RegisterModalComponent {
     private router: Router,
     private auth: AuthenticationService,
     private dialogRef: MatDialogRef<RegisterModalComponent>,
-    private snackBar: MatSnackBar
+    private snackbarMessagingSerivce: SnackbarMessagingService
   ) {
     this.registerGroup = fb.group({
       'username': new FormControl('', Validators.required),
@@ -54,15 +55,13 @@ export class RegisterModalComponent {
               this.dialogRef.close(name);
               this.router.navigate(['articles']);
           } else {
-            this.snackBar.open('Registration failed.', '', {
-              duration: 4000
-            });
+            this.snackbarMessagingSerivce.displayError('Registration failed', 4000);
           }
         }, error => {
-          this.snackBar.open('Error! This username has already been selected', '', {
-            duration: 4000
-          });
+          this.snackbarMessagingSerivce.displayError('Error! This username has already been selected', 4000);
         });
+    } else {
+      this.snackbarMessagingSerivce.displayError('Validation errors exist', 4000);
     }
   }
 }
