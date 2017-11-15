@@ -2,8 +2,8 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatDialog, MatDialogRef, MatSort } from '@angular/material';
 import { CreateArticleModalComponent } from '../create-article-modal/create-article-modal.component';
 
-import { AuthorService } from '../_services/author.service';
-import { Article } from '../_models/Article';
+import { AuthorService } from 'app/_services/author.service';
+import { Article } from 'app/_models/Article';
 import { ArticleListComponent } from './article-list/article-list.component';
 
 @Component({

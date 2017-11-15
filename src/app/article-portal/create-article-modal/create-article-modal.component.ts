@@ -1,16 +1,16 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, FormControl, Validators, FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
 import { MatDialogRef } from '@angular/material';
 
-import { EditorService } from '../_services/editor.service';
+import { EditorService } from 'app/_services/editor.service';
 
 @Component({
   selector: 'app-create-article-modal',
   templateUrl: './create-article-modal.component.html',
   styleUrls: ['./create-article-modal.component.scss']
 })
-export class CreateArticleModalComponent implements OnInit {
+export class CreateArticleModalComponent {
 
   title = 'Create a new article';
   formGroup: FormGroup;
@@ -27,9 +27,6 @@ export class CreateArticleModalComponent implements OnInit {
     });
   }
 
-  ngOnInit() {
-  }
-
   create(formValue: any, isFormValid: boolean) {
     if (isFormValid) {
       console.log('Creating new article');
@@ -37,15 +34,14 @@ export class CreateArticleModalComponent implements OnInit {
       const articleTitle = formValue['articleTitle'];
       const articleDescription = formValue['articleDescription'];
 
-      this.editorService.setArticleTitle(articleTitle);
-      this.editorService.setArticleDescription(articleDescription);
-
-      this.editorService.createArticle()
+      this.editorService.createArticle(articleTitle, articleDescription)
         .subscribe(results => {
-          if (!isNaN(results['_id'])) {
-            this.editorService.setArticleId(results['_id']);
+          console.log('Results', results);
+          const id = results._id;
+          if (!Number.isNaN(id)) {
+            this.editorService.setArticleId(id);
             this.dialogRef.close('closed');
-            this.router.navigate(['edit', results['_id']]);
+            this.router.navigateByUrl('/edit/' + id);
           } else {
             console.error('An error has occured, the article title was saved.');
           }

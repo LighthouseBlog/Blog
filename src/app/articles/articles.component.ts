@@ -1,12 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-
+import { Router } from '@angular/router';
 import { Observable } from 'rxjs/Observable';
 
-import { ArticleService } from '../_services/article.service';
-import { Router } from '@angular/router';
-import { TagService } from '../_services/tags.service';
+import { ArticleService } from 'app/_services/article.service';
+import { TagService } from 'app/_services/tags.service';
 import { TagComponent } from './tag/tag.component';
-import { ArticleList } from '../_models/ArticleList';
+import { ArticleList } from 'app/_models/ArticleList';
 
 @Component({
   selector: 'app-articles',

@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Http, Response, RequestOptions, Headers } from '@angular/http';
+import { HttpClient } from '@angular/common/http';
 
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/catch';
@@ -9,6 +9,7 @@ import { AuthenticationService } from '../_services/authentication.service';
 import { Article } from '../_models/Article';
 import { ArticleList } from '../_models/ArticleList';
 import { environment } from '../../environments/environment';
+import { Response } from 'app/_models/Response';
 
 @Injectable()
 export class ArticleService {
@@ -18,7 +19,7 @@ export class ArticleService {
   private id: string;
 
   constructor(
-    private http: Http,
+    private http: HttpClient,
     private auth: AuthenticationService
   ) { }
 
@@ -31,45 +32,14 @@ export class ArticleService {
   }
 
   getAllArticles(): Observable<Array<Article>> {
-    const headers = new Headers();
-    headers.append('Authorization', 'Bearer ' + this.auth.token);
-
-    const options = new RequestOptions({ headers });
-
-    return this.http.get(this.blogUrl, options)
-                    .map(this.extractData)
-                    .catch(this.handleError);
+    return this.http.get<Response>(this.blogUrl).map((res) => Object.assign(new Array<Article>(), res.data));
   }
 
   getArticle(id: number): Observable<Article> {
-    return this.http.get(this.blogUrl + id)
-                    .map(this.extractData)
-                    .catch(this.handleError);
+    return this.http.get<Response>(this.blogUrl + id).map((res) => Object.assign(new Article(), res.data));
   }
 
-  getArticlesByTitle(title: string): Observable<ArticleList[]> {
-    return this.http.get(this.blogUrl + 'title/' + title)
-                    .map(this.extractData)
-                    .catch(this.handleError);
+  getArticlesByTitle(title: string): Observable<Array<ArticleList>> {
+    return this.http.get<Response>(this.blogUrl + 'title/' + title).map((res) => Object.assign(new Array<ArticleList>(), res.data));
   }
-
-  private extractData(res: Response) {
-    const body = res.json();
-    return body.data || { };
-  }
-
-  private handleError (error: Response | any) {
-    // In a real world app, you might use a remote logging infrastructure
-    let errMsg: string;
-    if (error instanceof Response) {
-      const body = error.json() || '';
-      const err = body.error || JSON.stringify(body);
-      errMsg = `${error.status} - ${error.statusText || ''} ${err}`;
-    } else {
-      errMsg = error.message ? error.message : error.toString();
-    }
-    console.error(errMsg);
-    return Observable.throw(errMsg);
-  }
-
 }
