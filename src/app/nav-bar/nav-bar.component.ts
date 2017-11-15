@@ -20,12 +20,8 @@ import { SettingsModalComponent } from 'app/article-portal/settings-modal/settin
 export class NavBarComponent implements OnInit {
 
   title = `The Lighthouse`;
-  opened = true;
   name: Promise<string>;
   image: Promise<string>;
-
-  @Output()
-  clicked: EventEmitter<boolean> = new EventEmitter();
 
   constructor(
     private auth: AuthenticationService,
@@ -33,10 +29,6 @@ export class NavBarComponent implements OnInit {
     private router: Router,
     private dialog: MatDialog
   ) { }
-
-  onMenuClick() {
-    this.clicked.emit(this.opened);
-  }
 
   ngOnInit() {
     this.auth.checkJwtExpiration()
@@ -50,7 +42,9 @@ export class NavBarComponent implements OnInit {
   }
 
   login() {
-    this.dialog.open(LoginModalComponent).afterClosed()
+    this.dialog.open(LoginModalComponent, {
+      minWidth: '30vw'
+    }).afterClosed()
       .subscribe(result => {
         if (result) {
           this.name = this.authorService.getAuthorName(result);
@@ -60,7 +54,11 @@ export class NavBarComponent implements OnInit {
   }
 
   register() {
-    this.dialog.open(RegisterModalComponent).afterClosed()
+    this.dialog.open(RegisterModalComponent, {
+      minHeight: '55vh',
+      width: '25vw',
+      minWidth: '300px'
+    }).afterClosed()
       .subscribe(result => {
         if (result) {
           this.name = Promise.resolve(result.name);
@@ -70,7 +68,9 @@ export class NavBarComponent implements OnInit {
   }
 
   editSettings() {
-    this.dialog.open(SettingsModalComponent).afterClosed()
+    this.dialog.open(SettingsModalComponent, {
+      minWidth: '40vw'
+    }).afterClosed()
       .subscribe(result => {
         if (result) {
           this.name = Promise.resolve(result.name);
