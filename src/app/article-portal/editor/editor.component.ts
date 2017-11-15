@@ -60,6 +60,7 @@ export class EditorComponent implements OnInit {
   public selectedTags: Set<string>;
   public tagInput: string;
   public removable = true;
+  public image = new Image();
 
   constructor(
     private editorService: EditorService,
@@ -133,6 +134,7 @@ export class EditorComponent implements OnInit {
         const formData = new FormData();
         const file = coverPhoto.target.files[0];
         formData.append('coverPhoto', file);
+
         this.editorService.saveArticle(this.content, articleTitle, articleDescription, tags, formData)
         .subscribe(result => {
           this.snackBar.open('Successfully saved article', '', {
@@ -217,5 +219,15 @@ export class EditorComponent implements OnInit {
           });
       }
     }
+  }
+
+  fileChangeListener($event) {
+    const file = $event.target.files[0];
+    const myReader = new FileReader();
+    myReader.onloadend = (loadEvent: any) => {
+      this.image.src = loadEvent.target.result;
+    };
+
+    myReader.readAsDataURL(file);
   }
 }

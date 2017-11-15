@@ -30,10 +30,11 @@
                 </mat-autocomplete>
               </mat-input-container>
               <button mat-button class="btn-file">
-                <mat-icon>add</mat-icon>
-                Upload Cover Photo
-                <input type="file" name="file" id="file" class="inputfile" formControlName="coverPhoto"/>
+                  <mat-icon>add</mat-icon>
+                  Upload Cover Photo
+                  <input type="file" name="file" id="file" class="inputfile" formControlName="coverPhoto" (change)="fileChangeListener($event)"/>
               </button>
+              <img [src]="image.src" [width]="image?.width" [height]="image?.height">
             </form>
             <span class="vertical-spacer"></span>
             <div matInput class="editor">
