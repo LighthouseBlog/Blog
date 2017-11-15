@@ -18,10 +18,11 @@
           <mat-error *ngIf="settingsGroup.hasError('required', ['email'])">Email is required</mat-error>
         </mat-input-container>
         <button mat-button class="btn-file">
-            <mat-icon>add</mat-icon>
-            Upload Profile Picture
-            <input type="file" name="file" id="file" class="inputfile" formControlName="profilePicture"/>
-          </button>
+          <mat-icon>add</mat-icon>
+          Upload Profile Picture
+          <input type="file" name="file" id="file" class="inputfile" formControlName="profilePicture" (change)="fileChangeListener($event)" accept="image/*"/>
+        </button>
+        <button mat-button *ngIf="previewImage()" type="button" (click)="openPreview()" class="save" id="preview">Preview Image</button>
       </mat-card-content>
       <mat-card-actions align="end">
         <button mat-raised-button type="submit" [disabled]="!f.valid || !f.dirty" color="accent"> Save Settings </button>

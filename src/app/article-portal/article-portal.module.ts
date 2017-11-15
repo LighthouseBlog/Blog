@@ -18,6 +18,7 @@ import { CreateArticleModalComponent } from './create-article-modal/create-artic
 import { DeleteArticleModalComponent } from './delete-article-modal/delete-article-modal.component';
 import { SettingsModalComponent } from './settings-modal/settings-modal.component';
 import { ArticleListComponent } from './user-articles/article-list/article-list.component';
+import { ImagePreviewComponent } from 'app/article-portal/image-preview/image-preview.component';
 
 import { AuthInterceptor } from 'app/_interceptors/auth.interceptor';
 import { MaterialModule } from 'app/material.module';
@@ -32,7 +33,8 @@ import { MaterialModule } from 'app/material.module';
     CreateArticleModalComponent,
     DeleteArticleModalComponent,
     SettingsModalComponent,
-    ArticleListComponent
+    ArticleListComponent,
+    ImagePreviewComponent
   ],
   imports: [
     BrowserAnimationsModule,
@@ -48,7 +50,8 @@ import { MaterialModule } from 'app/material.module';
   entryComponents: [
     CreateArticleModalComponent,
     DeleteArticleModalComponent,
-    SettingsModalComponent
+    SettingsModalComponent,
+    ImagePreviewComponent
   ]
 })
 export class ArticlePortalModule { }

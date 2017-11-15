@@ -3,7 +3,7 @@
         <div class="container">
             <form #f="ngForm" [formGroup]="formGroup" (ngSubmit)="saveArticle(f.value, f.valid)" (keydown.enter)="$event.preventDefault()" novalidate>
               <button mat-raised-button type="submit" [disabled]="!f.valid" color="primary" class="save"> Save Article </button>
-              <button mat-raised-button [disabled]="!f.valid" color="warn" class="save" (click)="publishArticle()"> Publish Article </button>
+              <button mat-raised-button [disabled]="!f.valid" color="warn" class="save" (click)="publishArticle()" type="button"> Publish Article </button>
               <mat-input-container class="form-input">
                 <input matInput type="text" placeholder="Article Title" formControlName="articleTitle" required />
                 <mat-error *ngIf="formGroup.hasError('required', ['articleTitle'])">Article Title is required</mat-error>
@@ -32,9 +32,9 @@
               <button mat-button class="btn-file">
                   <mat-icon>add</mat-icon>
                   Upload Cover Photo
-                  <input type="file" name="file" id="file" class="inputfile" formControlName="coverPhoto" (change)="fileChangeListener($event)"/>
+                  <input type="file" name="file" id="file" class="inputfile" formControlName="coverPhoto" (change)="fileChangeListener($event)" accept="image/*"/>
               </button>
-              <img [src]="image.src" [width]="image?.width" [height]="image?.height">
+              <button mat-button *ngIf="previewImage()" type="button" (click)="openPreview()" class="save" id="preview">Preview Image</button>
             </form>
             <span class="vertical-spacer"></span>
             <div matInput class="editor">

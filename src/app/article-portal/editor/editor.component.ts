@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { FormBuilder, FormGroup, FormControl, Validators, FormsModule } from '@angular/forms';
-import { MatSnackBar } from '@angular/material';
+import { MatSnackBar, MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 
 import { Observable } from 'rxjs/Observable';
 
@@ -13,6 +13,7 @@ import initializeFroalaGistPlugin from 'app/_plugins/gist.plugin'
 
 import { environment } from 'environments/environment';
 import { FileValidator } from 'app/_directives/fileValidator.directive';
+import { ImagePreviewComponent } from 'app/article-portal/image-preview/image-preview.component';
 
 @Component({
   selector: 'app-editor',
@@ -60,7 +61,7 @@ export class EditorComponent implements OnInit {
   public selectedTags: Set<string>;
   public tagInput: string;
   public removable = true;
-  public image = new Image();
+  public image: any;
 
   constructor(
     private editorService: EditorService,
@@ -69,7 +70,8 @@ export class EditorComponent implements OnInit {
     private fb: FormBuilder,
     private router: Router,
     private route: ActivatedRoute,
-    private snackBar: MatSnackBar
+    private snackBar: MatSnackBar,
+    public dialog: MatDialog
   ) {
     this.formGroup = this.fb.group({
       'articleTitle': new FormControl('', Validators.required),
@@ -111,6 +113,7 @@ export class EditorComponent implements OnInit {
             'tags': '',
             'coverPhoto': {}
           });
+          this.image = article.coverPhoto;
           if (article.tags instanceof Array) {
             this.selectedTags = new Set<string>(article.tags);
           }
@@ -225,9 +228,22 @@ export class EditorComponent implements OnInit {
     const file = $event.target.files[0];
     const myReader = new FileReader();
     myReader.onloadend = (loadEvent: any) => {
-      this.image.src = loadEvent.target.result;
+      this.image = loadEvent.target.result;
     };
 
     myReader.readAsDataURL(file);
+  }
+
+  openPreview() {
+    const dialogRef = this.dialog.open(ImagePreviewComponent, {
+      data: this.image
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+    });
+  }
+
+  previewImage(): boolean {
+    return !!this.image;
   }
 }

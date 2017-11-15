@@ -1,10 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms';
-import { MatDialogRef, MatSnackBar } from '@angular/material';
+import { MatDialogRef, MatSnackBar, MatDialog } from '@angular/material';
 
 import { AuthenticationService } from 'app/_services/authentication.service';
 import { AuthorService } from 'app/_services/author.service';
+
 import { FileValidator } from 'app/_directives/fileValidator.directive';
+import { ImagePreviewComponent } from 'app/article-portal/image-preview/image-preview.component';
 
 @Component({
   selector: 'app-settings-modal',
@@ -17,11 +19,13 @@ export class SettingsModalComponent implements OnInit {
   fileContent: any;
   username: string;
   public saveInProgress: boolean;
+  public image: any;
 
   constructor(
     fb: FormBuilder,
     private auth: AuthenticationService,
     private dialogRef: MatDialogRef<SettingsModalComponent>,
+    private dialog: MatDialog,
     private snackBar: MatSnackBar,
     private authorService: AuthorService) {
       this.settingsGroup = fb.group({
@@ -40,6 +44,7 @@ export class SettingsModalComponent implements OnInit {
           'email': author.email,
           'profilePicture': {}
         });
+        this.image = author.profilePicture;
         this.username = author.username;
       }, error => {
         console.error('Error', error);
@@ -92,6 +97,29 @@ export class SettingsModalComponent implements OnInit {
         duration: 4000
       });
     }
+  }
+
+  fileChangeListener($event) {
+    const file = $event.target.files[0];
+    const myReader = new FileReader();
+    myReader.onloadend = (loadEvent: any) => {
+      this.image = loadEvent.target.result;
+    };
+
+    myReader.readAsDataURL(file);
+  }
+
+  openPreview() {
+    const dialogRef = this.dialog.open(ImagePreviewComponent, {
+      data: this.image
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+    });
+  }
+
+  previewImage(): boolean {
+    return !!this.image;
   }
 
 }
