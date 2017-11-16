@@ -9,7 +9,7 @@
             <span>{{name | async}}</span>
             <img src="{{ image | async }}" id="profile-picture" />
         </button>
-        <mat-menu #menu="matMenu">
+        <mat-menu #menu="matMenu" [overlapTrigger]="false">
             <button mat-menu-item (click)="editSettings()">
                 <mat-icon>settings</mat-icon>
                 <span>User Settings</span>

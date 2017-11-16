@@ -11,7 +11,6 @@ import { ArticleService } from 'app/_services/article.service';
 })
 export class AppComponent implements OnInit {
 
-  public opened = false;
   public articles;
   public mainArticles;
   public filteredArticles;
@@ -34,16 +33,11 @@ export class AppComponent implements OnInit {
     })
   }
 
-  clicked(event) {
-    this.opened = !this.opened;
-  }
-
   ngOnInit() {
     this.retrieveArticles();
     this.articleCtrl.valueChanges
       .subscribe(results => {
         this.selectedArticle = results;
-        console.log('Selected Article', this.selectedArticle);
       })
   }
 
@@ -54,10 +48,6 @@ export class AppComponent implements OnInit {
         this.filteredArticles = this.articleCtrl.valueChanges
           .map(name => this.filterArticles(name));
       })
-  }
-
-  onClose() {
-    this.opened = false;
   }
 
   filterArticles(val: string) {

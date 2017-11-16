@@ -29,21 +29,19 @@ export class CreateArticleModalComponent {
 
   create(formValue: any, isFormValid: boolean) {
     if (isFormValid) {
-      console.log('Creating new article');
 
       const articleTitle = formValue['articleTitle'];
       const articleDescription = formValue['articleDescription'];
 
       this.editorService.createArticle(articleTitle, articleDescription)
         .subscribe(results => {
-          console.log('Results', results);
           const id = results._id;
           if (!Number.isNaN(id)) {
             this.editorService.setArticleId(id);
             this.dialogRef.close('closed');
             this.router.navigateByUrl('/edit/' + id);
           } else {
-            console.error('An error has occured, the article title was saved.');
+            console.error('The article id generated was not a number. The article was saved but should be deleted and redone.');
           }
         })
     }

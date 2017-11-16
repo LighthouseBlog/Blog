@@ -7,4 +7,5 @@ export class Article {
   text: string;
   author: Author;
   tags: Array<string>;
+  coverPhoto: string;
 }
