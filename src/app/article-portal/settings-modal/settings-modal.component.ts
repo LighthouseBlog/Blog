@@ -86,10 +86,12 @@ export class SettingsModalComponent implements OnInit {
   }
 
   fileChangeListener($event) {
+    const image = new Image();
     const file = $event.target.files[0];
     const myReader = new FileReader();
     myReader.onloadend = (loadEvent: any) => {
-      this.image = loadEvent.target.result;
+      image.src = loadEvent.target.result;
+      console.log('Image', image);
     };
 
     myReader.readAsDataURL(file);

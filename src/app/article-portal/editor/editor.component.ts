@@ -43,7 +43,6 @@ export class EditorComponent implements OnInit {
         const src = $img.attr('src');
         this.imagesService.deleteImage(src)
           .subscribe(result => {
-
           })
       }
     },
@@ -202,6 +201,7 @@ export class EditorComponent implements OnInit {
   }
 
   fileChangeListener($event) {
+    const image = new Image();
     const file = $event.target.files[0];
     const myReader = new FileReader();
     myReader.onloadend = (loadEvent: any) => {

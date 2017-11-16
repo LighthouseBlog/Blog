@@ -1,1 +1,5 @@
-<img [src]="image">
+<div>
+  <img id="image" [src]="image">
+  <button mat-button (click)="showCropperTool()" class="right">Show Cropping Tool</button>
+  <button mat-button (click)="crop()" class="right">Crop Image</button>
+</div>
