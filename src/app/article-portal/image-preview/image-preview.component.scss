@@ -5,3 +5,9 @@
 .right {
   float: right;
 }
+
+.options-row {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+}
