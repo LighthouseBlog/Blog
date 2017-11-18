@@ -1,19 +1,21 @@
 <div>
-    <div *ngIf="showingCroppingTools" class="options-row">
-      <button mat-icon-button color="accent" (click)="undo()">
-        <mat-icon aria-label="Undo Changes">undo</mat-icon>
+  <div *ngIf="showingCroppingTools" class="options-row">
+    <button mat-icon-button color="accent" title="Save changes" (click)="save()">
+      <mat-icon aria-label="Save Changes">save</mat-icon>
+    </button>
+    <button mat-icon-button color="accent" title="Crop Image" (click)="cropImage()">
+      <mat-icon aria-label="Crop Image">done</mat-icon>
+    </button>
+    <button mat-icon-button color="accent" title="Discard Changes" (click)="restore()">
+      <mat-icon aria-label="Discard Changes">delete</mat-icon>
+    </button>
+    <button mat-icon-button color="accent" title="Close" (click)="stop()">
+        <mat-icon aria-label="Discard Changes">close</mat-icon>
       </button>
-      <button mat-icon-button color="accent" (click)="cropImage()">
-        <mat-icon aria-label="Crop Image">done</mat-icon>
-      </button>
-      <button mat-icon-button color="accent" (click)="restore()">
-        <mat-icon aria-label="Discard Changes">delete</mat-icon>
-      </button>
-    </div>
+  </div>
   <img id="image" [src]="image">
-  <button mat-button *ngIf="!showingCroppingTools else crop" (click)="showCropperTool()" class="right">Show Cropping Tool</button>
-  <ng-template #crop>
-      <button mat-button (click)="save()" class="right">Save Image</button>
-      <button mat-button (click)="stop()" class="right">Close</button>
-  </ng-template>
+  <div *ngIf="!showingCroppingTools">
+    <button mat-button (click)="showCropperTool()" class="right">Show Cropping Tool</button>
+    <button mat-button (click)="saveImage()" class="right">Save Image</button>
+  </div>
 </div>

@@ -1,4 +1,4 @@
-import { Component, Inject, OnInit} from '@angular/core';
+import { Component, Inject, OnInit, OnDestroy } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 import Cropper from 'cropperjs'
 import { SnackbarMessagingService } from 'app/_services/snackbar-messaging.service';
@@ -8,11 +8,14 @@ import { SnackbarMessagingService } from 'app/_services/snackbar-messaging.servi
   templateUrl: './image-preview.component.html',
   styleUrls: ['./image-preview.component.scss']
 })
-export class ImagePreviewComponent implements OnInit {
+export class ImagePreviewComponent implements OnInit, OnDestroy {
 
   private cropper: Cropper;
   private originalImage: any;
   public showingCroppingTools: boolean;
+  private imageBlob: any;
+  private cropped: boolean;
+  private croppedCanvas: any;
 
   constructor(
     public dialogRef: MatDialogRef<ImagePreviewComponent>,
@@ -20,10 +23,15 @@ export class ImagePreviewComponent implements OnInit {
     @Inject(MAT_DIALOG_DATA) public image: any
   ) {
     this.originalImage = image;
+    this.cropped = false;
   }
 
   ngOnInit() {
     this.showingCroppingTools = false;
+  }
+
+  ngOnDestroy() {
+    this.cropper = null;
   }
 
   showCropperTool() {
@@ -35,15 +43,23 @@ export class ImagePreviewComponent implements OnInit {
   }
 
   cropImage() {
-    const imageData = this.cropper.getCroppedCanvas().toDataURL('image/png');
+    this.cropped = true;
+    this.croppedCanvas = this.cropper.getCroppedCanvas();
+    const imageData = this.croppedCanvas.toDataURL();
     this.cropper.replace(imageData);
   }
 
   save() {
-    const imageData = this.cropper.getCroppedCanvas().toBlob((blob) => {
-      this.stop();
-      this.dialogRef.close(blob);
-    });
+    if (this.cropped) {
+      const image = document.getElementById('image').getAttribute('src');
+      const imageData = this.croppedCanvas.toBlob((blob) => {
+        this.imageBlob = blob;
+        this.stop();
+        document.getElementById('image').setAttribute('src', image);
+      });
+    } else {
+      this.snackbarMessagingService.displayError('No changes detected', 2000);
+    }
   }
 
   stop() {
@@ -56,6 +72,15 @@ export class ImagePreviewComponent implements OnInit {
 
   restore() {
     this.cropper.replace(this.originalImage);
+    this.cropped = false;
+  }
+
+  saveImage() {
+    if (this.cropped) {
+      this.dialogRef.close(this.imageBlob);
+    } else {
+      this.snackbarMessagingService.displayError('No changes detected', 2000);
+    }
   }
 
   onNoClick(): void {

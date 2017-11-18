@@ -133,35 +133,42 @@ export class EditorComponent implements OnInit {
       const coverPhoto = formValue['coverPhoto'];
       const tags = Array.from(this.selectedTags);
 
-      if (coverPhoto.target) {
+      if (coverPhoto) {
         const formData = new FormData();
-        const file = coverPhoto.target.files[0];
+        const file = this.getCoverPhoto(coverPhoto);
         formData.append('coverPhoto', file);
 
         this.editorService.saveArticle(this.content, articleTitle, articleDescription, tags, formData)
-        .subscribe(result => {
-          this.snackbarMessageService.displayError('Successfully saved article', 4000);
-        }, error => {
-          this.snackbarMessageService.displayError('There was an error while attempting to save this article', 4000);
-        });
+          .subscribe(result => {
+            this.snackbarMessageService.displayError('Successfully saved article', 4000);
+          }, error => {
+            this.snackbarMessageService.displayError('There was an error while attempting to save this article', 4000);
+          });
       } else {
         this.editorService.saveArticle(this.content, articleTitle, articleDescription, tags)
-        .subscribe(result => {
-          this.snackbarMessageService.displayError('Successfully saved article', 4000);
-        }, error => {
-          this.snackbarMessageService.displayError('There was an error while attempting to save this article', 4000);
-        });
+          .subscribe(result => {
+            this.snackbarMessageService.displayError('Successfully saved article', 4000);
+          }, error => {
+            this.snackbarMessageService.displayError('There was an error while attempting to save this article', 4000);
+          });
       }
     }
   }
 
+  getCoverPhoto(coverPhoto: any) {
+    if (coverPhoto.target) {
+      return coverPhoto.target.files[0];
+    }
+    return coverPhoto;
+  }
+
   publishArticle() {
     this.editorService.publishArticle()
-    .subscribe(result => {
-      this.snackbarMessageService.displayError('Successfully published article', 4000);
-    }, error => {
-      this.snackbarMessageService.displayError('There was an error while attempting to publish this article', 4000);
-    });
+      .subscribe(result => {
+        this.snackbarMessageService.displayError('Successfully published article', 4000);
+      }, error => {
+        this.snackbarMessageService.displayError('There was an error while attempting to publish this article', 4000);
+      });
   }
 
   filterTags(text: string): Observable<string[]> {
@@ -217,6 +224,11 @@ export class EditorComponent implements OnInit {
     });
 
     dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        this.formGroup.patchValue({
+          coverPhoto: result
+        });
+      }
     });
   }
 
