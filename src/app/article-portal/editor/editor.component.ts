@@ -220,7 +220,10 @@ export class EditorComponent implements OnInit {
 
   openPreview() {
     const dialogRef = this.dialog.open(ImagePreviewComponent, {
-      data: this.image
+      data: {
+        src: this.image,
+        aspectRatio: 16 / 9
+      }
     });
 
     dialogRef.afterClosed().subscribe(result => {

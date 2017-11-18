@@ -8,6 +8,10 @@
 
 .options-row {
   display: flex;
-  align-items: center;
+  align-items: flex-end;
   justify-content: center;
+}
+
+.end {
+ align-self: flex-end;
 }

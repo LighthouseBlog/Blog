@@ -2,6 +2,7 @@ import { Component, Inject, OnInit, OnDestroy } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 import Cropper from 'cropperjs'
 import { SnackbarMessagingService } from 'app/_services/snackbar-messaging.service';
+import { Image } from 'app/_models/Image';
 
 @Component({
   selector: 'app-image-preview',
@@ -12,17 +13,20 @@ export class ImagePreviewComponent implements OnInit, OnDestroy {
 
   private cropper: Cropper;
   private originalImage: any;
-  public showingCroppingTools: boolean;
   private imageBlob: any;
   private cropped: boolean;
   private croppedCanvas: any;
+  private aspectRatio: number = 16 / 9;
+
+  public showingCroppingTools: boolean;
 
   constructor(
     public dialogRef: MatDialogRef<ImagePreviewComponent>,
     private snackbarMessagingService: SnackbarMessagingService,
-    @Inject(MAT_DIALOG_DATA) public image: any
+    @Inject(MAT_DIALOG_DATA) public image: Image
   ) {
-    this.originalImage = image;
+    this.originalImage = image.src;
+    this.aspectRatio = image.aspectRatio;
     this.cropped = false;
   }
 
@@ -37,7 +41,7 @@ export class ImagePreviewComponent implements OnInit, OnDestroy {
   showCropperTool() {
     const image = document.getElementById('image');
     this.cropper = new Cropper(image, {
-      aspectRatio: 16 / 9
+      aspectRatio: this.aspectRatio
     });
     this.showingCroppingTools = true;
   }
