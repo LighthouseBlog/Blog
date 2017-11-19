@@ -11,7 +11,10 @@ before_install:
 - chmod 600 deploy_key.pem
 - ssh-add deploy_key.pem
 install:
+- npm install -g npm@5 # skip this if you are using node 9
+- npm install -g greenkeeper-lockfile@1
 - npm install
+before_script: greenkeeper-lockfile-update
 before_deploy:
 - npm run predeploy
 deploy:
@@ -27,6 +30,7 @@ after_script:
 - eval "$(ssh-agent -k)"
 - echo "Killed SSH Agent"
 - rm -rf deploy_key.pem
+- greenkeeper-lockfile-upload
 after_failure:
 - eval "$(ssh-agent -k)"
 - echo "Killed SSH Agent"
