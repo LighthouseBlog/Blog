@@ -1,11 +1,13 @@
-import { Component, ViewChild, OnInit, ElementRef } from '@angular/core';
+import { Component, ViewChild, OnInit, ElementRef, OnDestroy } from '@angular/core';
 import { MatDialog, MatDialogRef, MatSort, MatPaginator } from '@angular/material';
 import { Router } from '@angular/router';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
-import {Observable} from 'rxjs/Observable';
+import { Observable } from 'rxjs/Observable';
+import { Subject } from 'rxjs/Subject';
 import 'rxjs/add/operator/debounceTime';
 import 'rxjs/add/operator/distinctUntilChanged';
 import 'rxjs/add/observable/fromEvent';
+import 'rxjs/add/operator/takeUntil';
 
 import { AuthorService } from 'app/_services/author.service';
 import { ArticleDataSource } from './article-data/article.datasource';
@@ -17,10 +19,13 @@ import { DeleteArticleModalComponent } from 'app/article-portal/delete-article-m
   templateUrl: './article-list.component.html',
   styleUrls: ['./article-list.component.scss']
 })
-export class ArticleListComponent implements OnInit {
-  dataSource: ArticleDataSource;
-  dataSubject = new BehaviorSubject<Article[]>([]);
-  displayedColumns: string[];
+export class ArticleListComponent implements OnInit, OnDestroy {
+
+  private destroyed: Subject<boolean> = new Subject<boolean>();
+
+  public dataSource: ArticleDataSource;
+  public dataSubject = new BehaviorSubject<Article[]>([]);
+  public displayedColumns: string[];
 
   @ViewChild(MatSort) sort: MatSort;
   @ViewChild(MatPaginator) paginator: MatPaginator;
@@ -35,9 +40,11 @@ export class ArticleListComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.authorService.getArticlesByAuthor().subscribe((results) => {
-      this.dataSubject.next(results);
-    });
+    this.authorService.getArticlesByAuthor()
+      .takeUntil(this.destroyed)
+      .subscribe((results) => {
+        this.dataSubject.next(results);
+      });
     this.dataSource = new ArticleDataSource(this.dataSubject, this.sort, this.paginator);
     Observable.fromEvent(this.filter.nativeElement, 'keyup')
       .debounceTime(150)
@@ -46,6 +53,11 @@ export class ArticleListComponent implements OnInit {
         if (!this.dataSource) { return; }
         this.dataSource.filter = this.filter.nativeElement.value;
       });
+  }
+
+  ngOnDestroy() {
+    this.destroyed.next();
+    this.destroyed.complete();
   }
 
   viewArticle(article: Article) {
@@ -63,8 +75,10 @@ export class ArticleListComponent implements OnInit {
       height: '40vh',
       width: '40vw'
     });
-    dialogRef.afterClosed().subscribe(() => {
-      this.dataSubject.next(articles.filter(a => a !== article));
-    });
+    dialogRef.afterClosed()
+      .takeUntil(this.destroyed)
+      .subscribe(() => {
+        this.dataSubject.next(articles.filter(a => a !== article));
+      });
   }
 }

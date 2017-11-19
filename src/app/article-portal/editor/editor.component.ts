@@ -1,9 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { FormBuilder, FormGroup, FormControl, Validators, FormsModule } from '@angular/forms';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 
 import { Observable } from 'rxjs/Observable';
+import { Subject } from 'rxjs/Subject';
+import 'rxjs/add/operator/takeUntil';
 
 import { EditorService } from 'app/_services/editor.service';
 import { ArticleService } from 'app/_services/article.service';
@@ -21,7 +23,7 @@ import { SnackbarMessagingService } from 'app/_services/snackbar-messaging.servi
   templateUrl: './editor.component.html',
   styleUrls: ['./editor.component.scss']
 })
-export class EditorComponent implements OnInit {
+export class EditorComponent implements OnInit, OnDestroy {
 
   private tb = ['fullscreen', 'bold', 'italic', 'underline', 'strikeThrough',
   'subscript', 'superscript', '|', 'fontFamily', 'fontSize', 'color', 'inlineStyle',
@@ -52,6 +54,8 @@ export class EditorComponent implements OnInit {
     toolbarButtonsXS: this.tb,
   };
   private content: string;
+  private destroyed: Subject<boolean> = new Subject<boolean>();
+
 
   public editorContent: string;
   public editing = false;
@@ -94,6 +98,7 @@ export class EditorComponent implements OnInit {
   ngOnInit() {
     this.selectedTags = new Set<string>();
     this.formGroup.get('tags').valueChanges
+      .takeUntil(this.destroyed)
       .subscribe((input) => {
         this.filteredTags = this.filterTags(input);
       });
@@ -106,6 +111,7 @@ export class EditorComponent implements OnInit {
       this.editorService.setArticleId(params['id']);
 
       this.articleService.getArticle(id)
+        .takeUntil(this.destroyed)
         .subscribe(article => {
           this.formGroup.setValue({
             'articleTitle': article.title,
@@ -120,6 +126,11 @@ export class EditorComponent implements OnInit {
           this.editorContent = article.text;
         });
     });
+  }
+
+  ngOnDestroy() {
+    this.destroyed.next();
+    this.destroyed.complete();
   }
 
   updateContent(editor) {
@@ -139,6 +150,7 @@ export class EditorComponent implements OnInit {
         formData.append('coverPhoto', file);
 
         this.editorService.saveArticle(this.content, articleTitle, articleDescription, tags, formData)
+          .takeUntil(this.destroyed)
           .subscribe(result => {
             this.snackbarMessageService.displayError('Successfully saved article', 4000);
           }, error => {
@@ -146,6 +158,7 @@ export class EditorComponent implements OnInit {
           });
       } else {
         this.editorService.saveArticle(this.content, articleTitle, articleDescription, tags)
+          .takeUntil(this.destroyed)
           .subscribe(result => {
             this.snackbarMessageService.displayError('Successfully saved article', 4000);
           }, error => {
@@ -164,6 +177,7 @@ export class EditorComponent implements OnInit {
 
   publishArticle() {
     this.editorService.publishArticle()
+      .takeUntil(this.destroyed)
       .subscribe(result => {
         this.snackbarMessageService.displayError('Successfully published article', 4000);
       }, error => {
@@ -196,6 +210,7 @@ export class EditorComponent implements OnInit {
       } else {
         const input = this.tagInput;
         this.editorService.addTag(input)
+          .takeUntil(this.destroyed)
           .subscribe(result => {
             this.selectedTags.add(input);
             this.snackbarMessageService.displayError(`Added the tag: ${input}`, 2000);
@@ -226,13 +241,14 @@ export class EditorComponent implements OnInit {
       }
     });
 
-    dialogRef.afterClosed().subscribe(result => {
-      if (result) {
-        this.formGroup.patchValue({
-          coverPhoto: result
-        });
-      }
-    });
+    dialogRef.afterClosed()
+      .subscribe(result => {
+        if (result) {
+          this.formGroup.patchValue({
+            coverPhoto: result
+          });
+        }
+      });
   }
 
   previewImage(): boolean {
