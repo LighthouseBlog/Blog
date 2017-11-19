@@ -4,7 +4,7 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/catch';
 import 'rxjs/add/operator/map';
-import 'rxjs/add/observable/forkJoin';
+import 'rxjs/add/observable/zip';
 
 import { AuthenticationService } from '../_services/authentication.service';
 import { Article } from '../_models/Article';
@@ -50,12 +50,13 @@ export class AuthorService {
     }
 
     if (profilePicture) {
-      return Observable.forkJoin(
+      return Observable.zip(
         this.http.put<any>(this.authorUrl + username, body),
-        this.http.post<any>(this.authorUrl + username, profilePicture)
+        this.http.post<any>(this.authorUrl + username, profilePicture),
+        (r1, r2) => r2
       );
     } else {
-      return Observable.forkJoin(
+      return Observable.zip(
         this.http.put<any>(this.authorUrl + username, body)
       );
     }

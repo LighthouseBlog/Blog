@@ -21,6 +21,7 @@ export class SettingsModalComponent implements OnInit {
   username: string;
   public saveInProgress: boolean;
   public image: any;
+  private profilePictureUpdated: boolean = false;
 
   constructor(
     fb: FormBuilder,
@@ -45,6 +46,7 @@ export class SettingsModalComponent implements OnInit {
           'profilePicture': {}
         });
         this.image = author.profilePicture;
+        this.profilePictureUpdated = false;
         this.username = author.username;
       });
     this.saveInProgress = false;
@@ -56,15 +58,18 @@ export class SettingsModalComponent implements OnInit {
       const name = formValue['name'];
       const email = formValue['email'];
       const profilePicture = formValue['profilePicture'];
-      if (profilePicture.target) {
+
+      if (profilePicture && this.profilePictureUpdated) {
         const formData = new FormData();
-        const file = profilePicture.target.files[0];
+        const file = this.getProfilePicture(profilePicture);
         formData.append('profilePicture', file);
+
         this.authorService.updateUserSettings(this.username, name, email, formData)
           .subscribe(result => {
+            console.log('Results', result);
             this.saveInProgress = false;
             this.snackBarMessagingService.displayError('Updated user settings', 4000);
-            this.dialogRef.close({name, image: result.image || ''});
+            this.dialogRef.close({name, image: result.data.profilePicture || ''});
           }, error => {
             this.saveInProgress = false;
             this.snackBarMessagingService.displayError(`Error updating user settings ${error}`, 4000);
@@ -85,11 +90,20 @@ export class SettingsModalComponent implements OnInit {
     }
   }
 
+  getProfilePicture(profilePicture: any) {
+    if (profilePicture.target) {
+      return profilePicture.target.files[0];
+    }
+    return profilePicture;
+  }
+
   fileChangeListener($event) {
+    const image = new Image();
     const file = $event.target.files[0];
     const myReader = new FileReader();
     myReader.onloadend = (loadEvent: any) => {
-      this.image = loadEvent.target.result;
+      image.src = loadEvent.target.result;
+      this.profilePictureUpdated = true;
     };
 
     myReader.readAsDataURL(file);
@@ -97,10 +111,21 @@ export class SettingsModalComponent implements OnInit {
 
   openPreview() {
     const dialogRef = this.dialog.open(ImagePreviewComponent, {
-      data: this.image
+      maxHeight: '400px',
+      maxWidth: '400px',
+      data: {
+        src: this.image,
+        aspectRatio: 1
+      }
     });
 
     dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        this.settingsGroup.patchValue({
+          profilePicture: result
+        });
+        this.profilePictureUpdated = true;
+      }
     });
   }
 
