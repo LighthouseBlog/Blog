@@ -41,14 +41,14 @@ At some point, I will complete all or most of these topics
 2. Run the following commands to get your certificate renewed daily
 ``` bash
 $ sudo systemctl daemon-reload
-$ sudo systemctl start renew-letsencrypt.timer
-$ sudo systemctl enable renew-letsencrypt.timer
+$ sudo systemctl start letsencrypt.timer
+$ sudo systemctl enable letsencrypt.timer
 ```
 3. If you want to view information about the service and timer that you set up (for diagnostics eg)
 ``` bash
 $ sudo systemctl list-timers
-$ sudo journalctl -u renew-letsencrypt
-$ sudo journalctl -u renew-letsencrypt --since="yesterday"
+$ sudo journalctl -u letsencrypt
+$ sudo journalctl -u letsencrypt --since="yesterday"
 ```
 
 #### Setup a 16.04 server to run this blog
