@@ -1,0 +1,17 @@
+#image {
+  max-width: 100%;
+}
+
+.right {
+  float: right;
+}
+
+.options-row {
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+}
+
+.end {
+ align-self: flex-end;
+}

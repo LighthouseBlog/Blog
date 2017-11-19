@@ -1,1 +1,25 @@
-<img [src]="image">
+<div>
+  <div *ngIf="showingCroppingTools" class="options-row">
+    <button mat-icon-button title="Save changes" (click)="save()">
+      <mat-icon aria-label="Save Changes" [style.color]="'green'">save</mat-icon>
+    </button>
+    <button mat-icon-button title="Crop Image" (click)="cropImage()">
+      <mat-icon aria-label="Crop Image" [style.color]="'green'">done</mat-icon>
+    </button>
+    <button mat-icon-button title="Discard Changes" (click)="restore()">
+      <mat-icon aria-label="Discard Changes" [style.color]="'red'">delete</mat-icon>
+    </button>
+    <button mat-icon-button class="end" title="Close" (click)="stop()">
+      <mat-icon aria-label="Discard Changes">close</mat-icon>
+    </button>
+  </div>
+  <img id="image" [src]="image.src">
+  <div *ngIf="!showingCroppingTools">
+    <button mat-icon-button (click)="showCropperTool()" class="right">
+      <mat-icon aria-label="Show Cropping Tools">crop</mat-icon>
+    </button>
+    <button mat-icon-button (click)="saveImage()" class="right">
+      <mat-icon aria-label="Save Changes">save</mat-icon>
+    </button>
+  </div>
+</div>

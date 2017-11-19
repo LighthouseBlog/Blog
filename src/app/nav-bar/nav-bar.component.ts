@@ -72,9 +72,11 @@ export class NavBarComponent implements OnInit {
       minWidth: '40vw'
     }).afterClosed()
       .subscribe(result => {
-        if (result) {
+        if (result.name) {
           this.name = Promise.resolve(result.name);
-          this.image = Promise.resolve(result.image || environment.DEFAULT_PROFILE_PICTURE);
+        }
+        if (result.image) {
+          this.image = Promise.resolve(result.image);
         }
       });
   }
