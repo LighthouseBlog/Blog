@@ -5,6 +5,7 @@
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
+    "aot": "ng serve --aot",
     "https": "ng serve --ssl --ssl-key key.pem --ssl-cert certificate.pem",
     "build": "ng build",
     "predeploy": "npm run build-prod && npm run precache",

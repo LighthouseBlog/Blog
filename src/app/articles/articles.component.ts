@@ -1,6 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs/Observable';
+import { Subject } from 'rxjs/Subject';
+import 'rxjs/add/operator/takeUntil';
 
 import { ArticleService } from 'app/_services/article.service';
 import { TagService } from 'app/_services/tags.service';
@@ -12,7 +14,9 @@ import { ArticleList } from 'app/_models/ArticleList';
   templateUrl: './articles.component.html',
   styleUrls: ['./articles.component.scss']
 })
-export class ArticlesComponent implements OnInit {
+export class ArticlesComponent implements OnInit, OnDestroy {
+
+  private destroyed: Subject<boolean> = new Subject<boolean>();
 
   public articles;
   public tags: Promise<Array<String>>;
@@ -29,15 +33,21 @@ export class ArticlesComponent implements OnInit {
   ngOnInit() {
     this.articles = this.articleService.getAllArticles();
     this.tagService.getAllTags()
+      .takeUntil(this.destroyed)
       .subscribe((tags) => {
         this.tagData = tags;
         this.tags = Promise.resolve(Object.keys(tags));
-        this.maxSize = Object.keys(tags).map((tag) => {
-            return parseInt(tags[tag], 10);
-          }).reduce((accumulator, currentValue) => {
+        this.maxSize = Object.keys(tags)
+          .map((tag) => parseInt(tags[tag], 10))
+          .reduce((accumulator, currentValue) => {
             return Math.max(accumulator, currentValue);
           }, 0);
       });
+  }
+
+  ngOnDestroy() {
+    this.destroyed.next();
+    this.destroyed.complete();
   }
 
   selectedArticle(e) {
