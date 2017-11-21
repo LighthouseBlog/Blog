@@ -1,12 +1,14 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms';
 import { MatDialogRef, MatDialog } from '@angular/material';
+import { Subject } from 'rxjs/Subject';
+import 'rxjs/add/operator/takeUntil';
 
 import { AuthenticationService } from 'app/_services/authentication.service';
 import { AuthorService } from 'app/_services/author.service';
 import { SnackbarMessagingService } from 'app/_services/snackbar-messaging.service';
-
 import { FileValidator } from 'app/_directives/fileValidator.directive';
+
 import { ImagePreviewComponent } from 'app/article-portal/image-preview/image-preview.component';
 
 @Component({
@@ -14,17 +16,18 @@ import { ImagePreviewComponent } from 'app/article-portal/image-preview/image-pr
   templateUrl: './settings-modal.component.html',
   styleUrls: ['./settings-modal.component.scss']
 })
-export class SettingsModalComponent implements OnInit {
+export class SettingsModalComponent implements OnInit, OnDestroy {
 
-  settingsGroup: FormGroup;
-  fileContent: any;
-  username: string;
+  private profilePictureUpdated: boolean;
+  private destroyed: Subject<boolean> = new Subject<boolean>();
+
+  public settingsGroup: FormGroup;
+  public username: string;
   public saveInProgress: boolean;
   public image: any;
-  private profilePictureUpdated: boolean = false;
 
   constructor(
-    fb: FormBuilder,
+    private fb: FormBuilder,
     private auth: AuthenticationService,
     private dialogRef: MatDialogRef<SettingsModalComponent>,
     private dialog: MatDialog,
@@ -39,6 +42,7 @@ export class SettingsModalComponent implements OnInit {
 
   ngOnInit() {
     this.authorService.getAuthor()
+      .takeUntil(this.destroyed)
       .subscribe(author => {
         this.settingsGroup.setValue({
           'name': author.name,
@@ -50,6 +54,11 @@ export class SettingsModalComponent implements OnInit {
         this.username = author.username;
       });
     this.saveInProgress = false;
+  }
+
+  ngOnDestroy() {
+    this.destroyed.next();
+    this.destroyed.complete();
   }
 
   saveSettings(formValue: any, isFormValid: boolean) {
@@ -65,8 +74,8 @@ export class SettingsModalComponent implements OnInit {
         formData.append('profilePicture', file);
 
         this.authorService.updateUserSettings(this.username, name, email, formData)
+          .takeUntil(this.destroyed)
           .subscribe(result => {
-            console.log('Results', result);
             this.saveInProgress = false;
             this.snackBarMessagingService.displayError('Updated user settings', 4000);
             this.dialogRef.close({name, image: result.data.profilePicture || ''});
@@ -76,6 +85,7 @@ export class SettingsModalComponent implements OnInit {
           });
       } else {
         this.authorService.updateUserSettings(this.username, name, email)
+          .takeUntil(this.destroyed)
           .subscribe(result => {
             this.saveInProgress = false;
             this.snackBarMessagingService.displayError('Updated user settings', 4000);
@@ -119,14 +129,16 @@ export class SettingsModalComponent implements OnInit {
       }
     });
 
-    dialogRef.afterClosed().subscribe(result => {
-      if (result) {
-        this.settingsGroup.patchValue({
-          profilePicture: result
-        });
-        this.profilePictureUpdated = true;
-      }
-    });
+    dialogRef.afterClosed()
+      .takeUntil(this.destroyed)
+      .subscribe(result => {
+        if (result) {
+          this.settingsGroup.patchValue({
+            profilePicture: result
+          });
+          this.profilePictureUpdated = true;
+        }
+      });
   }
 
   previewImage(): boolean {

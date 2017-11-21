@@ -1,7 +1,9 @@
-import { Component } from '@angular/core';
+import { Component, OnDestroy } from '@angular/core';
 import { FormBuilder, FormGroup, FormControl, Validators, FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
 import { MatDialogRef } from '@angular/material';
+import { Subject } from 'rxjs/Subject';
+import 'rxjs/add/operator/takeUntil';
 
 import { EditorService } from 'app/_services/editor.service';
 
@@ -10,10 +12,12 @@ import { EditorService } from 'app/_services/editor.service';
   templateUrl: './create-article-modal.component.html',
   styleUrls: ['./create-article-modal.component.scss']
 })
-export class CreateArticleModalComponent {
+export class CreateArticleModalComponent implements OnDestroy {
 
-  title = 'Create a new article';
-  formGroup: FormGroup;
+  private destroyed: Subject<boolean> = new Subject<boolean>();
+
+  public title = 'Create a new article';
+  public formGroup: FormGroup;
 
   constructor(
     private fb: FormBuilder,
@@ -27,6 +31,11 @@ export class CreateArticleModalComponent {
     });
   }
 
+  ngOnDestroy() {
+    this.destroyed.next();
+    this.destroyed.complete();
+  }
+
   create(formValue: any, isFormValid: boolean) {
     if (isFormValid) {
 
@@ -34,6 +43,7 @@ export class CreateArticleModalComponent {
       const articleDescription = formValue['articleDescription'];
 
       this.editorService.createArticle(articleTitle, articleDescription)
+        .takeUntil(this.destroyed)
         .subscribe(results => {
           const id = results._id;
           if (!Number.isNaN(id)) {

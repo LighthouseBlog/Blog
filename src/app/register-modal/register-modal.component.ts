@@ -1,7 +1,9 @@
-import { Component } from '@angular/core';
+import { Component, OnDestroy } from '@angular/core';
 import { FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { MatDialogRef } from '@angular/material';
+import { Subject } from 'rxjs/Subject';
+import 'rxjs/add/operator/takeUntil';
 
 import { AuthenticationService } from 'app/_services/authentication.service';
 import { SnackbarMessagingService } from 'app/_services/snackbar-messaging.service';
@@ -18,9 +20,11 @@ function equalValidator({value}: FormGroup): {[key: string]: any} {
   templateUrl: './register-modal.component.html',
   styleUrls: ['./register-modal.component.scss']
 })
-export class RegisterModalComponent {
+export class RegisterModalComponent implements OnDestroy {
 
-  title = 'Register';
+  private destroyed: Subject<boolean> = new Subject<boolean>();
+
+  public title = 'Register';
   public registerGroup: FormGroup;
 
   constructor(
@@ -41,6 +45,11 @@ export class RegisterModalComponent {
     });
   }
 
+  ngOnDestroy() {
+    this.destroyed.next();
+    this.destroyed.complete();
+  }
+
   register(formValue: any, isFormValid: boolean) {
     if (isFormValid) {
       const username = formValue.username;
@@ -50,8 +59,9 @@ export class RegisterModalComponent {
       const name = formValue.name;
 
       this.auth.register(username, password, email, name)
+        .takeUntil(this.destroyed)
         .subscribe(result => {
-          if (result === true) {
+          if (result) {
               this.dialogRef.close(name);
               this.router.navigate(['articles']);
           } else {
