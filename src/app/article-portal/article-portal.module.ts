@@ -6,7 +6,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { Router } from 'app/app.routing';
 
-import { FroalaEditorModule, FroalaViewModule } from 'angular2-froala-wysiwyg';
+import { FroalaEditorModule, FroalaViewModule } from 'angular-froala-wysiwyg';
 
 import { FileValidator } from 'app/_directives/fileValidator.directive';
 import { FileValueAccessor } from 'app/_directives/fileValueAccessor.directive';
