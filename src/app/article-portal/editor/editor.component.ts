@@ -26,7 +26,7 @@ import { SnackbarMessagingService } from 'app/_services/snackbar-messaging.servi
 export class EditorComponent implements OnInit, OnDestroy {
 
   private tb = ['fullscreen', 'bold', 'italic', 'underline', 'strikeThrough',
-  'subscript', 'superscript', '|', 'fontFamily', 'fontSize', 'color', 'inlineStyle',
+  'subscript', 'superscript', '|', 'inlineStyle',
   'paragraphStyle', '|', 'paragraphFormat', 'align', 'formatOL', 'formatUL', 'outdent',
   'indent', 'quote', '-', 'insertLink', 'insertImage', 'insertVideo', 'insertFile',
   'insertTable', '|', 'emoticons', 'specialCharacters', 'insertHR', 'selectAll',
