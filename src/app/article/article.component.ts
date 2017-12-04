@@ -4,6 +4,9 @@ import { ActivatedRoute } from '@angular/router';
 import { ArticleService } from 'app/_services/article.service';
 import { AuthorService } from 'app/_services/author.service';
 
+import { Article } from 'app/_models/Article';
+import { Author } from 'app/_models/Author';
+
 @Component({
   selector: 'app-article',
   templateUrl: './article.component.html',
@@ -11,16 +14,14 @@ import { AuthorService } from 'app/_services/author.service';
 })
 export class ArticleComponent implements OnInit {
 
-  public article;
-  public author;
+  public article: Article;
+  public author: Author;
 
   constructor(
     private articleService: ArticleService,
     private route: ActivatedRoute,
     private authorService: AuthorService,
   ) {
-    this.article = {};
-    this.author = {};
   }
 
   ngOnInit() {
@@ -39,7 +40,7 @@ export class ArticleComponent implements OnInit {
   }
 
   getAuthor() {
-    this.authorService.getAuthor(this.article.author)
+    this.authorService.getAuthor(this.article.author.username)
       .subscribe(result => {
         this.author = result;
       });

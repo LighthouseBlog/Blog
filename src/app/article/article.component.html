@@ -1,8 +1,22 @@
 <div class="article-display">
-  <h1 class="title"> {{article?.title}} </h1>
-  <h3 class="author">
-    <img src="{{ author?.profilePicture }}" class="profile-picture" />
-    {{author?.name}}
-  </h3>
-  <div class="article" [innerHTML]="article.text"> </div>
+  <span class="author">
+    <span>
+      <img src="{{ author?.profilePicture }}" class="profile-picture" />
+    </span>
+    <span>
+      <div class="primary">{{author?.name}}</div>
+      <div class="subtle">{{author?.profile}}</div>
+      <div class="subtle">{{article?.datePosted | date:'longDate'}}</div>
+    </span>
+  </span>
+  <span class="title">
+    {{article?.title}}
+  </span>
+  <span class="description">
+    {{article?.description}}
+  </span>
+  <span>
+    <img src="{{ article?.coverPhoto }}" class="cover-photo"/>
+  </span>
+  <div class="article" [innerHTML]="article?.text"> </div>
 </div>

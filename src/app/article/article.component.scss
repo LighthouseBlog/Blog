@@ -1,8 +1,15 @@
+:host {
+  font-family: Georgia, Cambria, "Times New Roman", Times,serif;
+  font-size: 15px;
+  line-height: 1.58;
+  letter-spacing: -.003em;  
+}
+
 .title {
   margin-left: 2vw;
   margin-top: 2vh;
   float: left;
-  color: purple;
+  font-size: 30px;
 }
 
 .article {
@@ -15,23 +22,44 @@
 .author {
   margin-left: 2vw;
   margin-top: 2vh;
-  float: left;
   color: black;
+  display: flex;
+
+  .profile-picture {
+    max-height: 60px;
+    max-width: 60px;
+    border-radius: 30px;
+    object-fit: contain;
+    margin-right: 10px;
+  }
 }
 
 .article-display {
   display: flex;
   flex-direction: column;
   justify-content: center;
-  margin: 3vh 3vw 3vh 3vw;
-  background-color: ghostwhite;
+  margin: 3vh 20vw 3vh 20vw;  
   border-radius: 5px;
 }
 
-.profile-picture {
-  width: 10%;
-  height: 10%;
-  max-height: 100px;
-  max-width: 100px;
-  object-fit: contain;
+.primary {
+  font-size: 17px;
+}
+
+.description {
+  color: rgb(138, 131, 131);
+  margin-left: 2vw;
+  margin-bottom: 1vh;
+  font-size: 25px;
+}
+
+.subtle {
+  font-weight: 200;
+  color: rgb(138, 131, 131);
+}
+
+.cover-photo {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 }
