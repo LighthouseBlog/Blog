@@ -33,7 +33,7 @@ export class SettingsModalComponent implements OnInit, OnDestroy {
     private dialog: MatDialog,
     private snackBarMessagingService: SnackbarMessagingService,
     private authorService: AuthorService) {
-      this.settingsGroup = fb.group({
+      this.settingsGroup = this.fb.group({
         'name': new FormControl('', Validators.required),
         'email': new FormControl('', Validators.required),
         'profilePicture': new FormControl('', [FileValidator.validate])
@@ -44,7 +44,7 @@ export class SettingsModalComponent implements OnInit, OnDestroy {
     this.authorService.getAuthor()
       .takeUntil(this.destroyed)
       .subscribe(author => {
-        this.settingsGroup.setValue({
+        this.settingsGroup.patchValue({
           'name': author.name,
           'email': author.email,
           'profilePicture': {}

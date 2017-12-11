@@ -18,5 +18,5 @@
   <span>
     <img src="{{ article?.coverPhoto }}" class="cover-photo"/>
   </span>
-  <div class="article" [innerHTML]="article?.text"> </div>
+  <div class="article" [innerHTML]="article?.text | sanitizeHtml"> </div>
 </div>

@@ -28,17 +28,17 @@ export class RegisterModalComponent implements OnDestroy {
   public registerGroup: FormGroup;
 
   constructor(
-    fb: FormBuilder,
+    private fb: FormBuilder,
     private router: Router,
     private auth: AuthenticationService,
     private dialogRef: MatDialogRef<RegisterModalComponent>,
     private snackbarMessagingSerivce: SnackbarMessagingService
   ) {
-    this.registerGroup = fb.group({
+    this.registerGroup = this.fb.group({
       'username': new FormControl('', Validators.required),
-      'email': new FormControl('', Validators.required),
+      'email': new FormControl('', Validators.email),
       'name': new FormControl('', Validators.required),
-      'passwordsGroup': fb.group({
+      'passwordsGroup': this.fb.group({
         'password': new FormControl('', Validators.required),
         'confirmPassword': new FormControl(''),
       }, {validator: equalValidator})

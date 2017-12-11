@@ -33,6 +33,7 @@ import { AuthInterceptor } from 'app/_interceptors/auth.interceptor';
 
 import { MaterialModule } from 'app/material.module';
 import { ArticlePortalModule } from 'app/article-portal/article-portal.module';
+import { PipeModule } from 'app/_pipes/pipe.module';
 
 @NgModule({
   declarations: [
@@ -52,7 +53,8 @@ import { ArticlePortalModule } from 'app/article-portal/article-portal.module';
     HttpClientModule,
     Router,
     MaterialModule,
-    ArticlePortalModule
+    ArticlePortalModule,
+    PipeModule
   ],
   providers: [
     AuthGuard,

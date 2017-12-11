@@ -113,7 +113,7 @@ export class EditorComponent implements OnInit, OnDestroy {
       this.articleService.getArticle(id)
         .takeUntil(this.destroyed)
         .subscribe(article => {
-          this.formGroup.setValue({
+          this.formGroup.patchValue({
             'articleTitle': article.title,
             'articleDescription': article.description,
             'tags': '',
