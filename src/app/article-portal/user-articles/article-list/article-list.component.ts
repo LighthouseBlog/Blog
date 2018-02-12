@@ -77,8 +77,11 @@ export class ArticleListComponent implements OnInit, OnDestroy {
     });
     dialogRef.afterClosed()
       .takeUntil(this.destroyed)
-      .subscribe(() => {
-        this.dataSubject.next(articles.filter(a => a !== article));
+      .subscribe((result) => {
+        console.log('result', result);
+        if (result === 'delete') {
+          this.dataSubject.next(articles.filter(a => a !== article));
+        }
       });
   }
 }

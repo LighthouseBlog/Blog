@@ -1,8 +1,8 @@
 <form #f="ngForm" [formGroup]="formGroup" (ngSubmit)="create(f.value, f.valid)" novalidate>
   <mat-dialog-content>
-    <mat-card class="create-card">
+    <mat-card class="create-card mat-elevation-z0">
       <mat-card-header>
-        <mat-card-title><h2>{{title}}</h2></mat-card-title>
+        <mat-card-title>{{title}}</mat-card-title>
       </mat-card-header>
         <mat-card-content align="center">
           <mat-input-container class="form-input">
@@ -17,8 +17,7 @@
     </mat-card>
   </mat-dialog-content>
   <mat-dialog-actions align="end">
-    <button mat-button mat-dialog-close>Cancel</button>
-    <!-- Can optionally provide a result for the closing dialog. -->
-    <button mat-raised-button type="submit" [disabled]="!f.valid">Create</button>
+    <button mat-raised-button mat-dialog-close>Cancel</button>
+    <button mat-raised-button type="submit" [disabled]="!f.valid" color="primary">Create</button>
   </mat-dialog-actions>
 </form>

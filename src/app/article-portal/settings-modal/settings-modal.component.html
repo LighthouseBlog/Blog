@@ -17,16 +17,19 @@
           <input matInput type="text" placeholder="Email" formControlName="email" required />
           <mat-error *ngIf="settingsGroup.hasError('required', ['email'])">Email is required</mat-error>
         </mat-input-container>
-        <button mat-button class="btn-file">
-          <mat-icon>add</mat-icon>
-          Upload Profile Picture
-          <input type="file" name="file" id="file" class="inputfile" formControlName="profilePicture" (change)="fileChangeListener($event)" accept="image/*"/>
-        </button>
+        <div>
+          <button mat-button class="btn-file">
+            <mat-icon>add</mat-icon>
+            Upload Profile Picture
+            <input type="file" name="file" id="file" class="inputfile" formControlName="profilePicture" (change)="fileChangeListener($event)" accept="image/*"/>
+          </button>
+          <button mat-mini-fab *ngIf="previewImage()" type="button" (click)="openPreview()" [color]="'preview'">
+            <mat-icon aria-label="Preview profile picture" title="Preview profile picture">picture_in_picture</mat-icon>
+          </button>
+        </div>
       </mat-card-content>
       <mat-card-actions align="end">
-        <button mat-mini-fab *ngIf="previewImage()" type="button" (click)="openPreview()" color="primary">
-          <mat-icon aria-label="Preview profile picture" title="Preview profile picture">picture_in_picture</mat-icon>
-        </button>
+        
         <button mat-raised-button type="submit" [disabled]="!f.valid" color="accent"> Save Settings </button>
       </mat-card-actions>
     </form>

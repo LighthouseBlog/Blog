@@ -11,10 +11,10 @@ import { Token } from 'app/_models/Token';
 @Injectable()
 export class AuthenticationService {
     public token: string;
-    private loginUrl = environment.URL + '/login';
-    private registerUrl = environment.URL + '/register';
+    private loginUrl = environment.URL + '/auth/login';
+    private registerUrl = environment.URL + '/auth/register';
     private renewalUrl = environment.URL + '/auth/token';
-    private jwtUrl = environment.URL + '/jwt';
+    private jwtUrl = environment.URL + '/auth/jwt';
     private expirationUrl = this.jwtUrl + '/expired';
     private refreshSubscription: any;
 
