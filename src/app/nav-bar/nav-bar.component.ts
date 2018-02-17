@@ -52,7 +52,9 @@ export class NavBarComponent implements OnInit, OnDestroy {
 
   login() {
     this.dialog.open(LoginModalComponent, {
-      minWidth: '30vw'
+      minWidth: '30vw',
+      width: '30vw',
+      height: '40vh'
     }).afterClosed()
       .takeUntil(this.destroyed)
       .subscribe(result => {
@@ -66,7 +68,7 @@ export class NavBarComponent implements OnInit, OnDestroy {
   register() {
     this.dialog.open(RegisterModalComponent, {
       minHeight: '55vh',
-      width: '25vw',
+      width: '35vw',
       minWidth: '300px'
     }).afterClosed()
       .takeUntil(this.destroyed)
@@ -84,10 +86,10 @@ export class NavBarComponent implements OnInit, OnDestroy {
     }).afterClosed()
       .takeUntil(this.destroyed)
       .subscribe(result => {
-        if (result.name) {
+        if (result && result.name) {
           this.name = Promise.resolve(result.name);
         }
-        if (result.image) {
+        if (result && result.image) {
           this.image = Promise.resolve(result.image);
         }
       });
