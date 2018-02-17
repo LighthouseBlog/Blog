@@ -32,11 +32,16 @@ export class EditorComponent implements OnInit, OnDestroy {
   'insertTable', '|', 'emoticons', 'specialCharacters', 'insertHR', 'selectAll',
   'clearFormatting', '|', 'print', 'spellChecker', 'help', 'html', '|', 'undo', 'redo', 'github']
   private options: Object = {
-    heightMin: 400,
     placeholderText: 'Edit Content Here',
     charCounterCount: true,
-    htmlRemoveTags: [],
-    toolbarInline: false,
+    useClasses: false,
+    htmlAllowedTags: ['.*'],
+    htmlRemoveTags: [''],
+    fullPage: true,
+    lineBreakerTags: [''],
+    tableStyles: {},
+    linkAlwaysBlank: true,
+    toolbarSticky: false,
     events: {
       'froalaEditor.contentChanged': (e, editor) => {
         this.updateContent(editor);
@@ -44,8 +49,7 @@ export class EditorComponent implements OnInit, OnDestroy {
       'froalaEditor.image.removed': (e, editor, $img) => {
         const src = $img.attr('src');
         this.imagesService.deleteImage(src)
-          .subscribe(result => {
-          })
+          .subscribe(result => { })
       }
     },
     toolbarButtons: this.tb,
@@ -204,7 +208,7 @@ export class EditorComponent implements OnInit, OnDestroy {
   }
 
   onEnter(event: any) {
-    if (event.keyCode === 13) {
+    if (event.keyCode === 13 && this.tagInput) {
       if (this.selectedTags.has(this.tagInput)) {
         this.snackbarMessageService.displayError('Tag already exists', 2000);
       } else {
