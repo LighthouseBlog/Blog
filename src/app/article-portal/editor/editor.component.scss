@@ -48,3 +48,23 @@
 #preview {
   border: 2px solid #4CAF50;
 }
+
+a[href="http://editor.froala.com"] {
+  display: none !important;
+  position: absolute;
+  top: -99999999px;
+}
+
+.editor {
+  ::ng-deep {
+    .fr-toolbar.fr-top {
+      position: sticky;
+      top: 0px;
+    }
+  }
+}
+
+.mat-chip:not(.mat-basic-chip) {
+  background-color: lightblue;
+  color: black;
+}

@@ -1,5 +1,5 @@
 <div class="register">
-  <mat-card class="register-card">
+  <mat-card class="register-card mat-elevation-z0">
     <mat-card-header>
       <mat-card-title><h2>{{title}}</h2></mat-card-title>
     </mat-card-header>
@@ -17,7 +17,7 @@
           <input matInput type="text" placeholder="Name" formControlName="name" required />
           <mat-error *ngIf="registerGroup.hasError('required', ['name'])">Name is required</mat-error>
         </mat-input-container>
-        <div formGroupName="passwordsGroup">
+        <div formGroupName="passwordsGroup" class="align-input">
             <mat-input-container>
               <input matInput type="password" placeholder="Password" formControlName="password" required />
               <mat-error *ngIf="registerGroup.hasError('required', ['passwordsGroup', 'password'])">Password is required</mat-error>

@@ -6,3 +6,11 @@ textarea {
   display: inline-block;
   min-width: 95%;
 }
+
+.create-card {
+  ::ng-deep {
+    mat-card-title {
+      font-size: 20px;
+    }
+  }
+}

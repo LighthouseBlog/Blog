@@ -14,7 +14,7 @@ import { Article } from 'app/_models/Article';
 export class DeleteArticleModalComponent implements OnDestroy {
 
   private destroyed: Subject<boolean> = new Subject<boolean>();
-  
+
   public article: Article;
 
   constructor(
@@ -34,7 +34,7 @@ export class DeleteArticleModalComponent implements OnDestroy {
       .takeUntil(this.destroyed)
       .subscribe(result => {
         if (result) {
-          this.dialogRef.close('closed');
+          this.dialogRef.close('delete');
         }
       })
   }

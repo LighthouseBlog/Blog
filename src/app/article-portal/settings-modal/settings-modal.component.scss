@@ -12,10 +12,6 @@
 
 .btn-file input[type=file] {
   position: absolute;
-  top: 0;
-  right: 0;
-  min-width: 100%;
-  min-height: 100%;
   font-size: 100px;
   filter: alpha(opacity=0);
   opacity: 0;
@@ -30,4 +26,13 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
+}
+
+.mat-preview {
+  background-color: green;
+  color: #fff;
+}
+
+.mat-preview:active {
+  background-color: #4253af;
 }

@@ -19,3 +19,8 @@
   clear: all;
   padding-top: 0.5em;
 }
+
+pre {
+  margin-top: 0px !important;
+  margin-bottom: 0px !important;
+}
