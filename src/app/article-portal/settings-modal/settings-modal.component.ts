@@ -81,7 +81,7 @@ export class SettingsModalComponent implements OnInit, OnDestroy {
             this.dialogRef.close({name, image: result.data.profilePicture || ''});
           }, error => {
             this.saveInProgress = false;
-            this.snackBarMessagingService.displayError(`Error updating user settings ${error}`, 4000);
+            this.snackBarMessagingService.displayError(`Error updating user settings: ${error.error}`, 4000);
           });
       } else {
         this.authorService.updateUserSettings(this.username, name, email)
@@ -92,7 +92,7 @@ export class SettingsModalComponent implements OnInit, OnDestroy {
             this.dialogRef.close({name});
           }, error => {
             this.saveInProgress = false;
-            this.snackBarMessagingService.displayError(`Error updating user settings ${error}`, 4000);
+            this.snackBarMessagingService.displayError(`Error updating user settings: ${error.error}`, 4000);
           });
       }
     } else {
