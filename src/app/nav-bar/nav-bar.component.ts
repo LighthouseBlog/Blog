@@ -72,9 +72,9 @@ export class NavBarComponent implements OnInit, OnDestroy {
       minWidth: '300px'
     }).afterClosed()
       .takeUntil(this.destroyed)
-      .subscribe(result => {
-        if (result) {
-          this.name = Promise.resolve(result.name);
+      .subscribe(name => {
+        if (name) {
+          this.name = Promise.resolve(name);
           this.image = Promise.resolve(environment.DEFAULT_PROFILE_PICTURE);
         }
       });
