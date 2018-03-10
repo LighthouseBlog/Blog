@@ -230,7 +230,6 @@ export class EditorComponent implements OnInit, OnDestroy {
   }
 
   fileChangeListener($event) {
-    const image = new Image();
     const file = $event.target.files[0];
     const myReader = new FileReader();
     myReader.onloadend = (loadEvent: any) => {
@@ -242,6 +241,8 @@ export class EditorComponent implements OnInit, OnDestroy {
 
   openPreview() {
     const dialogRef = this.dialog.open(ImagePreviewComponent, {
+      maxWidth: '800px',
+      maxHeight: '400px',
       data: {
         src: this.image,
         aspectRatio: 16 / 9

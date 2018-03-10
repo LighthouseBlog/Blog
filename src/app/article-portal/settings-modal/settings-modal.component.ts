@@ -108,11 +108,10 @@ export class SettingsModalComponent implements OnInit, OnDestroy {
   }
 
   fileChangeListener($event) {
-    const image = new Image();
     const file = $event.target.files[0];
     const myReader = new FileReader();
     myReader.onloadend = (loadEvent: any) => {
-      image.src = loadEvent.target.result;
+      this.image = loadEvent.target.result;
       this.profilePictureUpdated = true;
     };
 

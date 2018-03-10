@@ -1,6 +1,5 @@
 # Lighthouse Blog
-
-[![Greenkeeper badge](https://badges.greenkeeper.io/LighthouseBlog/Blog.svg)](https://greenkeeper.io/) [![Build Status](https://travis-ci.org/LighthouseBlog/Blog.svg?branch=master)](https://travis-ci.org/LighthouseBlog/Blog)
+[![Build Status](https://travis-ci.org/LighthouseBlog/Blog.svg?branch=master)](https://travis-ci.org/LighthouseBlog/Blog)
 
 ### Authors
 Sam Pastoriza

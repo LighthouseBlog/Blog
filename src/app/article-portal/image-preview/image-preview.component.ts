@@ -40,7 +40,7 @@ export class ImagePreviewComponent implements OnInit, OnDestroy {
   }
 
   showCropperTool() {
-    const image = document.getElementById('image');
+    const image = document.getElementById('image') as HTMLImageElement;
     this.cropper = new Cropper(image, {
       aspectRatio: this.aspectRatio
     });
