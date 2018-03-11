@@ -6,6 +6,7 @@ import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 import { Observable } from 'rxjs/Observable';
 import { Subject } from 'rxjs/Subject';
 import 'rxjs/add/operator/takeUntil';
+import 'rxjs/add/operator/finally';
 
 import { EditorService } from 'app/_services/editor.service';
 import { ArticleService } from 'app/_services/article.service';
@@ -73,6 +74,7 @@ export class EditorComponent implements OnInit, OnDestroy {
   public tagInput: string;
   public removable = true;
   public image: any;
+  public savingArticle: boolean;
 
   constructor(
     private editorService: EditorService,
@@ -150,7 +152,7 @@ export class EditorComponent implements OnInit, OnDestroy {
       const articleDescription = formValue['articleDescription'];
       const coverPhoto = formValue['coverPhoto'];
       const tags = Array.from(this.selectedTags);
-
+      this.savingArticle = true;
       if (coverPhoto) {
         const formData = new FormData();
         const file = this.getCoverPhoto(coverPhoto);
@@ -158,18 +160,20 @@ export class EditorComponent implements OnInit, OnDestroy {
 
         this.editorService.saveArticle(this.content, articleTitle, articleDescription, tags, formData)
           .takeUntil(this.destroyed)
+          .finally(() => this.savingArticle = false)
           .subscribe(result => {
-            this.snackbarMessageService.displayError('Successfully saved article', 4000);
+            this.snackbarMessageService.displaySuccess('Successfully saved article', 4000);
           }, error => {
-            this.snackbarMessageService.displayError('There was an error while attempting to save this article', 4000);
+            this.snackbarMessageService.displayError(error, 4000);
           });
       } else {
         this.editorService.saveArticle(this.content, articleTitle, articleDescription, tags)
           .takeUntil(this.destroyed)
+          .finally(() => this.savingArticle = false)
           .subscribe(result => {
-            this.snackbarMessageService.displayError('Successfully saved article', 4000);
+            this.snackbarMessageService.displaySuccess('Successfully saved article', 4000);
           }, error => {
-            this.snackbarMessageService.displayError('There was an error while attempting to save this article', 4000);
+            this.snackbarMessageService.displayError(error, 4000);
           });
       }
     }
@@ -186,9 +190,9 @@ export class EditorComponent implements OnInit, OnDestroy {
     this.editorService.publishArticle()
       .takeUntil(this.destroyed)
       .subscribe(result => {
-        this.snackbarMessageService.displayError('Successfully published article', 4000);
+        this.snackbarMessageService.displaySuccess('Successfully published article', 4000);
       }, error => {
-        this.snackbarMessageService.displayError('There was an error while attempting to publish this article', 4000);
+        this.snackbarMessageService.displayError(error, 4000);
       });
   }
 
@@ -202,10 +206,10 @@ export class EditorComponent implements OnInit, OnDestroy {
 
   tagSelected(tag: string) {
     if (this.selectedTags.has(this.tagInput)) {
-      this.snackbarMessageService.displayError('Tag already exists', 2000);
+      this.snackbarMessageService.displayErrorMessage('Tag already exists', 2000);
     } else {
       this.selectedTags.add(tag);
-      this.snackbarMessageService.displayError(`Added the tag: ${tag}`, 2000);
+      this.snackbarMessageService.displaySuccess(`Added the tag: ${tag}`, 2000);
       this.formGroup.get('tags').patchValue('');
     }
   }
@@ -213,17 +217,17 @@ export class EditorComponent implements OnInit, OnDestroy {
   onEnter(event: any) {
     if (event.keyCode === 13 && this.tagInput) {
       if (this.selectedTags.has(this.tagInput)) {
-        this.snackbarMessageService.displayError('Tag already exists', 2000);
+        this.snackbarMessageService.displayErrorMessage('Tag already exists', 2000);
       } else {
         const input = this.tagInput;
         this.editorService.addTag(input)
           .takeUntil(this.destroyed)
           .subscribe(result => {
             this.selectedTags.add(input);
-            this.snackbarMessageService.displayError(`Added the tag: ${input}`, 2000);
+            this.snackbarMessageService.displaySuccess(`Added the tag: ${input}`, 2000);
             this.formGroup.get('tags').patchValue('');
           }, error => {
-            this.snackbarMessageService.displayError('Error adding tag', 2000);
+            this.snackbarMessageService.displayError(error, 2000);
           });
       }
     }

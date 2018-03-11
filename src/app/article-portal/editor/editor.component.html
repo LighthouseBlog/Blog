@@ -2,7 +2,10 @@
     <section class="section">
         <div class="container">
             <form #f="ngForm" [formGroup]="formGroup" (ngSubmit)="saveArticle(f.value, f.valid)" (keydown.enter)="$event.preventDefault()" novalidate>
-              <button mat-raised-button type="submit" [disabled]="!f.valid" color="primary" class="save"> Save Article </button>
+              <button mat-raised-button type="submit" [disabled]="!f.valid || savingArticle" color="primary" class="save">
+                  <div>Save Article</div>
+                  <mat-spinner [diameter]="20" *ngIf="savingArticle" class="save-spinner" color="accent"></mat-spinner>
+              </button>
               <button mat-raised-button [disabled]="!f.valid" color="warn" class="save" (click)="publishArticle()" type="button"> Publish Article </button>
               <mat-input-container class="form-input">
                 <input matInput type="text" placeholder="Article Title" formControlName="articleTitle" required />

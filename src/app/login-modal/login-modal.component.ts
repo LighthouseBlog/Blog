@@ -50,15 +50,16 @@ export class LoginModalComponent implements OnInit, OnDestroy {
         .subscribe(result => {
           if (result) {
               this.dialogRef.close(username);
+              this.snackbarMessagingService.displaySuccess('Login Sucessful', 2000);
               this.router.navigate(['articles']);
           } else {
-            this.snackbarMessagingService.displayError('Failed to login', 4000);
+            this.snackbarMessagingService.displayErrorMessage('Failed to login', 4000);
           }
         }, error => {
-            this.snackbarMessagingService.displayError('User or Password was incorrect', 4000);
+            this.snackbarMessagingService.displayError(error, 4000);
         });
     } else {
-      this.snackbarMessagingService.displayError('Validation errors exist', 4000);
+      this.snackbarMessagingService.displayErrorMessage('Validation errors exist', 4000);
     }
   }
 

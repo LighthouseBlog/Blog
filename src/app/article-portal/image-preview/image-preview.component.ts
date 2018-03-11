@@ -63,7 +63,7 @@ export class ImagePreviewComponent implements OnInit, OnDestroy {
         document.getElementById('image').setAttribute('src', image);
       });
     } else {
-      this.snackbarMessagingService.displayError('No changes detected', 2000);
+      this.snackbarMessagingService.displayMessage('No changes detected', 2000);
     }
   }
 
@@ -84,7 +84,7 @@ export class ImagePreviewComponent implements OnInit, OnDestroy {
     if (this.cropped) {
       this.dialogRef.close(this.imageBlob);
     } else {
-      this.snackbarMessagingService.displayError('No changes detected', 2000);
+      this.snackbarMessagingService.displayMessage('No changes detected', 2000);
     }
   }
 

@@ -77,26 +77,26 @@ export class SettingsModalComponent implements OnInit, OnDestroy {
           .takeUntil(this.destroyed)
           .subscribe(result => {
             this.saveInProgress = false;
-            this.snackBarMessagingService.displayError('Updated user settings', 4000);
+            this.snackBarMessagingService.displaySuccess('Updated user settings', 4000);
             this.dialogRef.close({name, image: result.data.profilePicture || ''});
           }, error => {
             this.saveInProgress = false;
-            this.snackBarMessagingService.displayError(`Error updating user settings: ${error.error}`, 4000);
+            this.snackBarMessagingService.displayError(error, 4000);
           });
       } else {
         this.authorService.updateUserSettings(this.username, name, email)
           .takeUntil(this.destroyed)
           .subscribe(result => {
             this.saveInProgress = false;
-            this.snackBarMessagingService.displayError('Updated user settings', 4000);
+            this.snackBarMessagingService.displaySuccess('Updated user settings', 4000);
             this.dialogRef.close({name});
           }, error => {
             this.saveInProgress = false;
-            this.snackBarMessagingService.displayError(`Error updating user settings: ${error.error}`, 4000);
+            this.snackBarMessagingService.displayError(error, 4000);
           });
       }
     } else {
-      this.snackBarMessagingService.displayError('Validation errors exists', 4000);
+      this.snackBarMessagingService.displayErrorMessage('Validation errors exists', 4000);
     }
   }
 
@@ -136,6 +136,7 @@ export class SettingsModalComponent implements OnInit, OnDestroy {
             profilePicture: result
           });
           this.profilePictureUpdated = true;
+          this.snackBarMessagingService.displaySuccess('Image has been cropped', 4000);
         }
       });
   }
