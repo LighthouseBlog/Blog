@@ -19,18 +19,19 @@ export class ResponseInterceptor implements HttpInterceptor {
   }
 
   private handleError (error: any) {
-    // In a real world app, you might use a remote logging infrastructure
-    let errMsg: string;
+    let errorMessage: any;
     if (error instanceof HttpErrorResponse) {
       if (error.status === 401) {
         this.router.navigateByUrl('/');
       }
-      const err = error.error || JSON.stringify(error);
-      errMsg = `${error.status} - ${error.statusText || ''} ${err}`;
+      errorMessage = error.error || JSON.stringify(error);
+      if (errorMessage.error) {
+        errorMessage = errorMessage.error;
+      }
+      errorMessage = `${error.status} - ${error.statusText || ''}: ${errorMessage}`;
     } else {
-      errMsg = error.message ? error.message : error.toString();
+      errorMessage = error.message ? error.message : error.toString();
     }
-    console.error(errMsg);
-    return Observable.throw(errMsg);
+    return Observable.throw(errorMessage);
   }
 }

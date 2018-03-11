@@ -13,6 +13,7 @@ import { AuthorService } from 'app/_services/author.service';
 import { ArticleDataSource } from './article-data/article.datasource';
 import { Article } from 'app/_models/Article';
 import { DeleteArticleModalComponent } from 'app/article-portal/delete-article-modal/delete-article-modal.component';
+import { SnackbarMessagingService } from 'app/_services/snackbar-messaging.service';
 
 @Component({
   selector: 'app-article-list',
@@ -34,7 +35,8 @@ export class ArticleListComponent implements OnInit, OnDestroy {
   constructor(
     public dialog: MatDialog,
     private authorService: AuthorService,
-    private router: Router
+    private router: Router,
+    private snackbarMessagingService: SnackbarMessagingService
   ) {
     this.displayedColumns = ['isPublished', 'title', 'description', 'datePosted', 'actions']
   }
@@ -78,9 +80,9 @@ export class ArticleListComponent implements OnInit, OnDestroy {
     dialogRef.afterClosed()
       .takeUntil(this.destroyed)
       .subscribe((result) => {
-        console.log('result', result);
         if (result === 'delete') {
           this.dataSubject.next(articles.filter(a => a !== article));
+          this.snackbarMessagingService.displaySuccess('Deleted article', 2000);
         }
       });
   }

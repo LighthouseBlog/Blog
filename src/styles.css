@@ -24,3 +24,11 @@ pre {
   margin-top: 0px !important;
   margin-bottom: 0px !important;
 }
+
+.error-snackbar {
+  color: #f44336 !important;
+}
+
+.success-snackbar {
+  color: #00c853 !important;
+}

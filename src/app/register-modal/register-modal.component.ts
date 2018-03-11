@@ -63,15 +63,16 @@ export class RegisterModalComponent implements OnDestroy {
         .subscribe(result => {
           if (result) {
               this.dialogRef.close(name);
+              this.snackbarMessagingSerivce.displaySuccess('Registration Succeeded', 2000);
               this.router.navigate(['articles']);
           } else {
-            this.snackbarMessagingSerivce.displayError('Registration failed', 4000);
+            this.snackbarMessagingSerivce.displayErrorMessage('Registration failed', 4000);
           }
         }, error => {
-          this.snackbarMessagingSerivce.displayError('Error! This username has already been selected', 4000);
+          this.snackbarMessagingSerivce.displayError(error, 4000);
         });
     } else {
-      this.snackbarMessagingSerivce.displayError('Validation errors exist', 4000);
+      this.snackbarMessagingSerivce.displayErrorMessage('Validation errors exist', 4000);
     }
   }
 }
