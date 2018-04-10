@@ -3,7 +3,7 @@
     <span class="spacer"></span>
     <div>
         <a *ngIf="!loggedIn()" mat-button (click)="login()">Login</a>
-        <a mat-button *ngIf="!loggedIn()" (click)="register()">Register</a>
+        <!-- <a mat-button *ngIf="!loggedIn()" (click)="register()">Register</a> -->
         <a mat-button *ngIf="loggedIn()" routerLink="/articles">Your Articles</a>
         <button mat-button *ngIf="loggedIn()" [matMenuTriggerFor]="menu">
             <span>{{name | async}}</span>
