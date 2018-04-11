@@ -3,11 +3,11 @@ import { SanitizeHtmlPipe } from './sanitizeHtml.pipe';
 
 
 @NgModule({
-  declarations: [
-    SanitizeHtmlPipe
-  ],
-  exports: [
-    SanitizeHtmlPipe
-  ]
+    declarations: [
+        SanitizeHtmlPipe
+    ],
+    exports: [
+        SanitizeHtmlPipe
+    ]
 })
 export class PipeModule { }

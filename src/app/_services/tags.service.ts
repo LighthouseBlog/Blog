@@ -13,18 +13,16 @@ import { Response } from 'app/_models/Response';
 @Injectable()
 export class TagService {
 
-  private tagUrl = environment.URL + '/tags/';
+    private tagUrl = environment.URL + '/tags/';
 
-  constructor(
-    private http: HttpClient,
-    private auth: AuthenticationService
-  ) { }
+    constructor(private http: HttpClient,
+                private auth: AuthenticationService) { }
 
-  getAllTags(): Observable<Array<String>> {
-    return this.http.get<Response>(this.tagUrl).map((res) => Object.assign(new Array<String>(), res.data));
-  }
+    getAllTags(): Observable<Array<String>> {
+        return this.http.get<Response>(this.tagUrl).map((res) => Object.assign(new Array<String>(), res.data));
+    }
 
-  getArticlesByTag(tag: string): Observable<Array<Article>> {
-    return this.http.get<Response>(this.tagUrl + tag).map((res) => Object.assign(new Array<Article>(), res.data));
-  }
+    getArticlesByTag(tag: string): Observable<Array<Article>> {
+        return this.http.get<Response>(this.tagUrl + tag).map((res) => Object.assign(new Array<Article>(), res.data));
+    }
 }

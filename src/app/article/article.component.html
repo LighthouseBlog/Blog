@@ -1,21 +1,25 @@
 <div class="article-display">
-  <span class="author">
-    <span>
-      <img src="{{ author?.profilePicture }}" class="profile-picture" />
+  <span class="article-info">
+    <span class="headers">
+      <span class="title">
+        {{article?.title}}
+      </span>
+      <span class="description">
+        {{article?.description}}
+      </span>
+      <span class="author">
+        <span>
+          <img src="{{ author?.profilePicture }}" class="profile-picture" />
+        </span>
+        <span class="author-info">
+          <div class="primary">{{author?.name}}</div>
+          <div class="subtle">{{article?.datePosted | date:'longDate'}}</div>
+        </span>
+      </span>
     </span>
-    <span>
-      <div class="primary">{{author?.name}}</div>
-      <div class="subtle">{{article?.datePosted | date:'longDate'}}</div>
+    <span class="article-image">
+      <img src="{{ article?.coverPhoto }}" class="cover-photo"/>
     </span>
-  </span>
-  <span class="title">
-    {{article?.title}}
-  </span>
-  <span class="description">
-    {{article?.description}}
-  </span>
-  <span>
-    <img src="{{ article?.coverPhoto }}" class="cover-photo"/>
   </span>
   <div class="article" [innerHTML]="article?.text | sanitizeHtml"> </div>
 </div>

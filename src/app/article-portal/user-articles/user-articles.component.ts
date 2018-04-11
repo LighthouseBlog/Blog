@@ -7,22 +7,19 @@ import { Article } from 'app/_models/Article';
 import { ArticleListComponent } from './article-list/article-list.component';
 
 @Component({
-  selector: 'app-user-articles',
-  templateUrl: './user-articles.component.html',
-  styleUrls: ['./user-articles.component.scss']
+    selector: 'user-articles',
+    templateUrl: './user-articles.component.html',
+    styleUrls: ['./user-articles.component.scss']
 })
 export class UserArticlesComponent {
 
-  constructor(
-    public dialog: MatDialog,
-    private authorService: AuthorService
-  ) {
-  }
+    constructor(public dialog: MatDialog,
+                private authorService: AuthorService) { }
 
-  createArticle() {
-    this.dialog.open(CreateArticleModalComponent, {
-      height: '50vh',
-      width: '50vw'
-    });
-  }
+    createArticle() {
+        this.dialog.open(CreateArticleModalComponent, {
+            height: '50vh',
+            width: '50vw'
+        });
+    }
 }

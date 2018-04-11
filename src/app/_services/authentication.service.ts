@@ -18,8 +18,7 @@ export class AuthenticationService {
     private expirationUrl = this.jwtUrl + '/expired';
     private refreshSubscription: any;
 
-    constructor(
-      private http: HttpClient) {
+    constructor(private http: HttpClient) {
         this.token = localStorage.getItem('access_token');
         if (!this.token) {
             this.logout();
@@ -40,7 +39,7 @@ export class AuthenticationService {
     }
 
     register(username: string, password: string, email: string, name: string): Observable<boolean> {
-        return this.http.post<Token>(this.registerUrl, {username, password, email, name})
+        return this.http.post<Token>(this.registerUrl, { username, password, email, name })
             .map((response) => this.setSession(response, username));
     }
 

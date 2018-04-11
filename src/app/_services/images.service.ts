@@ -12,18 +12,16 @@ import { environment } from '../../environments/environment';
 @Injectable()
 export class ImagesService {
 
-  private imagesUrl = environment.URL + '/images/';
+    private imagesUrl = environment.URL + '/images/';
 
-  constructor(
-    private http: HttpClient,
-    private auth: AuthenticationService
-  ) { }
+    constructor(private http: HttpClient,
+                private auth: AuthenticationService) { }
 
-  getHash(): Observable<string> {
-    return this.http.get<string>(this.imagesUrl + 'gethash');
-  }
+    getHash(): Observable<string> {
+        return this.http.get<string>(this.imagesUrl + 'gethash');
+    }
 
-  deleteImage(source: string): Observable<string> {
-    return this.http.request<string>('delete', this.imagesUrl, { body: {src: source }});
-  }
+    deleteImage(source: string): Observable<string> {
+        return this.http.request<string>('delete', this.imagesUrl, { body: { src: source } });
+    }
 }

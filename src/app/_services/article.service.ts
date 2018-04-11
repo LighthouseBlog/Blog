@@ -14,32 +14,30 @@ import { Response } from 'app/_models/Response';
 @Injectable()
 export class ArticleService {
 
-  private blogUrl = environment.URL + '/blog/';
-  private title = '';
-  private id: string;
+    private blogUrl = environment.URL + '/blog/';
+    private title = '';
+    private id: string;
 
-  constructor(
-    private http: HttpClient,
-    private auth: AuthenticationService
-  ) { }
+    constructor(private http: HttpClient,
+                private auth: AuthenticationService) { }
 
-  setArticleId(id: string) {
-    this.id = id;
-  }
+    setArticleId(id: string) {
+        this.id = id;
+    }
 
-  setArticleTitle(title: string) {
-    this.title = title;
-  }
+    setArticleTitle(title: string) {
+        this.title = title;
+    }
 
-  getAllArticles(): Observable<Array<Article>> {
-    return this.http.get<Response>(this.blogUrl).map((res) => Object.assign(new Array<Article>(), res.data));
-  }
+    getAllArticles(): Observable<Array<Article>> {
+        return this.http.get<Response>(this.blogUrl).map((res) => Object.assign(new Array<Article>(), res.data));
+    }
 
-  getArticle(id: number): Observable<Article> {
-    return this.http.get<Response>(this.blogUrl + id).map((res) => Object.assign(new Article(), res.data));
-  }
+    getArticle(id: number): Observable<Article> {
+        return this.http.get<Response>(this.blogUrl + id).map((res) => Object.assign(new Article(), res.data));
+    }
 
-  getArticlesByTitle(title: string): Observable<Array<ArticleList>> {
-    return this.http.get<Response>(this.blogUrl + 'title/' + title).map((res) => Object.assign(new Array<ArticleList>(), res.data));
-  }
+    getArticlesByTitle(title: string): Observable<Array<ArticleList>> {
+        return this.http.get<Response>(this.blogUrl + 'title/' + title).map((res) => Object.assign(new Array<ArticleList>(), res.data));
+    }
 }

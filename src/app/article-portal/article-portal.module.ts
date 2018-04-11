@@ -25,33 +25,33 @@ import { MaterialModule } from 'app/material.module';
 
 
 @NgModule({
-  declarations: [
-    FileValidator,
-    FileValueAccessor,
-    EditorComponent,
-    UserArticlesComponent,
-    CreateArticleModalComponent,
-    DeleteArticleModalComponent,
-    SettingsModalComponent,
-    ArticleListComponent,
-    ImagePreviewComponent
-  ],
-  imports: [
-    BrowserAnimationsModule,
-    BrowserModule,
-    FormsModule,
-    ReactiveFormsModule,
-    HttpClientModule,
-    Router,
-    MaterialModule,
-    FroalaEditorModule.forRoot(),
-    FroalaViewModule.forRoot(),
-  ],
-  entryComponents: [
-    CreateArticleModalComponent,
-    DeleteArticleModalComponent,
-    SettingsModalComponent,
-    ImagePreviewComponent
-  ]
+    declarations: [
+        FileValidator,
+        FileValueAccessor,
+        EditorComponent,
+        UserArticlesComponent,
+        CreateArticleModalComponent,
+        DeleteArticleModalComponent,
+        SettingsModalComponent,
+        ArticleListComponent,
+        ImagePreviewComponent
+    ],
+    imports: [
+        BrowserAnimationsModule,
+        BrowserModule,
+        FormsModule,
+        ReactiveFormsModule,
+        HttpClientModule,
+        Router,
+        MaterialModule,
+        FroalaEditorModule.forRoot(),
+        FroalaViewModule.forRoot(),
+    ],
+    entryComponents: [
+        CreateArticleModalComponent,
+        DeleteArticleModalComponent,
+        SettingsModalComponent,
+        ImagePreviewComponent
+    ]
 })
 export class ArticlePortalModule { }

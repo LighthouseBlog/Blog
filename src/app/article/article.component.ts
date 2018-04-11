@@ -9,48 +9,48 @@ import { Author } from 'app/_models/Author';
 import { Subject } from 'rxjs/Subject';
 
 @Component({
-  selector: 'app-article',
-  templateUrl: './article.component.html',
-  styleUrls: ['./article.component.scss']
+    selector: 'article',
+    templateUrl: './article.component.html',
+    styleUrls: ['./article.component.scss']
 })
 export class ArticleComponent implements OnInit, OnDestroy {
 
-  public article: Article;
-  public author: Author;
+    public article: Article;
+    public author: Author;
 
-  private destroyed: Subject<boolean> = new Subject<boolean>();
+    private destroyed: Subject<boolean> = new Subject<boolean>();
 
-  constructor(private articleService: ArticleService,
-              private route: ActivatedRoute,
-              private authorService: AuthorService) { }
+    constructor(private articleService: ArticleService,
+                private route: ActivatedRoute,
+                private authorService: AuthorService) { }
 
-  ngOnInit() {
-    this.route.params
-      .takeUntil(this.destroyed)
-      .subscribe(results => {
-        this.getArticle(results);
-      });
-  }
+    ngOnInit() {
+        this.route.params
+            .takeUntil(this.destroyed)
+            .subscribe(results => {
+                this.getArticle(results);
+            });
+    }
 
-  ngOnDestroy() {
-    this.destroyed.next();
-    this.destroyed.complete();
-  }
+    ngOnDestroy() {
+        this.destroyed.next();
+        this.destroyed.complete();
+    }
 
-  getArticle(results) {
-    this.articleService.getArticle(results.id)
-      .takeUntil(this.destroyed)
-      .subscribe(result => {
-        this.article = result;
-        this.getAuthor();
-      });
-  }
+    getArticle(results) {
+        this.articleService.getArticle(results.id)
+            .takeUntil(this.destroyed)
+            .subscribe(result => {
+                this.article = result;
+                this.getAuthor();
+            });
+    }
 
-  getAuthor() {
-    this.authorService.getAuthor(this.article.author.username)
-      .takeUntil(this.destroyed)
-      .subscribe(result => {
-        this.author = result;
-      });
-  }
+    getAuthor() {
+        this.authorService.getAuthor(this.article.author.username)
+            .takeUntil(this.destroyed)
+            .subscribe(result => {
+                this.author = result;
+            });
+    }
 }

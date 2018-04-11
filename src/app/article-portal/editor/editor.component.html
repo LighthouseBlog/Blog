@@ -1,4 +1,5 @@
 <div class="editor-form">
+    <span class="vertical-half-spacer"></span>
     <section class="section">
         <div class="container">
             <form #f="ngForm" [formGroup]="formGroup" (ngSubmit)="saveArticle(f.value, f.valid)" (keydown.enter)="$event.preventDefault()" novalidate>

@@ -38,53 +38,53 @@ import { ArticlePortalModule } from 'app/article-portal/article-portal.module';
 import { PipeModule } from 'app/_pipes/pipe.module';
 
 @NgModule({
-  declarations: [
-    AppComponent,
-    NavBarComponent,
-    LoginModalComponent,
-    RegisterModalComponent,
-    ArticlesComponent,
-    ArticleComponent,
-    TagComponent
-  ],
-  imports: [
-    BrowserAnimationsModule,
-    BrowserModule,
-    FormsModule,
-    ReactiveFormsModule,
-    HttpClientModule,
-    Router,
-    MaterialModule,
-    ArticlePortalModule,
-    PipeModule,
-    ServiceWorkerModule.register('/ngsw-worker.js', {enabled: environment.production})
-  ],
-  providers: [
-    AuthGuard,
-    AuthenticationService,
-    EditorService,
-    ArticleService,
-    AuthorService,
-    ImagesService,
-    TagService,
-    SnackbarMessagingService,
-    {
-      provide: HTTP_INTERCEPTORS,
-      useClass: ResponseInterceptor,
-      multi: true
-    },
-    {
-      provide: HTTP_INTERCEPTORS,
-      useClass: AuthInterceptor,
-      multi: true
-    }
-  ],
-  entryComponents: [
-    LoginModalComponent,
-    RegisterModalComponent,
-  ],
-  bootstrap: [
-    AppComponent
-  ]
+    declarations: [
+        AppComponent,
+        NavBarComponent,
+        LoginModalComponent,
+        RegisterModalComponent,
+        ArticlesComponent,
+        ArticleComponent,
+        TagComponent
+    ],
+    imports: [
+        BrowserAnimationsModule,
+        BrowserModule,
+        FormsModule,
+        ReactiveFormsModule,
+        HttpClientModule,
+        Router,
+        MaterialModule,
+        ArticlePortalModule,
+        PipeModule,
+        ServiceWorkerModule.register('/ngsw-worker.js', { enabled: environment.production })
+    ],
+    providers: [
+        AuthGuard,
+        AuthenticationService,
+        EditorService,
+        ArticleService,
+        AuthorService,
+        ImagesService,
+        TagService,
+        SnackbarMessagingService,
+        {
+            provide: HTTP_INTERCEPTORS,
+            useClass: ResponseInterceptor,
+            multi: true
+        },
+        {
+            provide: HTTP_INTERCEPTORS,
+            useClass: AuthInterceptor,
+            multi: true
+        }
+    ],
+    entryComponents: [
+        LoginModalComponent,
+        RegisterModalComponent,
+    ],
+    bootstrap: [
+        AppComponent
+    ]
 })
 export class AppModule { }
