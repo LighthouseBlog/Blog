@@ -1,3 +1,3 @@
 export class Response {
-  data: any;
+    data: any;
 }

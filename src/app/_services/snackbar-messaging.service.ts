@@ -5,9 +5,7 @@ import { Error } from 'app/_models/Error';
 @Injectable()
 export class SnackbarMessagingService {
 
-  constructor(
-    private snackBar: MatSnackBar
-  ) { }
+  constructor(private snackBar: MatSnackBar) { }
 
   displayError(error: Error, duration: number, action?: string): void {
     this.snackBar.open(error.error, action, {

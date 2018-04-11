@@ -16,74 +16,72 @@ import { DeleteArticleModalComponent } from 'app/article-portal/delete-article-m
 import { SnackbarMessagingService } from 'app/_services/snackbar-messaging.service';
 
 @Component({
-  selector: 'app-article-list',
-  templateUrl: './article-list.component.html',
-  styleUrls: ['./article-list.component.scss']
+    selector: 'article-list',
+    templateUrl: './article-list.component.html',
+    styleUrls: ['./article-list.component.scss']
 })
 export class ArticleListComponent implements OnInit, OnDestroy {
 
-  private destroyed: Subject<boolean> = new Subject<boolean>();
+    private destroyed: Subject<boolean> = new Subject<boolean>();
 
-  public dataSource: ArticleDataSource;
-  public dataSubject = new BehaviorSubject<Article[]>([]);
-  public displayedColumns: string[];
+    public dataSource: ArticleDataSource;
+    public dataSubject = new BehaviorSubject<Article[]>([]);
+    public displayedColumns: string[];
 
-  @ViewChild(MatSort) sort: MatSort;
-  @ViewChild(MatPaginator) paginator: MatPaginator;
-  @ViewChild('filter') filter: ElementRef;
+    @ViewChild(MatSort) sort: MatSort;
+    @ViewChild(MatPaginator) paginator: MatPaginator;
+    @ViewChild('filter') filter: ElementRef;
 
-  constructor(
-    public dialog: MatDialog,
-    private authorService: AuthorService,
-    private router: Router,
-    private snackbarMessagingService: SnackbarMessagingService
-  ) {
-    this.displayedColumns = ['isPublished', 'title', 'description', 'datePosted', 'actions']
-  }
+    constructor(public dialog: MatDialog,
+                private authorService: AuthorService,
+                private router: Router,
+                private snackbarMessagingService: SnackbarMessagingService) {
+        this.displayedColumns = ['isPublished', 'title', 'description', 'datePosted', 'actions']
+    }
 
-  ngOnInit() {
-    this.authorService.getArticlesByAuthor()
-      .takeUntil(this.destroyed)
-      .subscribe((results) => {
-        this.dataSubject.next(results);
-      });
-    this.dataSource = new ArticleDataSource(this.dataSubject, this.sort, this.paginator);
-    Observable.fromEvent(this.filter.nativeElement, 'keyup')
-      .debounceTime(150)
-      .distinctUntilChanged()
-      .subscribe(() => {
-        if (!this.dataSource) { return; }
-        this.dataSource.filter = this.filter.nativeElement.value;
-      });
-  }
+    ngOnInit() {
+        this.authorService.getArticlesByAuthor()
+            .takeUntil(this.destroyed)
+            .subscribe((results) => {
+                this.dataSubject.next(results);
+            });
+        this.dataSource = new ArticleDataSource(this.dataSubject, this.sort, this.paginator);
+        Observable.fromEvent(this.filter.nativeElement, 'keyup')
+            .debounceTime(150)
+            .distinctUntilChanged()
+            .subscribe(() => {
+                if (!this.dataSource) { return; }
+                this.dataSource.filter = this.filter.nativeElement.value;
+            });
+    }
 
-  ngOnDestroy() {
-    this.destroyed.next();
-    this.destroyed.complete();
-  }
+    ngOnDestroy() {
+        this.destroyed.next();
+        this.destroyed.complete();
+    }
 
-  viewArticle(article: Article) {
-    this.router.navigateByUrl('/article/' + article._id);
-  }
+    viewArticle(article: Article) {
+        this.router.navigateByUrl('/article/' + article._id);
+    }
 
-  editArticle(article: Article) {
-    const id = article._id;
-    this.router.navigateByUrl('/edit/' + id);
-  }
+    editArticle(article: Article) {
+        const id = article._id;
+        this.router.navigateByUrl('/edit/' + id);
+    }
 
-  deleteArticle(article: Article, articles: Article[]) {
-    const dialogRef = this.dialog.open(DeleteArticleModalComponent, {
-      data: article,
-      height: '40vh',
-      width: '40vw'
-    });
-    dialogRef.afterClosed()
-      .takeUntil(this.destroyed)
-      .subscribe((result) => {
-        if (result === 'delete') {
-          this.dataSubject.next(articles.filter(a => a !== article));
-          this.snackbarMessagingService.displaySuccess('Deleted article', 2000);
-        }
-      });
-  }
+    deleteArticle(article: Article, articles: Article[]) {
+        const dialogRef = this.dialog.open(DeleteArticleModalComponent, {
+            data: article,
+            height: '40vh',
+            width: '40vw'
+        });
+        dialogRef.afterClosed()
+            .takeUntil(this.destroyed)
+            .subscribe((result) => {
+                if (result === 'delete') {
+                    this.dataSubject.next(articles.filter(a => a !== article));
+                    this.snackbarMessagingService.displaySuccess('Deleted article', 2000);
+                }
+            });
+    }
 }

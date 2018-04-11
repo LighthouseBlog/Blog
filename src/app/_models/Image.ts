@@ -1,4 +1,4 @@
 export class Image {
-  src: any;
-  aspectRatio: number;
+    src: any;
+    aspectRatio: number;
 }

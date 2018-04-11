@@ -6,28 +6,28 @@ import { AuthGuard } from 'app/_guards/auth.guard';
 import { ArticlesComponent } from 'app/articles/articles.component';
 
 const routes: Routes = [
-  {
-    path: 'articles',
-    component: UserArticlesComponent,
-    canActivate: [AuthGuard]
-  },
-  {
-    path: 'edit/:id',
-    component: EditorComponent,
-    canActivate: [AuthGuard]
-  },
-  {
-    path: 'article/:id',
-    component: ArticleComponent
-  },
-  {
-    path: '',
-    component: ArticlesComponent
-  },
-  {
-    path: '**',
-    redirectTo: ''
-  }
+    {
+        path: 'articles',
+        component: UserArticlesComponent,
+        canActivate: [AuthGuard]
+    },
+    {
+        path: 'edit/:id',
+        component: EditorComponent,
+        canActivate: [AuthGuard]
+    },
+    {
+        path: 'article/:id',
+        component: ArticleComponent
+    },
+    {
+        path: '',
+        component: ArticlesComponent
+    },
+    {
+        path: '**',
+        redirectTo: ''
+    }
 ];
 
 export const Router = RouterModule.forRoot(routes);

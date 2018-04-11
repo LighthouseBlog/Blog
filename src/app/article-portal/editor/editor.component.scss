@@ -70,10 +70,18 @@
       position: sticky;
       top: 0px;
     }
+    .fr-box {
+      margin: 8px;
+      min-width: 100%;
+    }
   }
 }
 
 .mat-chip:not(.mat-basic-chip) {
   background-color: lightblue;
   color: black;
+}
+
+.container {
+  margin: 8px;
 }
