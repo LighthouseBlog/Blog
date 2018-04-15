@@ -1,6 +1,7 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy, ChangeDetectorRef, ViewChild, HostListener } from '@angular/core';
+import { MediaMatcher } from '@angular/cdk/layout';
 import { Router } from '@angular/router';
-import { MatDialog } from '@angular/material';
+import { MatDialog, MatSidenav } from '@angular/material';
 import { Subject } from 'rxjs/Subject';
 import 'rxjs/add/operator/takeUntil';
 
@@ -19,16 +20,26 @@ import { SettingsModalComponent } from 'app/article-portal/settings-modal/settin
 })
 export class NavBarComponent implements OnInit, OnDestroy {
 
+    @ViewChild(MatSidenav) sidenav: MatSidenav;
+
     private destroyed: Subject<boolean> = new Subject<boolean>();
+    private _mobileQueryListener: () => void;
 
     public title = `The Lighthouse`;
     public name: Promise<string>;
     public image: Promise<string>;
+    public mobileQuery: MediaQueryList;
 
     constructor(private auth: AuthenticationService,
         private authorService: AuthorService,
         private router: Router,
-        private dialog: MatDialog) { }
+        private dialog: MatDialog,
+        private cdr: ChangeDetectorRef,
+        private media: MediaMatcher) {
+            this.mobileQuery = this.media.matchMedia('(max-width: 599px)');
+            this._mobileQueryListener = () => this.cdr.detectChanges();
+            this.mobileQuery.addListener(this._mobileQueryListener);
+        }
 
     ngOnInit() {
         this.auth.checkJwtExpiration()
@@ -42,6 +53,7 @@ export class NavBarComponent implements OnInit, OnDestroy {
     }
 
     ngOnDestroy() {
+        this.mobileQuery.removeListener(this._mobileQueryListener);
         this.destroyed.next();
         this.destroyed.complete();
     }
@@ -93,4 +105,15 @@ export class NavBarComponent implements OnInit, OnDestroy {
         this.router.navigate(['/']);
     }
 
+    toggleSideNav() {
+        this.sidenav.toggle();
+        this.cdr.detectChanges();
+    }
+
+    @HostListener('window:resize', ['$event'])
+    onResize(event) {
+        if (event.target.innerWidth > 599 && this.sidenav.opened) {
+            this.sidenav.close();
+        }
+    }
 }

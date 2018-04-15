@@ -3,6 +3,12 @@
   font-size: 14pt;
   line-height: 1.58;
   letter-spacing: -.003em;
+
+  ::ng-deep { // The editor sets the background color to white by default
+      p, span {
+          background-color: #FAFAFA !important;
+      }
+  }
 }
 
 .title {

@@ -1,13 +1,14 @@
 <mat-toolbar color="primary">
+    <button mat-icon-button *ngIf="mobileQuery.matches" (click)="toggleSideNav()"><mat-icon>menu</mat-icon></button>
     <span routerLink="/" class="link">{{title}}</span>
     <span class="spacer"></span>
     <div>
-        <a *ngIf="!loggedIn()" mat-button (click)="login()">Login</a>
+        <a *ngIf="!loggedIn() && !mobileQuery.matches" mat-button (click)="login()">Login</a>
         <!-- <a mat-button *ngIf="!loggedIn()" (click)="register()">Register</a> -->
-        <a mat-button *ngIf="loggedIn()" routerLink="/articles">Your Articles</a>
-        <button mat-button *ngIf="loggedIn()" [matMenuTriggerFor]="menu">
+        <a mat-button *ngIf="loggedIn() && !mobileQuery.matches" routerLink="/articles">Your Articles</a>
+        <button mat-button *ngIf="loggedIn() && !mobileQuery.matches" [matMenuTriggerFor]="menu">
             <span>{{name | async}}</span>
-            <img src="{{ image | async }}" id="profile-picture" />
+            <img src="{{ image | async }}" class="profile-picture" />
         </button>
         <mat-menu #menu="matMenu" [overlapTrigger]="false">
             <button mat-menu-item (click)="editSettings()">
@@ -21,3 +22,39 @@
         </mat-menu>
     </div>
 </mat-toolbar>
+<mat-sidenav-container class="sidenav-container">
+    <mat-sidenav #snav [mode]="mobileQuery.matches ? 'over' : 'side'"
+                    [fixedInViewport]="mobileQuery.matches" fixedTopGap="56">
+        <mat-nav-list>
+            <div *ngIf="!loggedIn()">
+                <button mat-menu-item (click)="login()">
+                    <mat-icon>vpn_key</mat-icon>
+                    <span>Login</span>
+                </button>
+            </div>
+            <div *ngIf="loggedIn()">
+                <div class="profile-info">
+                    <span >{{name | async}}</span>
+                    <img src="{{ image | async }}" class="profile-picture" />
+                </div>
+                <a mat-menu-item *ngIf="loggedIn()" routerLink="/articles">
+                    <mat-icon>pages</mat-icon>
+                    <span>Your Articles</span>
+                </a>
+                <button mat-menu-item (click)="editSettings()">
+                    <mat-icon>settings</mat-icon>
+                    <span>User Settings</span>
+                </button>
+                <button mat-menu-item (click)="logout()">
+                    <mat-icon>exit_to_app</mat-icon>
+                    <span>Logout</span>
+                </button>
+            </div>
+        </mat-nav-list>
+    </mat-sidenav>
+
+    <mat-sidenav-content>
+        <ng-content></ng-content>
+    </mat-sidenav-content>
+</mat-sidenav-container>
+
