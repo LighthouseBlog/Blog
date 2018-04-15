@@ -59,6 +59,7 @@ export class NavBarComponent implements OnInit, OnDestroy {
     }
 
     login() {
+        this.sidenav.close();
         this.dialog.open(LoginModalComponent)
             .afterClosed()
             .takeUntil(this.destroyed)
@@ -71,6 +72,7 @@ export class NavBarComponent implements OnInit, OnDestroy {
     }
 
     register() {
+        this.sidenav.close();
         this.dialog.open(RegisterModalComponent)
             .afterClosed()
             .takeUntil(this.destroyed)
@@ -83,6 +85,7 @@ export class NavBarComponent implements OnInit, OnDestroy {
     }
 
     editSettings() {
+        this.sidenav.close();
         this.dialog.open(SettingsModalComponent)
             .afterClosed()
             .takeUntil(this.destroyed)
@@ -103,6 +106,7 @@ export class NavBarComponent implements OnInit, OnDestroy {
     logout() {
         this.auth.logout();
         this.router.navigate(['/']);
+        this.sidenav.close();
     }
 
     toggleSideNav() {
