@@ -49,11 +49,8 @@ export class NavBarComponent implements OnInit, OnDestroy {
     }
 
     login() {
-        this.dialog.open(LoginModalComponent, {
-            minWidth: '30vw',
-            width: '30vw',
-            height: '40vh'
-        }).afterClosed()
+        this.dialog.open(LoginModalComponent)
+            .afterClosed()
             .takeUntil(this.destroyed)
             .subscribe(result => {
                 if (result) {
@@ -64,11 +61,8 @@ export class NavBarComponent implements OnInit, OnDestroy {
     }
 
     register() {
-        this.dialog.open(RegisterModalComponent, {
-            minHeight: '55vh',
-            width: '35vw',
-            minWidth: '300px'
-        }).afterClosed()
+        this.dialog.open(RegisterModalComponent)
+            .afterClosed()
             .takeUntil(this.destroyed)
             .subscribe(name => {
                 if (name) {
@@ -79,9 +73,8 @@ export class NavBarComponent implements OnInit, OnDestroy {
     }
 
     editSettings() {
-        this.dialog.open(SettingsModalComponent, {
-            minWidth: '40vw'
-        }).afterClosed()
+        this.dialog.open(SettingsModalComponent)
+            .afterClosed()
             .takeUntil(this.destroyed)
             .subscribe(result => {
                 if (result && result.name) {

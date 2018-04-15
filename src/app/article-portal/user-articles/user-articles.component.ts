@@ -17,9 +17,6 @@ export class UserArticlesComponent {
                 private authorService: AuthorService) { }
 
     createArticle() {
-        this.dialog.open(CreateArticleModalComponent, {
-            height: '50vh',
-            width: '50vw'
-        });
+        this.dialog.open(CreateArticleModalComponent);
     }
 }

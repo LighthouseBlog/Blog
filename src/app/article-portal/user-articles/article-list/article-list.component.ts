@@ -70,12 +70,8 @@ export class ArticleListComponent implements OnInit, OnDestroy {
     }
 
     deleteArticle(article: Article, articles: Article[]) {
-        const dialogRef = this.dialog.open(DeleteArticleModalComponent, {
-            data: article,
-            height: '40vh',
-            width: '40vw'
-        });
-        dialogRef.afterClosed()
+        this.dialog.open(DeleteArticleModalComponent)
+            .afterClosed()
             .takeUntil(this.destroyed)
             .subscribe((result) => {
                 if (result === 'delete') {

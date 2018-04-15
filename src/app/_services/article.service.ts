@@ -29,7 +29,7 @@ export class ArticleService {
         this.title = title;
     }
 
-    getAllArticles(): Observable<Array<Article>> {
+    getAllArticles(): Observable<Article[]> {
         return this.http.get<Response>(this.blogUrl).map((res) => Object.assign(new Array<Article>(), res.data));
     }
 
@@ -37,7 +37,7 @@ export class ArticleService {
         return this.http.get<Response>(this.blogUrl + id).map((res) => Object.assign(new Article(), res.data));
     }
 
-    getArticlesByTitle(title: string): Observable<Array<ArticleList>> {
+    getArticlesByTitle(title: string): Observable<ArticleList[]> {
         return this.http.get<Response>(this.blogUrl + 'title/' + title).map((res) => Object.assign(new Array<ArticleList>(), res.data));
     }
 }

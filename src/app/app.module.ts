@@ -36,6 +36,7 @@ import { AuthInterceptor } from 'app/_interceptors/auth.interceptor';
 import { MaterialModule } from 'app/material.module';
 import { ArticlePortalModule } from 'app/article-portal/article-portal.module';
 import { PipeModule } from 'app/_pipes/pipe.module';
+import { ArticlesModule } from './articles/articles.module';
 
 @NgModule({
     declarations: [
@@ -43,9 +44,7 @@ import { PipeModule } from 'app/_pipes/pipe.module';
         NavBarComponent,
         LoginModalComponent,
         RegisterModalComponent,
-        ArticlesComponent,
-        ArticleComponent,
-        TagComponent
+        ArticleComponent
     ],
     imports: [
         BrowserAnimationsModule,
@@ -56,6 +55,7 @@ import { PipeModule } from 'app/_pipes/pipe.module';
         Router,
         MaterialModule,
         ArticlePortalModule,
+        ArticlesModule,
         PipeModule,
         ServiceWorkerModule.register('/ngsw-worker.js', { enabled: environment.production })
     ],

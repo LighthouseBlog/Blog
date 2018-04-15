@@ -1,0 +1,17 @@
+<mat-card>
+    <mat-card-header>
+        <mat-card-title>
+        {{article?.title}}
+        </mat-card-title>
+        <mat-card-subtitle>
+        By {{article?.author?.name}}, {{article?.datePosted | date:'longDate'}}
+        </mat-card-subtitle>
+    </mat-card-header>
+    <img class="cover-photo" mat-card-image *ngIf="article?.coverPhoto" src="{{article?.coverPhoto}}" />
+    <mat-card-content>
+        {{article?.description}}
+    </mat-card-content>
+    <mat-card-actions align="end">
+        <button mat-button (click)="selectArticle()"> Continue Reading... </button>
+    </mat-card-actions>
+</mat-card>

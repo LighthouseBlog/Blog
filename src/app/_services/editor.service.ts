@@ -89,7 +89,7 @@ export class EditorService {
         return this.http.post<Response>(this.gistUrl, post).map((res) => Object.assign(new Gist(), res.data));
     }
 
-    getTags(text: string): Observable<Array<string>> {
+    getTags(text: string): Observable<string[]> {
         if (!text) {
             return Observable.of([]);
         }

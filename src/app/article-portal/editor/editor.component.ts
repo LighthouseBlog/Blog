@@ -242,16 +242,16 @@ export class EditorComponent implements OnInit, OnDestroy {
     }
 
     openPreview() {
-        const dialogRef = this.dialog.open(ImagePreviewComponent, {
-            maxWidth: '800px',
-            maxHeight: '400px',
-            data: {
-                src: this.image,
-                aspectRatio: 16 / 9
-            }
-        });
-
-        dialogRef.afterClosed()
+        this.dialog.open(ImagePreviewComponent, {
+                maxWidth: '800px',
+                maxHeight: '400px',
+                data: {
+                    src: this.image,
+                    aspectRatio: 16 / 9
+                }
+            })
+            .afterClosed()
+            .takeUntil(this.destroyed)
             .subscribe(result => {
                 if (result) {
                     this.formGroup.patchValue({
