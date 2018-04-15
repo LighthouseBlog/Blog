@@ -5,8 +5,7 @@ import { Article } from '../../_models/Article';
 
 @Component({
     selector: 'article-preview',
-    templateUrl: './article-preview.component.html',
-    styleUrls: ['./article-preview.component.scss']
+    templateUrl: './article-preview.component.html'
 })
 export class ArticlePreviewComponent {
     @Input() article: Article;

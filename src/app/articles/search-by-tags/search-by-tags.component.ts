@@ -5,8 +5,7 @@ import { TagService } from '../../_services/tags.service';
 
 @Component({
     selector: 'search-by-tags',
-    templateUrl: './search-by-tags.component.html',
-    styleUrls: ['./search-by-tags.component.scss']
+    templateUrl: './search-by-tags.component.html'
 })
 export class SearchByTagsComponent implements OnInit, OnDestroy {
 

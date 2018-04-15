@@ -12,7 +12,10 @@
   flex-basis: 0;
   flex-grow: 1;
   flex-shrink: 1;
-  padding: 30px;
+
+  ::ng-deep mat-card {
+      margin: 20px;
+  }
 }
 
 .article-list {
@@ -28,7 +31,7 @@
     .article-list {
         margin: 0 auto;
         max-width: 100vw;
-        min-width: 93%;;
+        min-width: 100%;
         order: 1;
     }
     .site-info {
