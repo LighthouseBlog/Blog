@@ -6,7 +6,6 @@ import 'rxjs/add/operator/catch';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/observable/zip';
 
-import { AuthenticationService } from '../_services/authentication.service';
 import { Article } from '../_models/Article';
 import { Author } from '../_models/Author';
 import { environment } from '../../environments/environment';
@@ -18,8 +17,7 @@ export class AuthorService {
     private authorUrl = environment.URL + '/user/';
     private articlesUrl = environment.URL + '/articles/';
 
-    constructor(private http: HttpClient,
-                private auth: AuthenticationService) { }
+    constructor(private http: HttpClient) { }
 
     getAuthor(username: string = this.getAuthorUsername()): Observable<Author> {
         return this.http.get<Response>(this.authorUrl + username).map((res) => Object.assign(new Author(), res.data));
@@ -30,7 +28,7 @@ export class AuthorService {
         return this.http.get<Response>(this.articlesUrl + author).map((res) => Object.assign(new Array<Article>(), res.data));
     }
 
-    getAuthorName(username: string = this.getAuthorUsername()): Promise<string> {
+    getAuthorName(): Promise<string> {
         return new Promise<string>((resolve, reject) => {
             this.getAuthor()
                 .subscribe(author => {
@@ -60,7 +58,7 @@ export class AuthorService {
         }
     }
 
-    getProfilePicture(username = this.getAuthorUsername()): Promise<string> {
+    getProfilePicture(): Promise<string> {
         return new Promise<string>((resolve, reject) => {
             this.getAuthor()
                 .subscribe(author => {

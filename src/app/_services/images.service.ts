@@ -8,7 +8,6 @@ import 'rxjs/add/operator/map';
 import { AuthenticationService } from '../_services/authentication.service';
 import { environment } from '../../environments/environment';
 
-
 @Injectable()
 export class ImagesService {
 

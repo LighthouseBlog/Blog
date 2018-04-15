@@ -1,11 +1,12 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { Router } from '@angular/router';
 
 import { Article } from '../../_models/Article';
 
 @Component({
     selector: 'article-preview',
-    templateUrl: './article-preview.component.html'
+    templateUrl: './article-preview.component.html',
+    styleUrls: ['./article-preview.component.scss']
 })
 export class ArticlePreviewComponent {
     @Input() article: Article;

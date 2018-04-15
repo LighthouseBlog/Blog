@@ -1,5 +1,4 @@
 import { Component, Input, HostBinding, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
 
 const MAX_SIZE = 30;
 

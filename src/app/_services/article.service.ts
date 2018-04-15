@@ -5,7 +5,6 @@ import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/catch';
 import 'rxjs/add/operator/map';
 
-import { AuthenticationService } from '../_services/authentication.service';
 import { Article } from '../_models/Article';
 import { ArticleList } from '../_models/ArticleList';
 import { environment } from '../../environments/environment';
@@ -15,19 +14,8 @@ import { Response } from 'app/_models/Response';
 export class ArticleService {
 
     private blogUrl = environment.URL + '/blog/';
-    private title = '';
-    private id: string;
 
-    constructor(private http: HttpClient,
-                private auth: AuthenticationService) { }
-
-    setArticleId(id: string) {
-        this.id = id;
-    }
-
-    setArticleTitle(title: string) {
-        this.title = title;
-    }
+    constructor(private http: HttpClient) { }
 
     getAllArticles(): Observable<Article[]> {
         return this.http.get<Response>(this.blogUrl).map((res) => Object.assign(new Array<Article>(), res.data));

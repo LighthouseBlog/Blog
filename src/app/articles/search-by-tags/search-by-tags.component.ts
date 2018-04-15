@@ -1,9 +1,6 @@
 import { Component, OnInit, OnDestroy, EventEmitter, Output } from '@angular/core';
-import { Observable } from 'rxjs/Observable';
 import { Subject } from 'rxjs/Subject';
 
-import { ArticleService } from '../../_services/article.service';
-import { Article } from '../../_models/Article';
 import { TagService } from '../../_services/tags.service';
 
 @Component({

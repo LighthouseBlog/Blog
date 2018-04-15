@@ -1,8 +1,6 @@
-import { Component, OnInit, OnDestroy, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Router } from '@angular/router';
 import { MatDialog } from '@angular/material';
-
-import { Observable } from 'rxjs/Observable';
 import { Subject } from 'rxjs/Subject';
 import 'rxjs/add/operator/takeUntil';
 
@@ -34,7 +32,7 @@ export class NavBarComponent implements OnInit, OnDestroy {
 
     ngOnInit() {
         this.auth.checkJwtExpiration()
-            .then(result => {
+            .then(() => {
                 this.name = this.authorService.getAuthorName();
                 this.image = this.authorService.getProfilePicture();
             })
@@ -54,8 +52,8 @@ export class NavBarComponent implements OnInit, OnDestroy {
             .takeUntil(this.destroyed)
             .subscribe(result => {
                 if (result) {
-                    this.name = this.authorService.getAuthorName(result);
-                    this.image = this.authorService.getProfilePicture(result);
+                    this.name = this.authorService.getAuthorName();
+                    this.image = this.authorService.getProfilePicture();
                 }
             });
     }
