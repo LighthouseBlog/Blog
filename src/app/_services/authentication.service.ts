@@ -66,7 +66,7 @@ export class AuthenticationService {
         return new Promise((resolve, reject) => {
             if (this.token) {
                 this.http.post(this.expirationUrl, {})
-                    .subscribe((response: Response) => {
+                    .subscribe(() => {
                         resolve('Token is not expired');
                     }, error => {
                         reject(`Error ${error}`);

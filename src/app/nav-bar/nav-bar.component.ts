@@ -1,8 +1,7 @@
-import { Component, OnInit, OnDestroy, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, OnDestroy, ChangeDetectorRef, ViewChild, HostListener } from '@angular/core';
+import { MediaMatcher } from '@angular/cdk/layout';
 import { Router } from '@angular/router';
-import { MatDialog } from '@angular/material';
-
-import { Observable } from 'rxjs/Observable';
+import { MatDialog, MatSidenav } from '@angular/material';
 import { Subject } from 'rxjs/Subject';
 import 'rxjs/add/operator/takeUntil';
 
@@ -21,20 +20,30 @@ import { SettingsModalComponent } from 'app/article-portal/settings-modal/settin
 })
 export class NavBarComponent implements OnInit, OnDestroy {
 
+    @ViewChild(MatSidenav) sidenav: MatSidenav;
+
     private destroyed: Subject<boolean> = new Subject<boolean>();
+    private _mobileQueryListener: () => void;
 
     public title = `The Lighthouse`;
     public name: Promise<string>;
     public image: Promise<string>;
+    public mobileQuery: MediaQueryList;
 
     constructor(private auth: AuthenticationService,
-        private authorService: AuthorService,
-        private router: Router,
-        private dialog: MatDialog) { }
+                private authorService: AuthorService,
+                private router: Router,
+                private dialog: MatDialog,
+                private cdr: ChangeDetectorRef,
+                private media: MediaMatcher) {
+                    this.mobileQuery = this.media.matchMedia('(max-width: 599px)');
+                    this._mobileQueryListener = () => this.cdr.detectChanges();
+                    this.mobileQuery.addListener(this._mobileQueryListener);
+                }
 
     ngOnInit() {
         this.auth.checkJwtExpiration()
-            .then(result => {
+            .then(() => {
                 this.name = this.authorService.getAuthorName();
                 this.image = this.authorService.getProfilePicture();
             })
@@ -44,31 +53,28 @@ export class NavBarComponent implements OnInit, OnDestroy {
     }
 
     ngOnDestroy() {
+        this.mobileQuery.removeListener(this._mobileQueryListener);
         this.destroyed.next();
         this.destroyed.complete();
     }
 
     login() {
-        this.dialog.open(LoginModalComponent, {
-            minWidth: '30vw',
-            width: '30vw',
-            height: '40vh'
-        }).afterClosed()
+        this.sidenav.close();
+        this.dialog.open(LoginModalComponent)
+            .afterClosed()
             .takeUntil(this.destroyed)
             .subscribe(result => {
                 if (result) {
-                    this.name = this.authorService.getAuthorName(result);
-                    this.image = this.authorService.getProfilePicture(result);
+                    this.name = this.authorService.getAuthorName();
+                    this.image = this.authorService.getProfilePicture();
                 }
             });
     }
 
     register() {
-        this.dialog.open(RegisterModalComponent, {
-            minHeight: '55vh',
-            width: '35vw',
-            minWidth: '300px'
-        }).afterClosed()
+        this.sidenav.close();
+        this.dialog.open(RegisterModalComponent)
+            .afterClosed()
             .takeUntil(this.destroyed)
             .subscribe(name => {
                 if (name) {
@@ -79,9 +85,9 @@ export class NavBarComponent implements OnInit, OnDestroy {
     }
 
     editSettings() {
-        this.dialog.open(SettingsModalComponent, {
-            minWidth: '40vw'
-        }).afterClosed()
+        this.sidenav.close();
+        this.dialog.open(SettingsModalComponent)
+            .afterClosed()
             .takeUntil(this.destroyed)
             .subscribe(result => {
                 if (result && result.name) {
@@ -100,6 +106,18 @@ export class NavBarComponent implements OnInit, OnDestroy {
     logout() {
         this.auth.logout();
         this.router.navigate(['/']);
+        this.sidenav.close();
     }
 
+    toggleSideNav() {
+        this.sidenav.toggle();
+        this.cdr.detectChanges();
+    }
+
+    @HostListener('window:resize', ['$event'])
+    onResize(event) {
+        if (event.target.innerWidth > 599 && this.sidenav.opened) {
+            this.sidenav.close();
+        }
+    }
 }

@@ -2,84 +2,13 @@
   <section class="section">
     <div class="container">
         <div class="columns">
-          <div class="column is-two-thirds">
-            <mat-card class="article" *ngFor="let article of articles | async">
-              <mat-card-header>
-                <mat-card-title>
-                  {{article?.title}}
-                </mat-card-title>
-                <mat-card-subtitle>
-                  By {{article?.author?.name}}, {{article?.datePosted | date:'longDate'}}
-                </mat-card-subtitle>
-              </mat-card-header>
-              <img class="cover-photo" mat-card-image *ngIf="article?.coverPhoto" src="{{article?.coverPhoto}}" />
-              <mat-card-content>
-                  {{article?.description}}
-              </mat-card-content>
-              <mat-card-actions align="end">
-                <button mat-button (click)="selectedArticle(article)"> Continue Reading... </button> 
-              </mat-card-actions>
-            </mat-card>
+          <div class="column article-list">
+            <article-preview *ngFor="let article of articles" [article]="article"></article-preview>
           </div>
-          <div class="column">
-              <mat-card class="card-sections">
-                  <mat-card-header>
-                    <mat-card-title>Search Articles By Title</mat-card-title>
-                  </mat-card-header>
-                  <mat-card-content>
-                      <mat-input-container class="title-search">
-                          <input matInput type="text" placeholder="Articles" [matAutocomplete]="auto" #title (keyup)="filterArticles(title.value)"/>
-                          <mat-autocomplete #auto="matAutocomplete">
-                              <mat-option class="article-option" *ngFor="let article of filteredArticles | async" [value]="article.title" (onSelectionChange)="articleSelected(article)">
-                                 {{ article.title }}
-                              </mat-option>
-                           </mat-autocomplete>
-                        </mat-input-container>
-                  </mat-card-content>
-                </mat-card>
-            <mat-card class="card-sections">
-              <mat-card-header>
-                <mat-card-title>About</mat-card-title>
-              </mat-card-header>
-              <mat-card-content>
-                <p>
-                  This site was developed by <a href="https://github.com/pastorsj" target="_blank">Sam Pastoriza</a>
-                  and <a href="https://github.com/Prescientje" target="_blank">James Edwards</a>. 
-                  We wanted a blog that was self sustaining and easily modifiable. 
-                  We are using the Angular framework developed by Google and Angular Material to style 
-                  and layout the site. An express based backend application utilizes MongoDb and Redis 
-                  to store data on users and articles. The blog is completely open-sourced on GitHub and 
-                  contributers are more than welcome. The end goal is a fully functional blog mainly covering 
-                  technical topics, but can be reused 
-                  as a base for other blogs.                  
-                </p>
-              </mat-card-content>
-              <mat-card-footer>
-                <mat-list>
-                  <mat-list-item class="repo">
-                    <mat-icon mat-list-icon>developer_board</mat-icon>
-                    <a mat-list-item href="https://github.com/LighthouseBlog/Blog"> Blog </a>
-                  </mat-list-item>
-                  <mat-list-item class="repo">
-                    <mat-icon mat-list-icon>developer_board</mat-icon>
-                    <a mat-list-item href="https://github.com/pastorsj/blog-api"> Backend Api </a>
-                  </mat-list-item>
-                </mat-list>
-              </mat-card-footer>
-            </mat-card>
-            <mat-card class="card-sections">
-                <mat-card-header>
-                  <mat-card-title>Tags</mat-card-title>
-                </mat-card-header>
-                <mat-card-content>
-                    <tag *ngFor="let tag of tags | async" 
-                        (click)="getArticlesByTag(tag)" 
-                        [tag]="tag" 
-                        [fontSize]="tagData[tag]" 
-                        [maxSize]="maxSize">
-                    </tag>
-                </mat-card-content>
-              </mat-card>
+          <div class="column site-info">
+            <search-by-title></search-by-title>
+            <site-info></site-info>
+            <search-by-tags (onSearch)="getArticlesByTag($event)"></search-by-tags>
           </div>
         </div>
     </div>

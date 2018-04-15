@@ -9,7 +9,6 @@ import 'rxjs/add/operator/map';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 
 import { Article } from 'app/_models/Article';
-import { AuthorService } from 'app/_services/author.service';
 
 export class ArticleDataSource extends DataSource<Article> {
 

@@ -7,7 +7,6 @@ import 'rxjs/add/operator/map';
 import 'rxjs/add/observable/forkJoin';
 import 'rxjs/add/observable/throw';
 
-import { AuthenticationService } from 'app/_services/authentication.service';
 import { AuthorService } from 'app/_services/author.service';
 
 import { Gist } from 'app/_models/Gist';
@@ -21,13 +20,10 @@ export class EditorService {
 
     private editorUrl = environment.URL + '/blog/';
     private gistUrl = environment.URL + '/gist/';
-    private tagUrl = environment.URL + '/tags/'
-    private title = '';
-    private description = '';
+    private tagUrl = environment.URL + '/tags/';
     private id: number;
 
     constructor(private http: HttpClient,
-                private auth: AuthenticationService,
                 private authorService: AuthorService) { }
 
     setArticleId(id: number) {
@@ -76,8 +72,6 @@ export class EditorService {
     }
 
     deleteArticle(article): Observable<boolean> {
-        const author = this.authorService.getAuthorUsername();
-
         return this.http.delete<boolean>(this.editorUrl + article._id)
     }
 
@@ -89,7 +83,7 @@ export class EditorService {
         return this.http.post<Response>(this.gistUrl, post).map((res) => Object.assign(new Gist(), res.data));
     }
 
-    getTags(text: string): Observable<Array<string>> {
+    getTags(text: string): Observable<string[]> {
         if (!text) {
             return Observable.of([]);
         }

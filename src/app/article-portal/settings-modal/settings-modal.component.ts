@@ -118,16 +118,15 @@ export class SettingsModalComponent implements OnInit, OnDestroy {
     }
 
     openPreview() {
-        const dialogRef = this.dialog.open(ImagePreviewComponent, {
-            maxHeight: '400px',
-            maxWidth: '400px',
-            data: {
-                src: this.image,
-                aspectRatio: 1
-            }
-        });
-
-        dialogRef.afterClosed()
+        this.dialog.open(ImagePreviewComponent, {
+                maxHeight: '400px',
+                maxWidth: '400px',
+                data: {
+                    src: this.image,
+                    aspectRatio: 1
+                }
+            })
+            .afterClosed()
             .takeUntil(this.destroyed)
             .subscribe(result => {
                 if (result) {

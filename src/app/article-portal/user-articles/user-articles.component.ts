@@ -1,10 +1,6 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
-import { MatDialog, MatDialogRef, MatSort } from '@angular/material';
+import { Component } from '@angular/core';
+import { MatDialog } from '@angular/material';
 import { CreateArticleModalComponent } from '../create-article-modal/create-article-modal.component';
-
-import { AuthorService } from 'app/_services/author.service';
-import { Article } from 'app/_models/Article';
-import { ArticleListComponent } from './article-list/article-list.component';
 
 @Component({
     selector: 'user-articles',
@@ -13,13 +9,9 @@ import { ArticleListComponent } from './article-list/article-list.component';
 })
 export class UserArticlesComponent {
 
-    constructor(public dialog: MatDialog,
-                private authorService: AuthorService) { }
+    constructor(public dialog: MatDialog) { }
 
     createArticle() {
-        this.dialog.open(CreateArticleModalComponent, {
-            height: '50vh',
-            width: '50vw'
-        });
+        this.dialog.open(CreateArticleModalComponent);
     }
 }

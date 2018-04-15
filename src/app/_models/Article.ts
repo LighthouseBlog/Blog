@@ -6,6 +6,6 @@ export class Article {
     datePosted: Date;
     text: string;
     author: Author;
-    tags: Array<string>;
+    tags: string[];
     coverPhoto: string;
 }

@@ -1,0 +1,15 @@
+<mat-card>
+    <mat-card-header>
+    <mat-card-title>Search Articles By Title</mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+        <mat-input-container class="title-search">
+            <input matInput type="text" placeholder="Articles" [matAutocomplete]="auto" #title (keyup)="filterArticles(title.value)"/>
+            <mat-autocomplete #auto="matAutocomplete">
+                <mat-option class="article-option" *ngFor="let article of filteredArticles | async" [value]="article.title" (onSelectionChange)="selectArticle(article)">
+                    {{ article.title }}
+                </mat-option>
+            </mat-autocomplete>
+        </mat-input-container>
+    </mat-card-content>
+</mat-card>

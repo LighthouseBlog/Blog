@@ -1,9 +1,3 @@
-## PR Checklist
-Please check if your PR fulfills the following requirements:
-
-- [ ] Tests for the changes have been added (for bug fixes / features)
-- [ ] Docs have been added / updated (for bug fixes / features)
-
 ## PR Type
 What kind of change does this PR introduce?
 
@@ -20,7 +14,7 @@ What kind of change does this PR introduce?
 ```
 
 ## What is the current behavior?
-<!-- Please describe the current behavior that you are modifying, or link to a relevant issue. -->
+<!-- Please describe the current behavior that you are modifying or link to a relevant issue. -->
 
 Issue Number: N/A
 
@@ -32,7 +26,6 @@ Issue Number: N/A
 [ ] Yes
 [ ] No
 ```
-If yes, is the package.json file updated accordingly
 
 <!-- If this PR contains a breaking change, please describe the impact and migration path for existing applications below. -->
 

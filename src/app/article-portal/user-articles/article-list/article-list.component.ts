@@ -1,5 +1,5 @@
 import { Component, ViewChild, OnInit, ElementRef, OnDestroy } from '@angular/core';
-import { MatDialog, MatDialogRef, MatSort, MatPaginator } from '@angular/material';
+import { MatDialog, MatSort, MatPaginator } from '@angular/material';
 import { Router } from '@angular/router';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import { Observable } from 'rxjs/Observable';
@@ -70,12 +70,8 @@ export class ArticleListComponent implements OnInit, OnDestroy {
     }
 
     deleteArticle(article: Article, articles: Article[]) {
-        const dialogRef = this.dialog.open(DeleteArticleModalComponent, {
-            data: article,
-            height: '40vh',
-            width: '40vw'
-        });
-        dialogRef.afterClosed()
+        this.dialog.open(DeleteArticleModalComponent)
+            .afterClosed()
             .takeUntil(this.destroyed)
             .subscribe((result) => {
                 if (result === 'delete') {

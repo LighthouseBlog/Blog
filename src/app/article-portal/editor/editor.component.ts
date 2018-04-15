@@ -1,7 +1,7 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { Router, ActivatedRoute } from '@angular/router';
-import { FormBuilder, FormGroup, FormControl, Validators, FormsModule } from '@angular/forms';
-import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
+import { ActivatedRoute } from '@angular/router';
+import { FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms';
+import { MatDialog } from '@angular/material';
 
 import { Observable } from 'rxjs/Observable';
 import { Subject } from 'rxjs/Subject';
@@ -14,7 +14,6 @@ import { ImagesService } from 'app/_services/images.service';
 
 import initializeFroalaGistPlugin from 'app/_plugins/gist.plugin'
 
-import { environment } from 'environments/environment';
 import { FileValidator } from 'app/_directives/fileValidator.directive';
 import { ImagePreviewComponent } from 'app/article-portal/image-preview/image-preview.component';
 import { SnackbarMessagingService } from 'app/_services/snackbar-messaging.service';
@@ -53,7 +52,7 @@ export class EditorComponent implements OnInit, OnDestroy {
             'froalaEditor.image.removed': (e, editor, $img) => {
                 const src = $img.attr('src');
                 this.imagesService.deleteImage(src)
-                    .subscribe(result => { })
+                    .subscribe(() => {}, error => this.snackbarMessageService.displayError(error, 4000) )
             }
         },
         toolbarButtons: this.tb,
@@ -80,7 +79,6 @@ export class EditorComponent implements OnInit, OnDestroy {
                 private articleService: ArticleService,
                 private imagesService: ImagesService,
                 private fb: FormBuilder,
-                private router: Router,
                 private route: ActivatedRoute,
                 private snackbarMessageService: SnackbarMessagingService,
                 public dialog: MatDialog) {
@@ -159,7 +157,7 @@ export class EditorComponent implements OnInit, OnDestroy {
                 this.editorService.saveArticle(this.content, articleTitle, articleDescription, tags, formData)
                     .takeUntil(this.destroyed)
                     .finally(() => this.savingArticle = false)
-                    .subscribe(result => {
+                    .subscribe(() => {
                         this.snackbarMessageService.displaySuccess('Successfully saved article', 4000);
                     }, error => {
                         this.snackbarMessageService.displayError(error, 4000);
@@ -168,7 +166,7 @@ export class EditorComponent implements OnInit, OnDestroy {
                 this.editorService.saveArticle(this.content, articleTitle, articleDescription, tags)
                     .takeUntil(this.destroyed)
                     .finally(() => this.savingArticle = false)
-                    .subscribe(result => {
+                    .subscribe(() => {
                         this.snackbarMessageService.displaySuccess('Successfully saved article', 4000);
                     }, error => {
                         this.snackbarMessageService.displayError(error, 4000);
@@ -220,7 +218,7 @@ export class EditorComponent implements OnInit, OnDestroy {
                 const input = this.tagInput;
                 this.editorService.addTag(input)
                     .takeUntil(this.destroyed)
-                    .subscribe(result => {
+                    .subscribe(() => {
                         this.selectedTags.add(input);
                         this.snackbarMessageService.displaySuccess(`Added the tag: ${input}`, 2000);
                         this.formGroup.get('tags').patchValue('');
@@ -242,16 +240,16 @@ export class EditorComponent implements OnInit, OnDestroy {
     }
 
     openPreview() {
-        const dialogRef = this.dialog.open(ImagePreviewComponent, {
-            maxWidth: '800px',
-            maxHeight: '400px',
-            data: {
-                src: this.image,
-                aspectRatio: 16 / 9
-            }
-        });
-
-        dialogRef.afterClosed()
+        this.dialog.open(ImagePreviewComponent, {
+                maxWidth: '800px',
+                maxHeight: '400px',
+                data: {
+                    src: this.image,
+                    aspectRatio: 16 / 9
+                }
+            })
+            .afterClosed()
+            .takeUntil(this.destroyed)
             .subscribe(result => {
                 if (result) {
                     this.formGroup.patchValue({
