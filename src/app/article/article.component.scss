@@ -11,7 +11,7 @@
 }
 
 .article {
-  margin: 0 10%;
+  margin: 5vw;
   float: left;
   color: black;
 }
@@ -99,9 +99,15 @@
     display: flex;
     flex-direction: column;
     justify-content: center;
+    min-width: 100vw;
+    max-width: 100vw;
+  }
+  .article {
+    min-width: 100vw;
+    max-width: 100vw;
   }
   .headers {
     order: 1;
-    margin: 10px 10%;
+    margin: 5vh 5vw;
   }
 }
