@@ -55,7 +55,7 @@ export class ImagePreviewComponent implements OnInit, OnDestroy {
     save() {
         if (this.cropped) {
             const image = document.getElementById('image').getAttribute('src');
-            const imageData = this.croppedCanvas.toBlob((blob) => {
+            this.croppedCanvas.toBlob((blob) => {
                 this.imageBlob = blob;
                 this.stop();
                 document.getElementById('image').setAttribute('src', image);

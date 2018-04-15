@@ -31,15 +31,15 @@ export class NavBarComponent implements OnInit, OnDestroy {
     public mobileQuery: MediaQueryList;
 
     constructor(private auth: AuthenticationService,
-        private authorService: AuthorService,
-        private router: Router,
-        private dialog: MatDialog,
-        private cdr: ChangeDetectorRef,
-        private media: MediaMatcher) {
-            this.mobileQuery = this.media.matchMedia('(max-width: 599px)');
-            this._mobileQueryListener = () => this.cdr.detectChanges();
-            this.mobileQuery.addListener(this._mobileQueryListener);
-        }
+                private authorService: AuthorService,
+                private router: Router,
+                private dialog: MatDialog,
+                private cdr: ChangeDetectorRef,
+                private media: MediaMatcher) {
+                    this.mobileQuery = this.media.matchMedia('(max-width: 599px)');
+                    this._mobileQueryListener = () => this.cdr.detectChanges();
+                    this.mobileQuery.addListener(this._mobileQueryListener);
+                }
 
     ngOnInit() {
         this.auth.checkJwtExpiration()

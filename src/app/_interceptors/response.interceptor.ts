@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpEvent, HttpInterceptor, HttpHandler, HttpRequest, HttpResponse, HttpErrorResponse } from '@angular/common/http';
+import { HttpEvent, HttpInterceptor, HttpHandler, HttpRequest, HttpErrorResponse } from '@angular/common/http';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/do';
 import { Router } from '@angular/router';
@@ -19,7 +19,7 @@ export class ResponseInterceptor implements HttpInterceptor {
     private handleError(error: any) {
         let errorMessage: any;
         if (error instanceof HttpErrorResponse) {
-            if (error.status === 401) {
+            if (error.status === 401 || error.status === 403) {
                 this.router.navigateByUrl('/');
             }
             errorMessage = error.error || JSON.stringify(error);

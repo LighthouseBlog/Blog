@@ -1,5 +1,5 @@
 import { Component, ViewChild, OnInit, ElementRef, OnDestroy } from '@angular/core';
-import { MatDialog, MatDialogRef, MatSort, MatPaginator } from '@angular/material';
+import { MatDialog, MatSort, MatPaginator } from '@angular/material';
 import { Router } from '@angular/router';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import { Observable } from 'rxjs/Observable';
