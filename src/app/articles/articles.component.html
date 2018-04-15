@@ -3,12 +3,12 @@
     <div class="container">
         <div class="columns">
           <div class="column article-list">
-            <article-preview *ngFor="let article of articles | async" [article]="article"></article-preview>
+            <article-preview *ngFor="let article of articles" [article]="article"></article-preview>
           </div>
           <div class="column site-info">
             <search-by-title></search-by-title>
             <site-info></site-info>
-            <search-by-tags [articles]="articles"></search-by-tags>
+            <search-by-tags (onSearch)="getArticlesByTag($event)"></search-by-tags>
           </div>
         </div>
     </div>

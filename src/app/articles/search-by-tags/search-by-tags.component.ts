@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy, EventEmitter, Output } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 import { Subject } from 'rxjs/Subject';
 
@@ -13,7 +13,7 @@ import { TagService } from '../../_services/tags.service';
 })
 export class SearchByTagsComponent implements OnInit, OnDestroy {
 
-    @Input() articles: Observable<Article[]>;
+    @Output() onSearch: EventEmitter<string> = new EventEmitter<string>();
 
     private destroyed: Subject<boolean> = new Subject<boolean>();
 
@@ -38,5 +38,9 @@ export class SearchByTagsComponent implements OnInit, OnDestroy {
     ngOnDestroy() {
         this.destroyed.next();
         this.destroyed.complete();
+    }
+
+    onClick(tag) {
+        this.onSearch.emit(tag);
     }
 }
