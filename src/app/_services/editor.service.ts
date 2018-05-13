@@ -1,16 +1,12 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 
-import { Observable } from 'rxjs/Observable';
-import 'rxjs/add/operator/catch';
-import 'rxjs/add/operator/map';
-import 'rxjs/add/observable/forkJoin';
-import 'rxjs/add/observable/throw';
+import { Observable, forkJoin, of } from 'rxjs';
+import { map } from 'rxjs/operators';
 
 import { AuthorService } from 'app/_services/author.service';
 
 import { Gist } from 'app/_models/Gist';
-
 import { environment } from 'environments/environment';
 import { Response } from 'app/_models/Response';
 import { Article } from 'app/_models/Article';
@@ -40,8 +36,8 @@ export class EditorService {
             author
         };
 
-        return this.http.post<Response>(this.editorUrl, post)
-            .map((res) => Object.assign(new Article(), res.data));
+        return this.http.post<Response>(this.editorUrl, post).pipe(
+            map(res => Object.assign(new Article(), res.data)));
     }
 
     saveArticle(edits: string, title: string, description: string, tags: string[], coverPhoto?: FormData): Observable<any> {
@@ -56,12 +52,12 @@ export class EditorService {
         };
 
         if (coverPhoto) {
-            return Observable.forkJoin(
+            return forkJoin(
                 this.http.put(this.editorUrl + this.id, post),
                 this.http.post(this.editorUrl + this.id, coverPhoto)
             );
         } else {
-            return Observable.forkJoin(
+            return forkJoin(
                 this.http.put(this.editorUrl + this.id, post)
             );
         }
@@ -80,12 +76,12 @@ export class EditorService {
             link: url
         };
 
-        return this.http.post<Response>(this.gistUrl, post).map((res) => Object.assign(new Gist(), res.data));
+        return this.http.post<Response>(this.gistUrl, post).pipe(map((res) => Object.assign(new Gist(), res.data)));
     }
 
     getTags(text: string): Observable<string[]> {
         if (!text) {
-            return Observable.of([]);
+            return of([]);
         }
 
         const body = {
@@ -93,7 +89,7 @@ export class EditorService {
             count: 50
         }
 
-        return this.http.put<Response>(this.tagUrl, body).map((res) => Object.assign(new Array<string>(), res.data));
+        return this.http.put<Response>(this.tagUrl, body).pipe(map((res) => Object.assign(new Array<string>(), res.data)));
     }
 
     addTag(tag: string): Observable<Response> {

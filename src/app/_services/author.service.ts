@@ -1,13 +1,11 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 
-import { Observable } from 'rxjs/Observable';
-import 'rxjs/add/operator/catch';
-import 'rxjs/add/operator/map';
-import 'rxjs/add/observable/zip';
+import { Observable, zip } from 'rxjs';
+import { map } from 'rxjs/operators';
 
-import { Article } from '../_models/Article';
-import { Author } from '../_models/Author';
+import { Article } from 'app/_models/Article';
+import { Author } from 'app/_models/Author';
 import { environment } from '../../environments/environment';
 import { Response } from 'app/_models/Response';
 
@@ -20,12 +18,12 @@ export class AuthorService {
     constructor(private http: HttpClient) { }
 
     getAuthor(username: string = this.getAuthorUsername()): Observable<Author> {
-        return this.http.get<Response>(this.authorUrl + username).map((res) => Object.assign(new Author(), res.data));
+        return this.http.get<Response>(this.authorUrl + username).pipe(map((res) => Object.assign(new Author(), res.data)));
     }
 
     getArticlesByAuthor(): Observable<Array<Article>> {
         const author = this.getAuthorUsername();
-        return this.http.get<Response>(this.articlesUrl + author).map((res) => Object.assign(new Array<Article>(), res.data));
+        return this.http.get<Response>(this.articlesUrl + author).pipe(map((res) => Object.assign(new Array<Article>(), res.data)));
     }
 
     getAuthorName(): Promise<string> {
@@ -46,13 +44,13 @@ export class AuthorService {
         }
 
         if (profilePicture) {
-            return Observable.zip(
+            return zip(
                 this.http.put<any>(this.authorUrl + username, body),
                 this.http.post<any>(this.authorUrl + username, profilePicture),
                 (r1, r2) => r2
             );
         } else {
-            return Observable.zip(
+            return zip(
                 this.http.put<any>(this.authorUrl + username, body)
             );
         }

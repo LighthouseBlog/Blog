@@ -2,8 +2,8 @@ import { Component, OnDestroy } from '@angular/core';
 import { FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { MatDialogRef } from '@angular/material';
-import { Subject } from 'rxjs/Subject';
-import 'rxjs/add/operator/takeUntil';
+import { Subject } from 'rxjs';
+import { takeUntil } from 'rxjs/operators';
 
 import { AuthenticationService } from 'app/_services/authentication.service';
 import { SnackbarMessagingService } from 'app/_services/snackbar-messaging.service';
@@ -31,7 +31,7 @@ export class RegisterModalComponent implements OnDestroy {
                 private router: Router,
                 private auth: AuthenticationService,
                 private dialogRef: MatDialogRef<RegisterModalComponent>,
-                private snackbarMessagingSerivce: SnackbarMessagingService) {
+                private sms: SnackbarMessagingService) {
         this.registerGroup = this.fb.group({
             'username': new FormControl('', Validators.required),
             'email': new FormControl('', Validators.email),
@@ -57,20 +57,18 @@ export class RegisterModalComponent implements OnDestroy {
             const name = formValue.name;
 
             this.auth.register(username, password, email, name)
-                .takeUntil(this.destroyed)
+                .pipe(takeUntil(this.destroyed))
                 .subscribe(result => {
                     if (result) {
                         this.dialogRef.close(name);
-                        this.snackbarMessagingSerivce.displaySuccess('Registration Succeeded', 2000);
+                        this.sms.displaySuccess('Registration Succeeded', 2000);
                         this.router.navigate(['articles']);
                     } else {
-                        this.snackbarMessagingSerivce.displayErrorMessage('Registration failed', 4000);
+                        this.sms.displayErrorMessage('Registration failed', 4000);
                     }
-                }, error => {
-                    this.snackbarMessagingSerivce.displayError(error, 4000);
-                });
+                }, error => this.sms.displayError(error, 4000));
         } else {
-            this.snackbarMessagingSerivce.displayErrorMessage('Validation errors exist', 4000);
+            this.sms.displayErrorMessage('Validation errors exist', 4000);
         }
     }
 }

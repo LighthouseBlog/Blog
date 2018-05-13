@@ -1,12 +1,7 @@
 import { DataSource } from '@angular/cdk/collections';
 import { MatSort, MatPaginator } from '@angular/material';
-import { Observable } from 'rxjs/Observable';
-import 'rxjs/add/operator/startWith';
-import 'rxjs/add/observable/merge';
-import 'rxjs/add/observable/concat';
-import 'rxjs/add/observable/of';
-import 'rxjs/add/operator/map';
-import { BehaviorSubject } from 'rxjs/BehaviorSubject';
+import { Observable, BehaviorSubject, merge } from 'rxjs';
+import { map } from 'rxjs/operators';
 
 import { Article } from 'app/_models/Article';
 
@@ -32,7 +27,7 @@ export class ArticleDataSource extends DataSource<Article> {
             this.sort.sortChange
         ];
 
-        return Observable.merge(...displayDataChanges).map(() => {
+        return merge(...displayDataChanges).pipe(map(() => {
             const articleData = this.dataSubject.value.slice()
 
             const filteredData = this.filterData(articleData);
@@ -40,7 +35,7 @@ export class ArticleDataSource extends DataSource<Article> {
             const paginatedData = this.paginateData(sortedData);
 
             return paginatedData;
-        });
+        }));
     }
 
     disconnect() {

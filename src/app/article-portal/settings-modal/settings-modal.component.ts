@@ -1,10 +1,9 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms';
 import { MatDialogRef, MatDialog } from '@angular/material';
-import { Subject } from 'rxjs/Subject';
-import 'rxjs/add/operator/takeUntil';
+import { Subject } from 'rxjs';
+import { takeUntil, finalize } from 'rxjs/operators';
 
-import { AuthenticationService } from 'app/_services/authentication.service';
 import { AuthorService } from 'app/_services/author.service';
 import { SnackbarMessagingService } from 'app/_services/snackbar-messaging.service';
 import { FileValidator } from 'app/_directives/fileValidator.directive';
@@ -27,10 +26,9 @@ export class SettingsModalComponent implements OnInit, OnDestroy {
     public image: any;
 
     constructor(private fb: FormBuilder,
-                private auth: AuthenticationService,
                 private dialogRef: MatDialogRef<SettingsModalComponent>,
                 private dialog: MatDialog,
-                private snackBarMessagingService: SnackbarMessagingService,
+                private sms: SnackbarMessagingService,
                 private authorService: AuthorService) {
         this.settingsGroup = this.fb.group({
             'name': new FormControl('', Validators.required),
@@ -41,7 +39,7 @@ export class SettingsModalComponent implements OnInit, OnDestroy {
 
     ngOnInit() {
         this.authorService.getAuthor()
-            .takeUntil(this.destroyed)
+            .pipe(takeUntil(this.destroyed))
             .subscribe(author => {
                 this.settingsGroup.patchValue({
                     'name': author.name,
@@ -51,7 +49,7 @@ export class SettingsModalComponent implements OnInit, OnDestroy {
                 this.image = author.profilePicture;
                 this.profilePictureUpdated = false;
                 this.username = author.username;
-            });
+            }, error => this.sms.displayError(error));
         this.saveInProgress = false;
     }
 
@@ -72,30 +70,24 @@ export class SettingsModalComponent implements OnInit, OnDestroy {
                 const file = this.getProfilePicture(profilePicture);
                 formData.append('profilePicture', file);
 
-                this.authorService.updateUserSettings(this.username, name, email, formData)
-                    .takeUntil(this.destroyed)
+                this.authorService.updateUserSettings(this.username, name, email, formData).pipe(
+                    takeUntil(this.destroyed),
+                    finalize(() => this.saveInProgress = false))
                     .subscribe(result => {
-                        this.saveInProgress = false;
-                        this.snackBarMessagingService.displaySuccess('Updated user settings', 4000);
+                        this.sms.displaySuccess('Updated user settings', 4000);
                         this.dialogRef.close({ name, image: result.data.profilePicture || '' });
-                    }, error => {
-                        this.saveInProgress = false;
-                        this.snackBarMessagingService.displayError(error, 4000);
-                    });
+                    }, error => this.sms.displayError(error, 4000));
             } else {
-                this.authorService.updateUserSettings(this.username, name, email)
-                    .takeUntil(this.destroyed)
-                    .subscribe(result => {
-                        this.saveInProgress = false;
-                        this.snackBarMessagingService.displaySuccess('Updated user settings', 4000);
+                this.authorService.updateUserSettings(this.username, name, email).pipe(
+                    takeUntil(this.destroyed),
+                    finalize(() => this.saveInProgress = false))
+                    .subscribe(() => {
+                        this.sms.displaySuccess('Updated user settings', 4000);
                         this.dialogRef.close({ name });
-                    }, error => {
-                        this.saveInProgress = false;
-                        this.snackBarMessagingService.displayError(error, 4000);
-                    });
+                    }, error => this.sms.displayError(error, 4000));
             }
         } else {
-            this.snackBarMessagingService.displayErrorMessage('Validation errors exists', 4000);
+            this.sms.displayErrorMessage('Validation errors exists', 4000);
         }
     }
 
@@ -127,14 +119,14 @@ export class SettingsModalComponent implements OnInit, OnDestroy {
                 }
             })
             .afterClosed()
-            .takeUntil(this.destroyed)
+            .pipe(takeUntil(this.destroyed))
             .subscribe(result => {
                 if (result) {
                     this.settingsGroup.patchValue({
                         profilePicture: result
                     });
                     this.profilePictureUpdated = true;
-                    this.snackBarMessagingService.displaySuccess('Image has been cropped', 4000);
+                    this.sms.displaySuccess('Image has been cropped', 4000);
                 }
             });
     }

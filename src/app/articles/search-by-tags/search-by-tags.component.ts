@@ -1,7 +1,9 @@
 import { Component, OnInit, OnDestroy, EventEmitter, Output } from '@angular/core';
-import { Subject } from 'rxjs/Subject';
+import { Subject } from 'rxjs';
+import { takeUntil } from 'rxjs/operators';
 
-import { TagService } from '../../_services/tags.service';
+import { TagService } from 'app/_services/tags.service';
+import { SnackbarMessagingService } from 'app/_services/snackbar-messaging.service';
 
 @Component({
     selector: 'search-by-tags',
@@ -17,18 +19,19 @@ export class SearchByTagsComponent implements OnInit, OnDestroy {
     public tagData: string[];
     public maxSize: number;
 
-    constructor(private tagService: TagService) { }
+    constructor(private tagService: TagService,
+                private sms: SnackbarMessagingService) { }
 
     ngOnInit() {
         this.tagService.getAllTags()
-            .takeUntil(this.destroyed)
+            .pipe(takeUntil(this.destroyed))
             .subscribe((tags) => {
                 this.tagData = tags;
                 this.tags = Promise.resolve(Object.keys(tags));
                 this.maxSize = Object.keys(tags)
                     .map((tag) => parseInt(tags[tag], 10))
                     .reduce((accumulator, currentValue) => Math.max(accumulator, currentValue), 0);
-            });
+            }, error => this.sms.displayError(error));
     }
 
     ngOnDestroy() {

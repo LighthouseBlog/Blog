@@ -1,21 +1,20 @@
 import { Injectable } from '@angular/core';
 import { MatSnackBar } from '@angular/material';
-import { Error } from 'app/_models/Error';
 
 @Injectable()
 export class SnackbarMessagingService {
 
   constructor(private snackBar: MatSnackBar) { }
 
-  displayError(error: Error, duration: number, action?: string): void {
-    this.snackBar.open(error.error, action, {
+  displayError(error: any, duration: number = 4000, action?: string): void {
+    this.snackBar.open(error.error || error, action, {
       announcementMessage: error.error,
       duration,
       panelClass: 'error-snackbar'
     });
   }
 
-  displayErrorMessage(error: string, duration: number, action?: string): void {
+  displayErrorMessage(error: string, duration: number = 4000, action?: string): void {
     this.snackBar.open(error, action, {
       announcementMessage: error,
       duration,
@@ -23,7 +22,7 @@ export class SnackbarMessagingService {
     });
   }
 
-  displaySuccess(message: string, duration: number, action?: string): void {
+  displaySuccess(message: string, duration: number = 4000, action?: string): void {
     this.snackBar.open(message, action, {
       announcementMessage: message,
       duration,
@@ -31,7 +30,7 @@ export class SnackbarMessagingService {
     });
   }
 
-  displayMessage(message: string, duration: number, action?: string): void {
+  displayMessage(message: string, duration: number = 4000, action?: string): void {
     this.snackBar.open(message, action, {
       announcementMessage: message,
       duration

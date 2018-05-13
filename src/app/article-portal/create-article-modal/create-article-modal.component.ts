@@ -2,10 +2,11 @@ import { Component, OnDestroy } from '@angular/core';
 import { FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { MatDialogRef } from '@angular/material';
-import { Subject } from 'rxjs/Subject';
-import 'rxjs/add/operator/takeUntil';
+import { Subject } from 'rxjs';
+import { takeUntil } from 'rxjs/operators';
 
 import { EditorService } from 'app/_services/editor.service';
+import { SnackbarMessagingService } from '../../_services/snackbar-messaging.service';
 
 @Component({
     selector: 'create-article-modal',
@@ -22,7 +23,8 @@ export class CreateArticleModalComponent implements OnDestroy {
     constructor(private fb: FormBuilder,
                 private router: Router,
                 private dialogRef: MatDialogRef<CreateArticleModalComponent>,
-                private editorService: EditorService) {
+                private editorService: EditorService,
+                private sms: SnackbarMessagingService) {
         this.formGroup = this.fb.group({
             'articleTitle': new FormControl('', Validators.required),
             'articleDescription': new FormControl('', Validators.required)
@@ -41,7 +43,7 @@ export class CreateArticleModalComponent implements OnDestroy {
             const articleDescription = formValue['articleDescription'];
 
             this.editorService.createArticle(articleTitle, articleDescription)
-                .takeUntil(this.destroyed)
+                .pipe(takeUntil(this.destroyed))
                 .subscribe(results => {
                     const id = results._id;
                     if (!Number.isNaN(id)) {
@@ -49,9 +51,10 @@ export class CreateArticleModalComponent implements OnDestroy {
                         this.dialogRef.close('closed');
                         this.router.navigateByUrl('/edit/' + id);
                     } else {
-                        console.error('The article id generated was not a number. The article was saved but should be deleted and redone.');
+                        this.sms.displayErrorMessage(`The article id generated was not a number.
+                        The article was saved but should be deleted and redone.`);
                     }
-                })
+                }, error => this.sms.displayError(error));
         }
     }
 
