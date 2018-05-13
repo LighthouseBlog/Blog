@@ -3,20 +3,18 @@ import { ActivatedRoute } from '@angular/router';
 import { FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material';
 
-import { Observable } from 'rxjs/Observable';
-import { Subject } from 'rxjs/Subject';
-import 'rxjs/add/operator/takeUntil';
-import 'rxjs/add/operator/finally';
+import { Observable, Subject } from 'rxjs';
+import { takeUntil, finalize } from 'rxjs/operators';
 
 import { EditorService } from 'app/_services/editor.service';
 import { ArticleService } from 'app/_services/article.service';
 import { ImagesService } from 'app/_services/images.service';
+import { SnackbarMessagingService } from 'app/_services/snackbar-messaging.service';
 
 import initializeFroalaGistPlugin from 'app/_plugins/gist.plugin'
 
 import { FileValidator } from 'app/_directives/fileValidator.directive';
 import { ImagePreviewComponent } from 'app/article-portal/image-preview/image-preview.component';
-import { SnackbarMessagingService } from 'app/_services/snackbar-messaging.service';
 
 @Component({
     selector: 'editor',
@@ -52,7 +50,7 @@ export class EditorComponent implements OnInit, OnDestroy {
             'froalaEditor.image.removed': (e, editor, $img) => {
                 const src = $img.attr('src');
                 this.imagesService.deleteImage(src)
-                    .subscribe(() => {}, error => this.snackbarMessageService.displayError(error, 4000) )
+                    .subscribe(() => {}, error => this.sms.displayError(error, 4000) )
             }
         },
         toolbarButtons: this.tb,
@@ -80,7 +78,7 @@ export class EditorComponent implements OnInit, OnDestroy {
                 private imagesService: ImagesService,
                 private fb: FormBuilder,
                 private route: ActivatedRoute,
-                private snackbarMessageService: SnackbarMessagingService,
+                private sms: SnackbarMessagingService,
                 public dialog: MatDialog) {
         this.formGroup = this.fb.group({
             'articleTitle': new FormControl('', Validators.required),
@@ -97,13 +95,13 @@ export class EditorComponent implements OnInit, OnDestroy {
 
                 this.initControls = initControls;
                 this.initControls.initialize();
-            });
+            }, error => this.sms.displayError(error));
     }
 
     ngOnInit() {
         this.selectedTags = new Set<string>();
         this.formGroup.get('tags').valueChanges
-            .takeUntil(this.destroyed)
+            .pipe(takeUntil(this.destroyed))
             .subscribe((input) => {
                 this.filteredTags = this.filterTags(input);
             });
@@ -116,7 +114,7 @@ export class EditorComponent implements OnInit, OnDestroy {
             this.editorService.setArticleId(params['id']);
 
             this.articleService.getArticle(id)
-                .takeUntil(this.destroyed)
+                .pipe(takeUntil(this.destroyed))
                 .subscribe(article => {
                     this.formGroup.patchValue({
                         'articleTitle': article.title,
@@ -129,7 +127,7 @@ export class EditorComponent implements OnInit, OnDestroy {
                         this.selectedTags = new Set<string>(article.tags);
                     }
                     this.editorContent = article.text;
-                });
+                }, error => this.sms.displayError(error));
         });
     }
 
@@ -154,24 +152,22 @@ export class EditorComponent implements OnInit, OnDestroy {
                 const file = this.getCoverPhoto(coverPhoto);
                 formData.append('coverPhoto', file);
 
-                this.editorService.saveArticle(this.content, articleTitle, articleDescription, tags, formData)
-                    .takeUntil(this.destroyed)
-                    .finally(() => this.savingArticle = false)
+                this.editorService.saveArticle(this.content, articleTitle, articleDescription, tags, formData).pipe(
+                    takeUntil(this.destroyed),
+                    finalize(() => this.savingArticle = false))
                     .subscribe(() => {
-                        this.snackbarMessageService.displaySuccess('Successfully saved article', 4000);
-                    }, error => {
-                        this.snackbarMessageService.displayError(error, 4000);
-                    });
+                        this.sms.displaySuccess('Successfully saved article', 4000);
+                    }, error => this.sms.displayError(error, 4000));
             } else {
-                this.editorService.saveArticle(this.content, articleTitle, articleDescription, tags)
-                    .takeUntil(this.destroyed)
-                    .finally(() => this.savingArticle = false)
+                this.editorService.saveArticle(this.content, articleTitle, articleDescription, tags).pipe(
+                    takeUntil(this.destroyed),
+                    finalize(() => this.savingArticle = false))
                     .subscribe(() => {
-                        this.snackbarMessageService.displaySuccess('Successfully saved article', 4000);
-                    }, error => {
-                        this.snackbarMessageService.displayError(error, 4000);
-                    });
+                        this.sms.displaySuccess('Successfully saved article', 4000);
+                    }, error => this.sms.displayError(error, 4000));
             }
+        } else {
+            this.sms.displayErrorMessage('Form is invalid');
         }
     }
 
@@ -184,12 +180,10 @@ export class EditorComponent implements OnInit, OnDestroy {
 
     publishArticle() {
         this.editorService.publishArticle()
-            .takeUntil(this.destroyed)
-            .subscribe(result => {
-                this.snackbarMessageService.displaySuccess('Successfully published article', 4000);
-            }, error => {
-                this.snackbarMessageService.displayError(error, 4000);
-            });
+            .pipe(takeUntil(this.destroyed))
+            .subscribe(() => {
+                this.sms.displaySuccess('Successfully published article', 4000);
+            }, error => this.sms.displayError(error, 4000));
     }
 
     filterTags(text: string): Observable<string[]> {
@@ -202,10 +196,10 @@ export class EditorComponent implements OnInit, OnDestroy {
 
     tagSelected(tag: string) {
         if (this.selectedTags.has(this.tagInput)) {
-            this.snackbarMessageService.displayErrorMessage('Tag already exists', 2000);
+            this.sms.displayErrorMessage('Tag already exists', 2000);
         } else {
             this.selectedTags.add(tag);
-            this.snackbarMessageService.displaySuccess(`Added the tag: ${tag}`, 2000);
+            this.sms.displaySuccess(`Added the tag: ${tag}`, 2000);
             this.formGroup.get('tags').patchValue('');
         }
     }
@@ -213,18 +207,16 @@ export class EditorComponent implements OnInit, OnDestroy {
     onEnter(event: any) {
         if (event.keyCode === 13 && this.tagInput) {
             if (this.selectedTags.has(this.tagInput)) {
-                this.snackbarMessageService.displayErrorMessage('Tag already exists', 2000);
+                this.sms.displayErrorMessage('Tag already exists', 2000);
             } else {
                 const input = this.tagInput;
                 this.editorService.addTag(input)
-                    .takeUntil(this.destroyed)
+                    .pipe(takeUntil(this.destroyed))
                     .subscribe(() => {
                         this.selectedTags.add(input);
-                        this.snackbarMessageService.displaySuccess(`Added the tag: ${input}`, 2000);
+                        this.sms.displaySuccess(`Added the tag: ${input}`, 2000);
                         this.formGroup.get('tags').patchValue('');
-                    }, error => {
-                        this.snackbarMessageService.displayError(error, 2000);
-                    });
+                    }, error => this.sms.displayError(error, 2000));
             }
         }
     }
@@ -249,14 +241,14 @@ export class EditorComponent implements OnInit, OnDestroy {
                 }
             })
             .afterClosed()
-            .takeUntil(this.destroyed)
+            .pipe(takeUntil(this.destroyed))
             .subscribe(result => {
                 if (result) {
                     this.formGroup.patchValue({
                         coverPhoto: result
                     });
                 }
-            });
+            }, error => this.sms.displayError(error));
     }
 
     previewImage(): boolean {

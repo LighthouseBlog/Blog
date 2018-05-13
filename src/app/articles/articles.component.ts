@@ -1,10 +1,12 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { Subject } from 'rxjs/Subject';
-import 'rxjs/add/operator/takeUntil';
+import { Subject } from 'rxjs';
+import { takeUntil } from 'rxjs/operators';
 
 import { ArticleService } from 'app/_services/article.service';
-import { Article } from '../_models/Article';
-import { TagService } from '../_services/tags.service';
+import { TagService } from 'app/_services/tags.service';
+import { SnackbarMessagingService } from 'app/_services/snackbar-messaging.service';
+
+import { Article } from 'app/_models/Article';
 
 @Component({
     selector: 'articles',
@@ -18,12 +20,13 @@ export class ArticlesComponent implements OnInit, OnDestroy {
     public articles: Article[];
 
     constructor(private articleService: ArticleService,
-                private tagService: TagService) { }
+                private tagService: TagService,
+                private sms: SnackbarMessagingService) { }
 
     ngOnInit() {
         this.articleService.getAllArticles()
-            .takeUntil(this.destroyed)
-            .subscribe((articles) => this.articles = articles)
+            .pipe(takeUntil(this.destroyed))
+            .subscribe(articles => this.articles = articles, error => this.sms.displayError(error));
     }
 
     ngOnDestroy() {
@@ -33,7 +36,7 @@ export class ArticlesComponent implements OnInit, OnDestroy {
 
     getArticlesByTag(tag: string) {
         this.tagService.getArticlesByTag(tag)
-            .takeUntil(this.destroyed)
-            .subscribe((articles) => this.articles = articles);
+            .pipe(takeUntil(this.destroyed))
+            .subscribe(articles => this.articles = articles, error => this.sms.displayError(error));
     }
 }

@@ -1,10 +1,10 @@
 import { Component, OnDestroy } from '@angular/core';
 import { Router } from '@angular/router';
-import { Observable } from 'rxjs/Observable';
-import { Subject } from 'rxjs/Subject';
+import { Observable, Subject } from 'rxjs';
+import { takeUntil } from 'rxjs/operators';
 
-import { ArticleList } from '../../_models/ArticleList';
-import { ArticleService } from '../../_services/article.service';
+import { ArticleList } from 'app/_models/ArticleList';
+import { ArticleService } from 'app/_services/article.service';
 
 @Component({
     selector: 'search-by-title',
@@ -24,7 +24,9 @@ export class SearchByTitleComponent implements OnDestroy {
     }
 
     filterArticles(title: string) {
-        this.filteredArticles = this.articleService.getArticlesByTitle(title).takeUntil(this.destroyed);
+        if (title) {
+            this.filteredArticles = this.articleService.getArticlesByTitle(title).pipe(takeUntil(this.destroyed));
+        }
     }
 
     ngOnDestroy() {

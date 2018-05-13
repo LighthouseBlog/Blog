@@ -1,9 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Observable } from 'rxjs/Observable';
-import 'rxjs/add/operator/map';
-import 'rxjs/add/observable/timer';
-import 'rxjs/add/operator/mergeMap';
+import { Observable, of, timer } from 'rxjs';
+import { map, flatMap } from 'rxjs/operators';
 
 import { environment } from 'environments/environment';
 import { Token } from 'app/_models/Token';
@@ -34,13 +32,13 @@ export class AuthenticationService {
             'Authorization': username + ':' + password
         });
 
-        return this.http.post<Token>(this.loginUrl, {}, { headers })
-            .map((response) => this.setSession(response, username));
+        return this.http.post<Token>(this.loginUrl, {}, { headers }).pipe(
+            map((response) => this.setSession(response, username)));
     }
 
     register(username: string, password: string, email: string, name: string): Observable<boolean> {
-        return this.http.post<Token>(this.registerUrl, { username, password, email, name })
-            .map((response) => this.setSession(response, username));
+        return this.http.post<Token>(this.registerUrl, { username, password, email, name }).pipe(
+            map((response) => this.setSession(response, username)));
     }
 
     setSession(response: Token, username?: string): boolean {
@@ -88,8 +86,8 @@ export class AuthenticationService {
             'Authorization': `Bearer ${refreshToken}`
         });
 
-        return this.http.post<Token>(this.renewalUrl, {}, { headers })
-            .map((response) => this.setSession(response));
+        return this.http.post<Token>(this.renewalUrl, {}, { headers }).pipe(
+            map((response) => this.setSession(response)));
     }
 
     private scheduleRenewal() {
@@ -100,13 +98,13 @@ export class AuthenticationService {
 
         const expiresAt = parseInt(localStorage.getItem('expires_in'), 10);
 
-        const source = Observable.of(expiresAt).flatMap(expiration => {
+        const source = of(expiresAt).pipe(flatMap(expiration => {
             const now = Date.now();
 
             // Use the delay in a timer to
             // run the refresh at the proper time
-            return Observable.timer(Math.max(1, expiresAt - now));
-        });
+            return timer(Math.max(1, expiresAt - now));
+        }));
 
         // Once the delay time from above is
         // reached, get a new JWT and schedule

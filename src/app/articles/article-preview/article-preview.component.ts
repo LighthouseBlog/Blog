@@ -1,7 +1,7 @@
 import { Component, Input } from '@angular/core';
 import { Router } from '@angular/router';
 
-import { Article } from '../../_models/Article';
+import { Article } from 'app/_models/Article';
 
 @Component({
     selector: 'article-preview',

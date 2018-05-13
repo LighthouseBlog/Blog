@@ -1,13 +1,8 @@
 import { Component, ViewChild, OnInit, ElementRef, OnDestroy } from '@angular/core';
 import { MatDialog, MatSort, MatPaginator } from '@angular/material';
 import { Router } from '@angular/router';
-import { BehaviorSubject } from 'rxjs/BehaviorSubject';
-import { Observable } from 'rxjs/Observable';
-import { Subject } from 'rxjs/Subject';
-import 'rxjs/add/operator/debounceTime';
-import 'rxjs/add/operator/distinctUntilChanged';
-import 'rxjs/add/observable/fromEvent';
-import 'rxjs/add/operator/takeUntil';
+import { BehaviorSubject, Subject, fromEvent } from 'rxjs';
+import { takeUntil, debounceTime, distinctUntilChanged } from 'rxjs/operators';
 
 import { AuthorService } from 'app/_services/author.service';
 import { ArticleDataSource } from './article-data/article.datasource';
@@ -35,24 +30,24 @@ export class ArticleListComponent implements OnInit, OnDestroy {
     constructor(public dialog: MatDialog,
                 private authorService: AuthorService,
                 private router: Router,
-                private snackbarMessagingService: SnackbarMessagingService) {
+                private sms: SnackbarMessagingService) {
         this.displayedColumns = ['isPublished', 'title', 'description', 'datePosted', 'actions']
     }
 
     ngOnInit() {
         this.authorService.getArticlesByAuthor()
-            .takeUntil(this.destroyed)
-            .subscribe((results) => {
+            .pipe(takeUntil(this.destroyed))
+            .subscribe(results => {
                 this.dataSubject.next(results);
-            });
+            }, error => this.sms.displayError(error));
         this.dataSource = new ArticleDataSource(this.dataSubject, this.sort, this.paginator);
-        Observable.fromEvent(this.filter.nativeElement, 'keyup')
-            .debounceTime(150)
-            .distinctUntilChanged()
+        fromEvent(this.filter.nativeElement, 'keyup').pipe(
+            debounceTime(150),
+            distinctUntilChanged())
             .subscribe(() => {
                 if (!this.dataSource) { return; }
                 this.dataSource.filter = this.filter.nativeElement.value;
-            });
+            }, error => this.sms.displayError(error));
     }
 
     ngOnDestroy() {
@@ -72,12 +67,12 @@ export class ArticleListComponent implements OnInit, OnDestroy {
     deleteArticle(article: Article, articles: Article[]) {
         this.dialog.open(DeleteArticleModalComponent)
             .afterClosed()
-            .takeUntil(this.destroyed)
-            .subscribe((result) => {
+            .pipe(takeUntil(this.destroyed))
+            .subscribe(result => {
                 if (result === 'delete') {
                     this.dataSubject.next(articles.filter(a => a !== article));
-                    this.snackbarMessagingService.displaySuccess('Deleted article', 2000);
+                    this.sms.displaySuccess('Deleted article', 2000);
                 }
-            });
+            }, error => this.sms.displayError(error));
     }
 }

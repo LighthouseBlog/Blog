@@ -2,11 +2,12 @@ import { Component, OnInit, OnDestroy, ChangeDetectorRef, ViewChild, HostListene
 import { MediaMatcher } from '@angular/cdk/layout';
 import { Router } from '@angular/router';
 import { MatDialog, MatSidenav } from '@angular/material';
-import { Subject } from 'rxjs/Subject';
-import 'rxjs/add/operator/takeUntil';
+import { Subject } from 'rxjs';
+import { takeUntil } from 'rxjs/operators';
 
 import { AuthenticationService } from 'app/_services/authentication.service';
 import { AuthorService } from 'app/_services/author.service';
+import { SnackbarMessagingService } from 'app/_services/snackbar-messaging.service';
 import { environment } from 'environments/environment';
 
 import { LoginModalComponent } from 'app/login-modal/login-modal.component';
@@ -35,7 +36,8 @@ export class NavBarComponent implements OnInit, OnDestroy {
                 private router: Router,
                 private dialog: MatDialog,
                 private cdr: ChangeDetectorRef,
-                private media: MediaMatcher) {
+                private media: MediaMatcher,
+                private sms: SnackbarMessagingService) {
                     this.mobileQuery = this.media.matchMedia('(max-width: 599px)');
                     this._mobileQueryListener = () => this.cdr.detectChanges();
                     this.mobileQuery.addListener(this._mobileQueryListener);
@@ -62,20 +64,20 @@ export class NavBarComponent implements OnInit, OnDestroy {
         this.sidenav.close();
         this.dialog.open(LoginModalComponent)
             .afterClosed()
-            .takeUntil(this.destroyed)
+            .pipe(takeUntil(this.destroyed))
             .subscribe(result => {
                 if (result) {
                     this.name = this.authorService.getAuthorName();
                     this.image = this.authorService.getProfilePicture();
                 }
-            });
+            }, error => this.sms.displayError(error));
     }
 
     register() {
         this.sidenav.close();
-        this.dialog.open(RegisterModalComponent)
+        this.dialog.open(RegisterModalComponent, { minWidth: '30vw'})
             .afterClosed()
-            .takeUntil(this.destroyed)
+            .pipe(takeUntil(this.destroyed))
             .subscribe(name => {
                 if (name) {
                     this.name = Promise.resolve(name);
@@ -88,7 +90,7 @@ export class NavBarComponent implements OnInit, OnDestroy {
         this.sidenav.close();
         this.dialog.open(SettingsModalComponent)
             .afterClosed()
-            .takeUntil(this.destroyed)
+            .pipe(takeUntil(this.destroyed))
             .subscribe(result => {
                 if (result && result.name) {
                     this.name = Promise.resolve(result.name);

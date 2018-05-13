@@ -5,27 +5,27 @@
     </mat-card-header>
     <form #f="ngForm" [formGroup]="registerGroup" (ngSubmit)="register(f.value, f.valid)" novalidate>
       <mat-card-content align="center" class="align-input">
-        <mat-input-container>
+        <mat-form-field>
           <input matInput type="text" placeholder="Username" formControlName="username" required />
           <mat-error *ngIf="registerGroup.hasError('required', ['username'])">Username is required</mat-error>
-	      </mat-input-container>
-        <mat-input-container>
+	      </mat-form-field>
+        <mat-form-field>
           <input matInput type="email" placeholder="Email" formControlName="email" required />
           <mat-error *ngIf="registerGroup.hasError('required', ['email'])">Email is required</mat-error>
-        </mat-input-container> 
-        <mat-input-container>
+        </mat-form-field>
+        <mat-form-field>
           <input matInput type="text" placeholder="Name" formControlName="name" required />
           <mat-error *ngIf="registerGroup.hasError('required', ['name'])">Name is required</mat-error>
-        </mat-input-container>
+        </mat-form-field>
         <div formGroupName="passwordsGroup" class="align-input">
-            <mat-input-container>
+            <mat-form-field>
               <input matInput type="password" placeholder="Password" formControlName="password" required />
               <mat-error *ngIf="registerGroup.hasError('required', ['passwordsGroup', 'password'])">Password is required</mat-error>
-            </mat-input-container>
-            <mat-input-container>
+            </mat-form-field>
+            <mat-form-field>
               <input matInput type="password" placeholder="Confirm Password" formControlName="confirmPassword" required />
               <mat-error *ngIf="registerGroup.hasError('equal', ['passwordsGroup'])">Passwords must match</mat-error>
-            </mat-input-container>
+            </mat-form-field>
           </div>
       </mat-card-content>
       <mat-card-actions align="end">

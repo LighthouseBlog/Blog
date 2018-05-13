@@ -1,12 +1,14 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { Subject } from 'rxjs';
+import { takeUntil } from 'rxjs/operators';
 
 import { ArticleService } from 'app/_services/article.service';
 import { AuthorService } from 'app/_services/author.service';
+import { SnackbarMessagingService } from 'app/_services/snackbar-messaging.service';
 
 import { Article } from 'app/_models/Article';
 import { Author } from 'app/_models/Author';
-import { Subject } from 'rxjs/Subject';
 
 @Component({
     selector: 'article',
@@ -22,11 +24,11 @@ export class ArticleComponent implements OnInit, OnDestroy {
 
     constructor(private articleService: ArticleService,
                 private route: ActivatedRoute,
-                private authorService: AuthorService) { }
+                private authorService: AuthorService,
+                private snackbarMessagingService: SnackbarMessagingService) { }
 
     ngOnInit() {
-        this.route.params
-            .takeUntil(this.destroyed)
+        this.route.params.pipe(takeUntil(this.destroyed))
             .subscribe(results => {
                 this.getArticle(results);
             });
@@ -39,18 +41,18 @@ export class ArticleComponent implements OnInit, OnDestroy {
 
     getArticle(results) {
         this.articleService.getArticle(results.id)
-            .takeUntil(this.destroyed)
+            .pipe(takeUntil(this.destroyed))
             .subscribe(result => {
                 this.article = result;
                 this.getAuthor();
-            });
+            }, error => this.snackbarMessagingService.displayError(error));
     }
 
     getAuthor() {
         this.authorService.getAuthor(this.article.author.username)
-            .takeUntil(this.destroyed)
+            .pipe(takeUntil(this.destroyed))
             .subscribe(result => {
                 this.author = result;
-            });
+            }, error => this.snackbarMessagingService.displayError(error));
     }
 }

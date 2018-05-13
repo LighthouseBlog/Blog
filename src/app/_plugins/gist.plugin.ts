@@ -1,4 +1,4 @@
-import { EditorService } from '../_services/editor.service';
+import { EditorService } from 'app/_services/editor.service';
 
 declare var $: any;
 

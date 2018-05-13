@@ -8,15 +8,15 @@
                   <mat-spinner [diameter]="20" *ngIf="savingArticle" class="save-spinner" color="accent"></mat-spinner>
               </button>
               <button mat-raised-button [disabled]="!f.valid" color="warn" class="save" (click)="publishArticle()" type="button"> Publish Article </button>
-              <mat-input-container class="form-input">
+              <mat-form-field class="form-input">
                 <input matInput type="text" placeholder="Article Title" formControlName="articleTitle" required />
                 <mat-error *ngIf="formGroup.hasError('required', ['articleTitle'])">Article Title is required</mat-error>
-              </mat-input-container>
+              </mat-form-field>
               <span class="vertical-quarter-spacer"></span>
-              <mat-input-container class="form-input">
+              <mat-form-field class="form-input">
                 <textarea matInput type="text" placeholder="Article Description" formControlName="articleDescription" rows="5" required></textarea>
                 <mat-error *ngIf="formGroup.hasError('required', ['articleDescription'])">Article Description is required</mat-error>
-              </mat-input-container>
+              </mat-form-field>
               <span class="vertical-quarter-spacer"></span>
               <mat-chip-list class="tag-container">
                 <mat-chip *ngFor="let tag of selectedTags" [value]="tag" [removable]="removable" (remove)="removeTag(tag)">
@@ -25,14 +25,14 @@
                 </mat-chip>
               </mat-chip-list>
               <span class="vertical-quarter-spacer"></span>
-              <mat-input-container class="form-input">
+              <mat-form-field class="form-input">
                 <input matInput type="text" placeholder="Tags" formControlName="tags" [matAutocomplete]="auto" (window:keydown)="onEnter($event)" [(ngModel)]="tagInput" />
                 <mat-autocomplete #auto="matAutocomplete">
                     <mat-option *ngFor="let tag of filteredTags | async" [value]="tag" (onSelectionChange)="tagSelected(tag)">
                       {{ tag }}
                     </mat-option>
                 </mat-autocomplete>
-              </mat-input-container>
+              </mat-form-field>
               <button mat-button class="btn-file">
                   <mat-icon>add</mat-icon>
                   Upload Cover Photo

@@ -20,9 +20,7 @@ import { SettingsModalComponent } from './settings-modal/settings-modal.componen
 import { ArticleListComponent } from './user-articles/article-list/article-list.component';
 import { ImagePreviewComponent } from 'app/article-portal/image-preview/image-preview.component';
 
-import { AuthInterceptor } from 'app/_interceptors/auth.interceptor';
 import { MaterialModule } from 'app/material.module';
-
 
 @NgModule({
     declarations: [
