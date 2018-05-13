@@ -24,7 +24,9 @@ export class SearchByTitleComponent implements OnDestroy {
     }
 
     filterArticles(title: string) {
-        this.filteredArticles = this.articleService.getArticlesByTitle(title).pipe(takeUntil(this.destroyed));
+        if (title) {
+            this.filteredArticles = this.articleService.getArticlesByTitle(title).pipe(takeUntil(this.destroyed));
+        }
     }
 
     ngOnDestroy() {
