@@ -10,7 +10,7 @@
                             placeholder="Article Title"
                             formControlName="title"
                             required />
-            <mat-error *ngIf="formGroup.hasError('required', ['title'])">Article Title is required</mat-error>
+            <mat-error *ngIf="createArticleForm.hasError('required', ['title'])">Article Title is required</mat-error>
           </mat-form-field>
           <mat-form-field class="form-input">
             <textarea matInput type="text"
@@ -18,7 +18,7 @@
                                 formControlName="description"
                                 rows="5"
                                 required></textarea>
-            <mat-error *ngIf="formGroup.hasError('required', ['description'])">Article Description is required</mat-error>
+            <mat-error *ngIf="createArticleForm.hasError('required', ['description'])">Article Description is required</mat-error>
           </mat-form-field>
         </mat-card-content>
     </mat-card>

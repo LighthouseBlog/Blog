@@ -25,7 +25,6 @@ import { SnackbarMessagingService } from 'app/_services/snackbar-messaging.servi
 import { LoginModalComponent } from './login-modal/login-modal.component';
 import { RegisterModalComponent } from './register-modal/register-modal.component';
 
-import { ArticlesComponent } from './articles/articles.component';
 import { ArticleComponent } from './article/article.component';
 
 import { ResponseInterceptor } from 'app/_interceptors/response.interceptor';
@@ -35,6 +34,7 @@ import { MaterialModule } from 'app/material.module';
 import { ArticlePortalModule } from 'app/article-portal/article-portal.module';
 import { PipeModule } from 'app/_pipes/pipe.module';
 import { ArticlesModule } from './articles/articles.module';
+import { DirectiveModule } from './_directives/directive.module';
 
 @NgModule({
     declarations: [
@@ -55,7 +55,8 @@ import { ArticlesModule } from './articles/articles.module';
         ArticlePortalModule,
         ArticlesModule,
         PipeModule,
-        ServiceWorkerModule.register('/ngsw-worker.js', { enabled: environment.production })
+        ServiceWorkerModule.register('/ngsw-worker.js', { enabled: environment.production }),
+        DirectiveModule
     ],
     providers: [
         AuthGuard,

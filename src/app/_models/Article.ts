@@ -1,5 +1,6 @@
 import { Author } from './Author';
 import { Model } from './Model';
+import { ImageSet } from './ImageSet';
 export class Article extends Model {
     title: string;
     description: string;
@@ -7,5 +8,5 @@ export class Article extends Model {
     text: string;
     author: Author;
     tags: string[];
-    coverPhoto: string;
+    coverPhoto: ImageSet;
 }

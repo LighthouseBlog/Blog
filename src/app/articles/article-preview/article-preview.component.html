@@ -1,17 +1,24 @@
-<mat-card>
-    <mat-card-header>
-        <mat-card-title>
-        {{article?.title}}
-        </mat-card-title>
-        <mat-card-subtitle>
-        By {{article?.author?.name}}, {{article?.datePosted | date:'longDate'}}
-        </mat-card-subtitle>
-    </mat-card-header>
-    <img class="cover-photo" mat-card-image *ngIf="article?.coverPhoto" src="{{article?.coverPhoto}}" />
-    <mat-card-content>
-        {{article?.description}}
-    </mat-card-content>
-    <mat-card-actions align="end">
-        <button mat-button (click)="selectArticle()"> Continue Reading... </button>
-    </mat-card-actions>
-</mat-card>
+<ng-container *ngIf="!!article else loadingMask">
+    <mat-card>
+        <mat-card-header>
+            <mat-card-title>{{article.title}}</mat-card-title>
+            <mat-card-subtitle>By {{article.author.name}}, {{article.datePosted | date:'longDate'}}</mat-card-subtitle>
+        </mat-card-header>
+        <img *ngIf="!!image"
+             alt="Cover Photo"
+             image-loader
+             [src]="image"
+             [urlSet]="imageSet"
+             [imgSize]="'medium'"
+             class="cover-photo"/>
+        <mat-card-content>{{article.description}}</mat-card-content>
+        <mat-card-actions align="end">
+            <button mat-button (click)="selectArticle()">Continue Reading...</button>
+        </mat-card-actions>
+    </mat-card>
+</ng-container>
+<ng-template #loadingMask>
+    <mat-spinner [diameter]="100"
+                 color="accent"
+                 class="loading"></mat-spinner>
+</ng-template>

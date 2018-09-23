@@ -1,7 +1,7 @@
 <div class="container" [class.is-mobile]="mobileQuery.matches" >
-    <mat-toolbar color="primary" class="toolbar"q >
+    <mat-toolbar color="primary" class="toolbar">
         <button mat-icon-button *ngIf="mobileQuery.matches" (click)="toggleSideNav()"><mat-icon>menu</mat-icon></button>
-        <span routerLink="/" class="link">{{title}}</span>
+        <span routerLink="/" class="link">The Lighthouse</span>
         <span class="spacer"></span>
         <div>
             <a *ngIf="!loggedIn() && !mobileQuery.matches" mat-button (click)="login()">Login</a>
@@ -9,8 +9,13 @@
             <a mat-button *ngIf="loggedIn() && !mobileQuery.matches && !hideSubscriptionOption" (click)="subscribe()">Subscribe</a>
             <a mat-button *ngIf="loggedIn() && !mobileQuery.matches" routerLink="/articles">Your Articles</a>
             <button mat-button *ngIf="loggedIn() && !mobileQuery.matches" [matMenuTriggerFor]="menu">
-                <span>{{name | async}}</span>
-                <img src="{{ image | async }}" class="profile-picture" />
+                <span>{{name}}</span>
+                <img [src]="image"
+                     alt="Profile Picture"
+                     image-loader
+                     [urlSet]="profilePictureSet"
+                     [imgSize]="'small'"
+                     class="profile-picture"/>
             </button>
             <mat-menu #menu="matMenu" [overlapTrigger]="false">
                 <button mat-menu-item (click)="editSettings()">
@@ -40,8 +45,13 @@
                 </div>
                 <div *ngIf="loggedIn()">
                     <div class="profile-info">
-                        <span >{{name | async}}</span>
-                        <img src="{{ image | async }}" class="profile-picture" />
+                        <span>{{name}}</span>
+                        <img [src]="image"
+                             alt="Profile Picture"
+                             image-loader
+                             [urlSet]="profilePictureSet"
+                             [imgSize]="'small'"
+                             class="profile-picture"/>
                     </div>
                     <a mat-menu-item class="nav-item" *ngIf="loggedIn()" routerLink="/articles">
                         <mat-icon>pages</mat-icon>

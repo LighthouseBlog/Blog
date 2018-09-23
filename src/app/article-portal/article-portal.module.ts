@@ -8,9 +8,6 @@ import { Router } from 'app/app.routing';
 
 import { FroalaEditorModule, FroalaViewModule } from 'angular-froala-wysiwyg';
 
-import { FileValidator } from 'app/_directives/fileValidator.directive';
-import { FileValueAccessor } from 'app/_directives/fileValueAccessor.directive';
-
 import { EditorComponent } from './editor/editor.component';
 import { UserArticlesComponent } from './user-articles/user-articles.component';
 import { CreateArticleModalComponent } from './create-article-modal/create-article-modal.component';
@@ -22,11 +19,10 @@ import { ImagePreviewComponent } from 'app/article-portal/image-preview/image-pr
 
 import { MaterialModule } from 'app/material.module';
 import { CreateArticleFormService } from './create-article-modal/create-article-form.service';
+import { DirectiveModule } from '../_directives/directive.module';
 
 @NgModule({
     declarations: [
-        FileValidator,
-        FileValueAccessor,
         EditorComponent,
         UserArticlesComponent,
         CreateArticleModalComponent,
@@ -45,6 +41,7 @@ import { CreateArticleFormService } from './create-article-modal/create-article-
         MaterialModule,
         FroalaEditorModule.forRoot(),
         FroalaViewModule.forRoot(),
+        DirectiveModule
     ],
     entryComponents: [
         CreateArticleModalComponent,
