@@ -45,7 +45,7 @@ export class CreateArticleModalComponent implements OnDestroy {
             this.editorService.createArticle(articleTitle, articleDescription)
                 .pipe(takeUntil(this.destroyed))
                 .subscribe(results => {
-                    const id = results._id;
+                    const id = results.id;
                     if (!Number.isNaN(id)) {
                         this.editorService.setArticleId(id);
                         this.dialogRef.close('closed');

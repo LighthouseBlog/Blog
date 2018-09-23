@@ -56,12 +56,11 @@ export class ArticleListComponent implements OnInit, OnDestroy {
     }
 
     viewArticle(article: Article) {
-        this.router.navigateByUrl('/article/' + article._id);
+        this.router.navigateByUrl('/article/' + article.id);
     }
 
     editArticle(article: Article) {
-        const id = article._id;
-        this.router.navigateByUrl('/edit/' + id);
+        this.router.navigateByUrl('/edit/' + article.id);
     }
 
     deleteArticle(article: Article, articles: Article[]) {

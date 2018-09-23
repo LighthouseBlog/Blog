@@ -1,6 +1,6 @@
 import { Author } from './Author';
-export class Article {
-    _id: number;
+import { Model } from './Model';
+export class Article extends Model {
     title: string;
     description: string;
     datePosted: Date;

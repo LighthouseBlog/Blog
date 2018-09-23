@@ -67,8 +67,8 @@ export class EditorService {
         return this.http.put(this.editorUrl + this.id, { isPublished: true })
     }
 
-    deleteArticle(article): Observable<boolean> {
-        return this.http.delete<boolean>(this.editorUrl + article._id)
+    deleteArticle(article: Article): Observable<boolean> {
+        return this.http.delete<boolean>(this.editorUrl + article.id)
     }
 
     convertToHtml(url: string): Observable<Gist> {

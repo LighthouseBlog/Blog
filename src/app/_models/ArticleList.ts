@@ -1,5 +1,6 @@
-export class ArticleList {
-    _id: number;
+import { Model } from './Model';
+
+export class ArticleList extends Model {
     title: string;
     tags: string[];
 }

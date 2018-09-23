@@ -20,7 +20,7 @@ export class SearchByTitleComponent implements OnDestroy {
                 private articleService: ArticleService) { }
 
     selectArticle(article: ArticleList) {
-        this.router.navigate(['article', article._id]);
+        this.router.navigate(['article', article.id]);
     }
 
     filterArticles(title: string) {
