@@ -55,7 +55,6 @@ export class LoginModalComponent implements OnInit, OnDestroy {
                         this.sms.displayErrorMessage('Failed to login', 4000);
                     }
                 }, error => {
-                    console.log('Error', error);
                     this.sms.displayError(error, 20000)
                 });
         } else {
