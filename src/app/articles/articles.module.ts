@@ -2,6 +2,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
+import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 
 import { MaterialModule } from '../material.module';
 import { PipeModule } from '../_pipes/pipe.module';
@@ -27,7 +28,8 @@ import { SearchByTagsComponent } from './search-by-tags/search-by-tags.component
         PipeModule,
         ReactiveFormsModule,
         HttpClientModule,
-        CommonModule
+        CommonModule,
+        InfiniteScrollModule
     ]
 })
 export class ArticlesModule { }

@@ -4,6 +4,21 @@
         <div class="columns">
           <div class="column article-list">
             <article-preview *ngFor="let article of articles" [article]="article"></article-preview>
+            <ng-container *ngIf="moreArticlesExist">
+                <button mat-fab
+                        color="primary"
+                        class="loading"
+                        (click)="loadMoreArticles()"
+                        *ngIf="!articlesLoading else loadingMask">Load More</button>
+                <ng-template #loadingMask>
+                    <mat-spinner [diameter]="100"
+                                 color="accent"
+                                 class="loading"></mat-spinner>
+                </ng-template>
+            </ng-container>
+            <ng-container *ngIf="!moreArticlesExist">
+                <div id="end">You have reached the end of this site's content</div>
+            </ng-container>
           </div>
           <div class="column site-info">
             <search-by-title></search-by-title>

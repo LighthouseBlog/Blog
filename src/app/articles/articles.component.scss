@@ -21,10 +21,32 @@
 .article-list {
   flex: none;
   width: 66.6666%;
+  min-height: 700px;
+  margin-bottom: 10px;
 }
 
 .columns {
   display: flex;
+}
+
+.site-info {
+    position: fixed;
+    right: 0;
+    max-width: 33.333%;
+}
+
+.loading {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    height: 100px;
+    width: 100px;
+}
+
+#end {
+    text-align: center;
+    color: grey;
+    font-style: italic;
 }
 
 @media screen and (max-width: 1199px) {
@@ -33,8 +55,10 @@
         max-width: 100vw;
         min-width: 100%;
         order: 1;
+        margin-bottom: 10px;
     }
     .site-info {
+        position: relative;
         min-width: 93%;
         max-width: 100vw;
         order: 0;

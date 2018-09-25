@@ -17,8 +17,8 @@ export class CreateArticleModalComponent implements OnDestroy {
 
     private destroyed: Subject<boolean> = new Subject<boolean>();
 
-    public title = 'Create a new article';
-    public formGroup: FormGroup;
+    title = 'Create a new article';
+    formGroup: FormGroup;
 
     constructor(private fb: FormBuilder,
                 private router: Router,
@@ -47,7 +47,6 @@ export class CreateArticleModalComponent implements OnDestroy {
                 .subscribe(results => {
                     const id = results.id;
                     if (!Number.isNaN(id)) {
-                        this.editorService.setArticleId(id);
                         this.dialogRef.close('closed');
                         this.router.navigateByUrl('/edit/' + id);
                     } else {

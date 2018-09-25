@@ -15,9 +15,9 @@ export class SearchByTagsComponent implements OnInit, OnDestroy {
 
     private destroyed: Subject<boolean> = new Subject<boolean>();
 
-    public tags: Promise<string[]>;
-    public tagData: string[];
-    public maxSize: number;
+    tags: Promise<string[]>;
+    tagData: string[];
+    maxSize: number;
 
     constructor(private tagService: TagService,
                 private sms: SnackbarMessagingService) { }

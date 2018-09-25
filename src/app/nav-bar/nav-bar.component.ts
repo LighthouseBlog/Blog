@@ -26,10 +26,10 @@ export class NavBarComponent implements OnInit, OnDestroy {
     private destroyed: Subject<boolean> = new Subject<boolean>();
     private _mobileQueryListener: () => void;
 
-    public title = `The Lighthouse`;
-    public name: Promise<string>;
-    public image: Promise<string>;
-    public mobileQuery: MediaQueryList;
+    title = `The Lighthouse`;
+    name: Promise<string>;
+    image: Promise<string>;
+    mobileQuery: MediaQueryList;
 
     constructor(private auth: AuthenticationService,
                 private authorService: AuthorService,

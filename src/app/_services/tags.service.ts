@@ -11,15 +11,15 @@ import { Response } from 'app/_models/Response';
 @Injectable()
 export class TagService {
 
-    private tagUrl = environment.URL + '/tags/';
-
     constructor(private http: HttpClient) { }
 
     getAllTags(): Observable<string[]> {
-        return this.http.get<Response>(this.tagUrl).pipe(map(res => Object.assign(new Array<String>(), res.data)));
+        return this.http.get<Response>(`${environment.URL}/tags`)
+            .pipe(map(res => Object.assign(new Array<String>(), res.data)));
     }
 
     getArticlesByTag(tag: string): Observable<Article[]> {
-        return this.http.get<Response>(this.tagUrl + tag).pipe(map(res => Object.assign(new Array<Article>(), res.data)));
+        return this.http.get<Response>(`${environment.URL}/tags/${tag}`)
+            .pipe(map(res => Object.assign(new Array<Article>(), res.data)));
     }
 }

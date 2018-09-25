@@ -24,8 +24,8 @@ export class RegisterModalComponent implements OnDestroy {
 
     private destroyed: Subject<boolean> = new Subject<boolean>();
 
-    public title = 'Register';
-    public registerGroup: FormGroup;
+    title = 'Register';
+    registerGroup: FormGroup;
 
     constructor(private fb: FormBuilder,
                 private router: Router,

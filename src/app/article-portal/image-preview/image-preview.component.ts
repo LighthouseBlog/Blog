@@ -1,6 +1,7 @@
 import { Component, Inject, OnInit, OnDestroy } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
-import Cropper from 'cropperjs'
+import Cropper from 'cropperjs';
+import { DOCUMENT } from '@angular/common';
 
 import { SnackbarMessagingService } from 'app/_services/snackbar-messaging.service';
 import { Image } from 'app/_models/Image';
@@ -19,11 +20,12 @@ export class ImagePreviewComponent implements OnInit, OnDestroy {
     private croppedCanvas: any;
     private aspectRatio: number = 16 / 9;
 
-    public showingCroppingTools: boolean;
+    showingCroppingTools: boolean;
 
-    constructor(public dialogRef: MatDialogRef<ImagePreviewComponent>,
+    constructor(private dialogRef: MatDialogRef<ImagePreviewComponent>,
                 private snackbarMessagingService: SnackbarMessagingService,
-                @Inject(MAT_DIALOG_DATA) public image: Image) {
+                @Inject(MAT_DIALOG_DATA) public image: Image,
+                @Inject(DOCUMENT) private document: any) {
         this.originalImage = image.src;
         this.aspectRatio = image.aspectRatio;
         this.cropped = false;
@@ -38,7 +40,7 @@ export class ImagePreviewComponent implements OnInit, OnDestroy {
     }
 
     showCropperTool() {
-        const image = document.getElementById('image') as HTMLImageElement;
+        const image = this.document.getElementById('image') as HTMLImageElement;
         this.cropper = new Cropper(image, {
             aspectRatio: this.aspectRatio
         });
@@ -54,11 +56,11 @@ export class ImagePreviewComponent implements OnInit, OnDestroy {
 
     save() {
         if (this.cropped) {
-            const image = document.getElementById('image').getAttribute('src');
+            const image = this.document.getElementById('image').getAttribute('src');
             this.croppedCanvas.toBlob((blob) => {
                 this.imageBlob = blob;
                 this.stop();
-                document.getElementById('image').setAttribute('src', image);
+                this.document.getElementById('image').setAttribute('src', image);
             });
         } else {
             this.snackbarMessagingService.displayMessage('No changes detected', 2000);
