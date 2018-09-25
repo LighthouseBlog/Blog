@@ -17,8 +17,8 @@ export class LoginModalComponent implements OnInit, OnDestroy {
 
     private destroyed: Subject<boolean> = new Subject<boolean>();
 
-    public title = 'Login';
-    public formGroup: FormGroup;
+    title = 'Login';
+    formGroup: FormGroup;
 
     constructor(private fb: FormBuilder,
                 private router: Router,

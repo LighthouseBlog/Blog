@@ -23,7 +23,7 @@
             Upload Profile Picture
             <input type="file" name="file" id="file" class="inputfile" formControlName="profilePicture" (change)="fileChangeListener($event)" accept="image/*"/>
           </button>
-          <button mat-mini-fab *ngIf="previewImage()" type="button" (click)="openPreview()" [color]="'preview'">
+          <button mat-mini-fab *ngIf="canPreviewImage()" type="button" (click)="openPreview()" [color]="'preview'">
             <mat-icon aria-label="Preview profile picture" title="Preview profile picture">picture_in_picture</mat-icon>
           </button>
         </div>

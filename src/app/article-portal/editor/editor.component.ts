@@ -60,18 +60,18 @@ export class EditorComponent implements OnInit, OnDestroy {
     };
     private content: string;
     private destroyed: Subject<boolean> = new Subject<boolean>();
+    private articleId: number;
 
-
-    public editorContent: string;
-    public editing = false;
-    public formGroup: FormGroup;
-    public initControls: any;
-    public filteredTags: Observable<string[]>;
-    public selectedTags: Set<string>;
-    public tagInput: string;
-    public removable = true;
-    public image: any;
-    public savingArticle: boolean;
+    editorContent: string;
+    editing = false;
+    formGroup: FormGroup;
+    initControls: any;
+    filteredTags: Observable<string[]>;
+    selectedTags: Set<string>;
+    tagInput: string;
+    removable = true;
+    image: any;
+    savingArticle: boolean;
 
     constructor(private editorService: EditorService,
                 private articleService: ArticleService,
@@ -79,7 +79,7 @@ export class EditorComponent implements OnInit, OnDestroy {
                 private fb: FormBuilder,
                 private route: ActivatedRoute,
                 private sms: SnackbarMessagingService,
-                public dialog: MatDialog) {
+                private dialog: MatDialog) {
         this.formGroup = this.fb.group({
             'articleTitle': new FormControl('', Validators.required),
             'articleDescription': new FormControl('', Validators.required),
@@ -88,7 +88,7 @@ export class EditorComponent implements OnInit, OnDestroy {
         });
     }
 
-    public initialize(initControls) {
+    initialize(initControls) {
         this.imagesService.getHash()
             .subscribe(hash => {
                 this.options['imageUploadToS3'] = hash;
@@ -109,11 +109,9 @@ export class EditorComponent implements OnInit, OnDestroy {
         initializeFroalaGistPlugin(this.editorService);
         this.editing = true;
         this.route.params.subscribe(params => {
-            const id = params['id'];
+            this.articleId = params['id'];
 
-            this.editorService.setArticleId(params['id']);
-
-            this.articleService.getArticle(id)
+            this.articleService.getArticle(this.articleId)
                 .pipe(takeUntil(this.destroyed))
                 .subscribe(article => {
                     this.formGroup.patchValue({
@@ -152,14 +150,14 @@ export class EditorComponent implements OnInit, OnDestroy {
                 const file = this.getCoverPhoto(coverPhoto);
                 formData.append('coverPhoto', file);
 
-                this.editorService.saveArticle(this.content, articleTitle, articleDescription, tags, formData).pipe(
+                this.editorService.saveArticle(this.articleId, this.content, articleTitle, articleDescription, tags, formData).pipe(
                     takeUntil(this.destroyed),
                     finalize(() => this.savingArticle = false))
                     .subscribe(() => {
                         this.sms.displaySuccess('Successfully saved article', 4000);
                     }, error => this.sms.displayError(error, 4000));
             } else {
-                this.editorService.saveArticle(this.content, articleTitle, articleDescription, tags).pipe(
+                this.editorService.saveArticle(this.articleId, this.content, articleTitle, articleDescription, tags).pipe(
                     takeUntil(this.destroyed),
                     finalize(() => this.savingArticle = false))
                     .subscribe(() => {
@@ -179,7 +177,7 @@ export class EditorComponent implements OnInit, OnDestroy {
     }
 
     publishArticle() {
-        this.editorService.publishArticle()
+        this.editorService.publishArticle(this.articleId)
             .pipe(takeUntil(this.destroyed))
             .subscribe(() => {
                 this.sms.displaySuccess('Successfully published article', 4000);
@@ -251,7 +249,7 @@ export class EditorComponent implements OnInit, OnDestroy {
             }, error => this.sms.displayError(error));
     }
 
-    previewImage(): boolean {
+    canPreviewImage(): boolean {
         return !!this.image;
     }
 }

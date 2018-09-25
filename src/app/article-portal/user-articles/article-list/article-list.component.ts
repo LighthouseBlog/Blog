@@ -19,15 +19,15 @@ export class ArticleListComponent implements OnInit, OnDestroy {
 
     private destroyed: Subject<boolean> = new Subject<boolean>();
 
-    public dataSource: ArticleDataSource;
-    public dataSubject = new BehaviorSubject<Article[]>([]);
-    public displayedColumns: string[];
+    dataSource: ArticleDataSource;
+    dataSubject = new BehaviorSubject<Article[]>([]);
+    displayedColumns: string[];
 
     @ViewChild(MatSort) sort: MatSort;
     @ViewChild(MatPaginator) paginator: MatPaginator;
     @ViewChild('filter') filter: ElementRef;
 
-    constructor(public dialog: MatDialog,
+    constructor(private dialog: MatDialog,
                 private authorService: AuthorService,
                 private router: Router,
                 private sms: SnackbarMessagingService) {

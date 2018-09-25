@@ -20,10 +20,10 @@ export class SettingsModalComponent implements OnInit, OnDestroy {
     private profilePictureUpdated: boolean;
     private destroyed: Subject<boolean> = new Subject<boolean>();
 
-    public settingsGroup: FormGroup;
-    public username: string;
-    public saveInProgress: boolean;
-    public image: any;
+    settingsGroup: FormGroup;
+    username: string;
+    saveInProgress: boolean;
+    image: any;
 
     constructor(private fb: FormBuilder,
                 private dialogRef: MatDialogRef<SettingsModalComponent>,
@@ -131,7 +131,7 @@ export class SettingsModalComponent implements OnInit, OnDestroy {
             });
     }
 
-    previewImage(): boolean {
+    canPreviewImage(): boolean {
         return !!this.image;
     }
 

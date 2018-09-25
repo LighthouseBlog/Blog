@@ -12,18 +12,17 @@ import { Response } from 'app/_models/Response';
 @Injectable()
 export class AuthorService {
 
-    private authorUrl = environment.URL + '/user/';
-    private articlesUrl = environment.URL + '/articles/';
-
     constructor(private http: HttpClient) { }
 
     getAuthor(username: string = this.getAuthorUsername()): Observable<Author> {
-        return this.http.get<Response>(this.authorUrl + username).pipe(map((res) => Object.assign(new Author(), res.data)));
+        return this.http.get<Response>(`${environment.URL}/user/${username}`)
+            .pipe(map((res) => Object.assign(new Author(), res.data)));
     }
 
-    getArticlesByAuthor(): Observable<Array<Article>> {
+    getArticlesByAuthor(): Observable<Article[]> {
         const author = this.getAuthorUsername();
-        return this.http.get<Response>(this.articlesUrl + author).pipe(map((res) => Object.assign(new Array<Article>(), res.data)));
+        return this.http.get<Response>(`${environment.URL}/articles/${author}`)
+            .pipe(map((res) => Object.assign(new Array<Article>(), res.data)));
     }
 
     getAuthorName(): Promise<string> {
@@ -38,20 +37,17 @@ export class AuthorService {
     }
 
     updateUserSettings(username: string, name: string, email: string, profilePicture?: FormData): Observable<any> {
-        const body = {
-            name,
-            email
-        }
+        const body = { name, email };
 
         if (profilePicture) {
             return zip(
-                this.http.put<any>(this.authorUrl + username, body),
-                this.http.post<any>(this.authorUrl + username, profilePicture),
+                this.http.put(`${environment.URL}/user/${username}`, body),
+                this.http.post(`${environment.URL}/user/${username}`, profilePicture),
                 (r1, r2) => r2
             );
         } else {
             return zip(
-                this.http.put<any>(this.authorUrl + username, body)
+                this.http.put(`${environment.URL}/user/${username}`, body)
             );
         }
     }
@@ -71,7 +67,7 @@ export class AuthorService {
         });
     }
 
-    public getAuthorUsername(): string {
+    getAuthorUsername(): string {
         return localStorage.getItem('currentUser');
     }
 }

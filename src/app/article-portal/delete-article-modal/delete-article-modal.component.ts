@@ -17,9 +17,9 @@ export class DeleteArticleModalComponent implements OnDestroy {
 
     private destroyed: Subject<boolean> = new Subject<boolean>();
 
-    public article: Article;
+    article: Article;
 
-    constructor(@Inject(MAT_DIALOG_DATA) public data: Article,
+    constructor(@Inject(MAT_DIALOG_DATA) private data: Article,
                 private editorService: EditorService,
                 private dialogRef: MatDialogRef<DeleteArticleModalComponent>,
                 private sms: SnackbarMessagingService) {

@@ -12,19 +12,20 @@ import { Response } from 'app/_models/Response';
 @Injectable()
 export class ArticleService {
 
-    private blogUrl = environment.URL + '/blog/';
-
     constructor(private http: HttpClient) { }
 
-    getAllArticles(): Observable<Article[]> {
-        return this.http.get<Response>(this.blogUrl).pipe(map(res => Object.assign(new Array<Article>(), res.data)));
+    getAllArticles(currentPage: number, pageSize: number): Observable<Article[]> {
+        return this.http.get<Response>(`${environment.URL}/blog?pageSize=${pageSize}&page=${currentPage}`)
+            .pipe(map(res => Object.assign(new Array<Article>(), res.data)));
     }
 
     getArticle(id: number): Observable<Article> {
-        return this.http.get<Response>(this.blogUrl + id).pipe(map(res => Object.assign(new Article(), res.data)));
+        return this.http.get<Response>(`${environment.URL}/blog/${id}`)
+            .pipe(map(res => Object.assign(new Article(), res.data)));
     }
 
     getArticlesByTitle(title: string): Observable<ArticleList[]> {
-        return this.http.get<Response>(this.blogUrl + 'title/' + title).pipe(map(res => Object.assign(new Array<ArticleList>(), res.data)));
+        return this.http.get<Response>(`${environment.URL}/blog/title/${title}`)
+            .pipe(map(res => Object.assign(new Array<ArticleList>(), res.data)));
     }
 }

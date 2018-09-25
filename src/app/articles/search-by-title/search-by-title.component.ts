@@ -12,7 +12,7 @@ import { ArticleService } from 'app/_services/article.service';
     styleUrls: ['./search-by-title.component.scss']
 })
 export class SearchByTitleComponent implements OnDestroy {
-    public filteredArticles: Observable<ArticleList[]>;
+    filteredArticles: Observable<ArticleList[]>;
 
     private destroyed: Subject<boolean> = new Subject<boolean>();
 
