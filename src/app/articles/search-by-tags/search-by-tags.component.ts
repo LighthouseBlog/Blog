@@ -12,11 +12,12 @@ import { SnackbarMessagingService } from 'app/_services/snackbar-messaging.servi
 export class SearchByTagsComponent implements OnInit, OnDestroy {
 
     @Output() onSearch: EventEmitter<string> = new EventEmitter<string>();
+    @Output() onClearSelection: EventEmitter<any> = new EventEmitter();
 
     private destroyed: Subject<boolean> = new Subject<boolean>();
 
-    tags: Promise<string[]>;
-    tagData: string[];
+    tags: string[] = [];
+    tagData: string[] = [];
     maxSize: number;
 
     constructor(private tagService: TagService,
@@ -27,8 +28,8 @@ export class SearchByTagsComponent implements OnInit, OnDestroy {
             .pipe(takeUntil(this.destroyed))
             .subscribe((tags) => {
                 this.tagData = tags;
-                this.tags = Promise.resolve(Object.keys(tags));
-                this.maxSize = Object.keys(tags)
+                this.tags = Object.keys(tags);
+                this.maxSize = this.tags
                     .map((tag) => parseInt(tags[tag], 10))
                     .reduce((accumulator, currentValue) => Math.max(accumulator, currentValue), 0);
             }, error => this.sms.displayError(error));
@@ -41,5 +42,9 @@ export class SearchByTagsComponent implements OnInit, OnDestroy {
 
     onClick(tag) {
         this.onSearch.emit(tag);
+    }
+
+    clearSelection() {
+        this.onClearSelection.emit();
     }
 }

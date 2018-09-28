@@ -23,7 +23,8 @@
           <div class="column site-info">
             <search-by-title></search-by-title>
             <site-info></site-info>
-            <search-by-tags (onSearch)="getArticlesByTag($event)"></search-by-tags>
+            <search-by-tags (onSearch)="getArticlesByTag($event)"
+                            (onClearSelection)="clearTagSelection()"></search-by-tags>
           </div>
         </div>
     </div>

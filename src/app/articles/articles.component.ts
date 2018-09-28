@@ -18,6 +18,7 @@ export class ArticlesComponent implements OnInit, OnDestroy {
     private destroyed: Subject<boolean> = new Subject<boolean>();
     private currentPage = 1;
     private pageSize = 4;
+    private currentTag: string;
 
     articles: Article[] = [];
     articlesLoading = true;
@@ -36,10 +37,26 @@ export class ArticlesComponent implements OnInit, OnDestroy {
         this.destroyed.complete();
     }
 
-    getArticlesByTag(tag: string) {
-        this.tagService.getArticlesByTag(tag)
-            .pipe(takeUntil(this.destroyed))
-            .subscribe(articles => this.articles = articles, error => this.sms.displayError(error));
+    filterByTag(tag: string) {
+        this.currentTag = tag;
+        this.currentPage = 1;
+        this.articles = [];
+        this.getArticlesByTag();
+    }
+
+    loadMoreArticles() {
+        this.currentPage++;
+        if (!!this.currentTag) {
+            this.getArticlesByTag();
+        } else {
+            this.getArticles();
+        }
+    }
+
+    clearTagSelection() {
+        this.currentPage = 1;
+        this.currentTag = '';
+        this.getArticles();
     }
 
     private getArticles() {
@@ -55,8 +72,16 @@ export class ArticlesComponent implements OnInit, OnDestroy {
             }, error => this.sms.displayError(error));
     }
 
-    loadMoreArticles() {
-        this.currentPage++;
-        this.getArticles();
+    private getArticlesByTag() {
+        this.articlesLoading = true;
+        this.tagService.getArticlesByTag(this.currentTag, this.currentPage, this.pageSize)
+            .pipe(
+                takeUntil(this.destroyed),
+                finalize(() => this.articlesLoading = false)
+            )
+            .subscribe(articles => {
+                this.moreArticlesExist = articles.length >= this.pageSize;
+                this.articles.push(...articles);
+            }, error => this.sms.displayError(error));
     }
 }

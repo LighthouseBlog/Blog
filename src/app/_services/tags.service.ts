@@ -18,8 +18,8 @@ export class TagService {
             .pipe(map(res => Object.assign(new Array<String>(), res.data)));
     }
 
-    getArticlesByTag(tag: string): Observable<Article[]> {
-        return this.http.get<Response>(`${environment.URL}/tags/${tag}`)
+    getArticlesByTag(tag: string, currentPage: number, pageSize: number): Observable<Article[]> {
+        return this.http.get<Response>(`${environment.URL}/tags/${tag}?pageSize=${pageSize}&page=${currentPage}`)
             .pipe(map(res => Object.assign(new Array<Article>(), res.data)));
     }
 }

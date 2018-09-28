@@ -3,7 +3,7 @@
         <mat-card-title>Tags</mat-card-title>
     </mat-card-header>
     <mat-card-content>
-        <tag *ngFor="let tag of tags | async"
+        <tag *ngFor="let tag of tags"
             (click)="onClick(tag)"
             [tag]="tag"
             [fontSize]="tagData[tag]"
