@@ -37,6 +37,10 @@ export class AuthenticationService {
             .pipe(map((response) => this.setSession(response, username)));
     }
 
+    addPushSubscriber(subscription: PushSubscription): Observable<any> {
+        return this.http.post(`${environment.URL}/auth/subscription`, subscription);
+    }
+
     setSession(response: Token, username?: string): boolean {
         const accessToken = response.access_token;
         const refreshToken = response.refresh_token;
