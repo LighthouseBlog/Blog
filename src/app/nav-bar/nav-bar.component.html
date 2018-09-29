@@ -5,7 +5,8 @@
         <span class="spacer"></span>
         <div>
             <a *ngIf="!loggedIn() && !mobileQuery.matches" mat-button (click)="login()">Login</a>
-            <!-- <a mat-button *ngIf="!loggedIn()" (click)="register()">Register</a> -->
+            <a mat-button *ngIf="!loggedIn()" (click)="register()">Register</a>
+            <a mat-button *ngIf="loggedIn() && !mobileQuery.matches && !hideSubscriptionOption" (click)="subscribe()">Subscribe</a>
             <a mat-button *ngIf="loggedIn() && !mobileQuery.matches" routerLink="/articles">Your Articles</a>
             <button mat-button *ngIf="loggedIn() && !mobileQuery.matches" [matMenuTriggerFor]="menu">
                 <span>{{name | async}}</span>
@@ -32,6 +33,10 @@
                         <mat-icon>vpn_key</mat-icon>
                         <span>Login</span>
                     </button>
+                    <button mat-menu-item class="nav-item" (click)="register()">
+                        <mat-icon>perm_identity</mat-icon>
+                        <span>Register</span>
+                    </button>
                 </div>
                 <div *ngIf="loggedIn()">
                     <div class="profile-info">
@@ -42,6 +47,10 @@
                         <mat-icon>pages</mat-icon>
                         <span>Your Articles</span>
                     </a>
+                    <button mat-menu-item *ngIf="!hideSubscriptionOption" class="nav-item" (click)="subscribe()">
+                        <mat-icon>subscriptions</mat-icon>
+                        <span>Subscribe</span>
+                    </button>
                     <button mat-menu-item class="nav-item" (click)="editSettings()">
                         <mat-icon>settings</mat-icon>
                         <span>User Settings</span>

@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Observable, of, timer } from 'rxjs';
+import { Observable, of, timer, Subscription } from 'rxjs';
 import { map, flatMap } from 'rxjs/operators';
 
 import { environment } from 'environments/environment';
@@ -8,13 +8,9 @@ import { Token } from 'app/_models/Token';
 
 @Injectable()
 export class AuthenticationService {
-    public token: string;
-    private loginUrl = environment.URL + '/auth/login';
-    private registerUrl = environment.URL + '/auth/register';
-    private renewalUrl = environment.URL + '/auth/token';
-    private jwtUrl = environment.URL + '/auth/jwt';
-    private expirationUrl = this.jwtUrl + '/expired';
-    private refreshSubscription: any;
+    token: string;
+
+    private refreshSubscription: Subscription;
 
     constructor(private http: HttpClient) {
         this.token = localStorage.getItem('access_token');
@@ -32,13 +28,17 @@ export class AuthenticationService {
             'Authorization': username + ':' + password
         });
 
-        return this.http.post<Token>(this.loginUrl, {}, { headers }).pipe(
-            map((response) => this.setSession(response, username)));
+        return this.http.post<Token>(`${environment.URL}/auth/login`, {}, { headers })
+            .pipe(map((response) => this.setSession(response, username)));
     }
 
     register(username: string, password: string, email: string, name: string): Observable<boolean> {
-        return this.http.post<Token>(this.registerUrl, { username, password, email, name }).pipe(
-            map((response) => this.setSession(response, username)));
+        return this.http.post<Token>(`${environment.URL}/auth/register`, { username, password, email, name })
+            .pipe(map((response) => this.setSession(response, username)));
+    }
+
+    addPushSubscriber(subscription: PushSubscription): Observable<any> {
+        return this.http.post(`${environment.URL}/auth/subscription`, subscription);
     }
 
     setSession(response: Token, username?: string): boolean {
@@ -63,7 +63,7 @@ export class AuthenticationService {
     checkJwtExpiration(): Promise<string> {
         return new Promise((resolve, reject) => {
             if (this.token) {
-                this.http.post(this.expirationUrl, {})
+                this.http.post(`${environment.URL}/auth/jwt/expired`, {})
                     .subscribe(() => {
                         resolve('Token is not expired');
                     }, error => {
@@ -86,7 +86,7 @@ export class AuthenticationService {
             'Authorization': `Bearer ${refreshToken}`
         });
 
-        return this.http.post<Token>(this.renewalUrl, {}, { headers }).pipe(
+        return this.http.post<Token>(`${environment.URL}/auth/token`, {}, { headers }).pipe(
             map((response) => this.setSession(response)));
     }
 

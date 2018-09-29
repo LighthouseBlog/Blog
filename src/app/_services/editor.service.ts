@@ -14,17 +14,8 @@ import { Article } from 'app/_models/Article';
 @Injectable()
 export class EditorService {
 
-    private editorUrl = environment.URL + '/blog/';
-    private gistUrl = environment.URL + '/gist/';
-    private tagUrl = environment.URL + '/tags/';
-    private id: number;
-
     constructor(private http: HttpClient,
                 private authorService: AuthorService) { }
-
-    setArticleId(id: number) {
-        this.id = id;
-    }
 
     createArticle(title: string, description: string): Observable<Article> {
         const author = this.authorService.getAuthorUsername();
@@ -36,11 +27,11 @@ export class EditorService {
             author
         };
 
-        return this.http.post<Response>(this.editorUrl, post).pipe(
-            map(res => Object.assign(new Article(), res.data)));
+        return this.http.post<Response>(`${environment.URL}/blog`, post)
+            .pipe(map(res => Object.assign(new Article(), res.data)));
     }
 
-    saveArticle(edits: string, title: string, description: string, tags: string[], coverPhoto?: FormData): Observable<any> {
+    saveArticle(id: number, edits: string, title: string, description: string, tags: string[], coverPhoto?: FormData): Observable<any> {
         const author = this.authorService.getAuthorUsername();
 
         const post = {
@@ -53,30 +44,29 @@ export class EditorService {
 
         if (coverPhoto) {
             return forkJoin(
-                this.http.put(this.editorUrl + this.id, post),
-                this.http.post(this.editorUrl + this.id, coverPhoto)
+                this.http.put(`${environment.URL}/blog/${id}`, post),
+                this.http.post(`${environment.URL}/blog/${id}`, coverPhoto)
             );
         } else {
             return forkJoin(
-                this.http.put(this.editorUrl + this.id, post)
+                this.http.put(`${environment.URL}/blog/${id}`, post)
             );
         }
     }
 
-    publishArticle(): Observable<any> {
-        return this.http.put(this.editorUrl + this.id, { isPublished: true })
+    publishArticle(id: number): Observable<any> {
+        return this.http.put(`${environment.URL}/blog/${id}`, { isPublished: true })
     }
 
     deleteArticle(article: Article): Observable<boolean> {
-        return this.http.delete<boolean>(this.editorUrl + article.id)
+        return this.http.delete<boolean>(`${environment.URL}/blog/${article.id}`)
     }
 
     convertToHtml(url: string): Observable<Gist> {
-        const post = {
-            link: url
-        };
+        const post = { link: url };
 
-        return this.http.post<Response>(this.gistUrl, post).pipe(map((res) => Object.assign(new Gist(), res.data)));
+        return this.http.post<Response>(`${environment.URL}/gist`, post)
+            .pipe(map((res) => Object.assign(new Gist(), res.data)));
     }
 
     getTags(text: string): Observable<string[]> {
@@ -84,19 +74,15 @@ export class EditorService {
             return of([]);
         }
 
-        const body = {
-            prefix: text,
-            count: 50
-        }
+        const body = { prefix: text, count: 50 }
 
-        return this.http.put<Response>(this.tagUrl, body).pipe(map((res) => Object.assign(new Array<string>(), res.data)));
+        return this.http.put<Response>(`${environment.URL}/tags/`, body)
+            .pipe(map((res) => Object.assign(new Array<string>(), res.data)));
     }
 
     addTag(tag: string): Observable<Response> {
-        const body = {
-            tag
-        }
+        const body = { tag }
 
-        return this.http.post<Response>(this.tagUrl, body);
+        return this.http.post<Response>(`${environment.URL}/tags/`, body);
     }
 }

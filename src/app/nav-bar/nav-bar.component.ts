@@ -2,6 +2,7 @@ import { Component, OnInit, OnDestroy, ChangeDetectorRef, ViewChild, HostListene
 import { MediaMatcher } from '@angular/cdk/layout';
 import { Router } from '@angular/router';
 import { MatDialog, MatSidenav } from '@angular/material';
+import { SwPush } from '@angular/service-worker';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 
@@ -26,10 +27,11 @@ export class NavBarComponent implements OnInit, OnDestroy {
     private destroyed: Subject<boolean> = new Subject<boolean>();
     private _mobileQueryListener: () => void;
 
-    public title = `The Lighthouse`;
-    public name: Promise<string>;
-    public image: Promise<string>;
-    public mobileQuery: MediaQueryList;
+    title = `The Lighthouse`;
+    name: Promise<string>;
+    image: Promise<string>;
+    mobileQuery: MediaQueryList;
+    hideSubscriptionOption = false;
 
     constructor(private auth: AuthenticationService,
                 private authorService: AuthorService,
@@ -37,7 +39,8 @@ export class NavBarComponent implements OnInit, OnDestroy {
                 private dialog: MatDialog,
                 private cdr: ChangeDetectorRef,
                 private media: MediaMatcher,
-                private sms: SnackbarMessagingService) {
+                private sms: SnackbarMessagingService,
+                private swPush: SwPush) {
                     this.mobileQuery = this.media.matchMedia('(max-width: 599px)');
                     this._mobileQueryListener = () => this.cdr.detectChanges();
                     this.mobileQuery.addListener(this._mobileQueryListener);
@@ -48,6 +51,7 @@ export class NavBarComponent implements OnInit, OnDestroy {
             .then(() => {
                 this.name = this.authorService.getAuthorName();
                 this.image = this.authorService.getProfilePicture();
+                this.checkNotificationPermissions();
             })
             .catch(() => {
                 this.logout();
@@ -58,6 +62,14 @@ export class NavBarComponent implements OnInit, OnDestroy {
         this.mobileQuery.removeListener(this._mobileQueryListener);
         this.destroyed.next();
         this.destroyed.complete();
+    }
+
+    private checkNotificationPermissions() {
+        if ('Notification' in window) {
+            if (window['Notification'].permission === 'granted' || window['Notification'].permission === 'denied') {
+                this.hideSubscriptionOption = true;
+            }
+        }
     }
 
     login() {
@@ -114,6 +126,13 @@ export class NavBarComponent implements OnInit, OnDestroy {
     toggleSideNav() {
         this.sidenav.toggle();
         this.cdr.detectChanges();
+    }
+
+    subscribe() {
+        this.swPush
+        .requestSubscription({ serverPublicKey: environment.VAPID_PUBLIC_KEY})
+        .then(sub => this.auth.addPushSubscriber(sub).subscribe())
+        .catch(err => this.sms.displayErrorMessage(err));
     }
 
     @HostListener('window:resize', ['$event'])

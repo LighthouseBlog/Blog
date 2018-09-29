@@ -9,7 +9,7 @@ import { CreateArticleModalComponent } from '../create-article-modal/create-arti
 })
 export class UserArticlesComponent {
 
-    constructor(public dialog: MatDialog) { }
+    constructor(private dialog: MatDialog) { }
 
     createArticle() {
         this.dialog.open(CreateArticleModalComponent);

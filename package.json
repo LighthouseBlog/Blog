@@ -26,6 +26,7 @@
     "@angular/material": "^6.1.8",
     "@angular/platform-browser": "^6.1.8",
     "@angular/platform-browser-dynamic": "^6.1.8",
+    "@angular/pwa": "^0.8.3",
     "@angular/router": "^6.1.8",
     "@angular/service-worker": "^6.1.8",
     "angular-froala-wysiwyg": "^2.8.5",

@@ -17,8 +17,8 @@ import { Author } from 'app/_models/Author';
 })
 export class ArticleComponent implements OnInit, OnDestroy {
 
-    public article: Article;
-    public author: Author;
+    article: Article;
+    author: Author;
 
     private destroyed: Subject<boolean> = new Subject<boolean>();
 
