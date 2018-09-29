@@ -54,9 +54,14 @@ export class ArticlesComponent implements OnInit, OnDestroy {
     }
 
     clearTagSelection() {
-        this.currentPage = 1;
-        this.currentTag = '';
-        this.getArticles();
+        if (!!this.currentTag) {
+            this.currentPage = 1;
+            this.currentTag = '';
+            this.articles = [];
+            this.getArticles();
+        } else {
+            this.sms.displayMessage('No tag was selected');
+        }
     }
 
     private getArticles() {

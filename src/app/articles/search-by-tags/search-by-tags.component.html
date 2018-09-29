@@ -1,13 +1,15 @@
 <mat-card>
-    <mat-card-header>
+    <mat-card-header id="card-header">
         <mat-card-title>Tags</mat-card-title>
+        <mat-icon (click)="clearSelection()" id="clear-selection">clear</mat-icon>
     </mat-card-header>
     <mat-card-content>
         <tag *ngFor="let tag of tags"
             (click)="onClick(tag)"
             [tag]="tag"
             [fontSize]="tagData[tag]"
-            [maxSize]="maxSize">
+            [maxSize]="maxSize"
+            [ngClass]="isTagSelected(tag) ? 'selected' : ''">
         </tag>
     </mat-card-content>
 </mat-card>

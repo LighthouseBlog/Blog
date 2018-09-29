@@ -7,7 +7,8 @@ import { SnackbarMessagingService } from 'app/_services/snackbar-messaging.servi
 
 @Component({
     selector: 'search-by-tags',
-    templateUrl: './search-by-tags.component.html'
+    templateUrl: './search-by-tags.component.html',
+    styleUrls: ['./search-by-tags.component.scss']
 })
 export class SearchByTagsComponent implements OnInit, OnDestroy {
 
@@ -19,6 +20,7 @@ export class SearchByTagsComponent implements OnInit, OnDestroy {
     tags: string[] = [];
     tagData: string[] = [];
     maxSize: number;
+    selectedTag: string;
 
     constructor(private tagService: TagService,
                 private sms: SnackbarMessagingService) { }
@@ -41,10 +43,16 @@ export class SearchByTagsComponent implements OnInit, OnDestroy {
     }
 
     onClick(tag) {
+        this.selectedTag = tag;
         this.onSearch.emit(tag);
     }
 
     clearSelection() {
+        this.selectedTag = '';
         this.onClearSelection.emit();
+    }
+
+    isTagSelected(tag: string) {
+        return this.selectedTag === tag;
     }
 }
