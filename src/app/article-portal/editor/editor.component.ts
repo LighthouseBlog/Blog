@@ -16,6 +16,8 @@ import initializeFroalaGistPlugin from 'app/_plugins/gist.plugin'
 import { FileValidator } from 'app/_directives/fileValidator.directive';
 import { ImagePreviewComponent } from 'app/article-portal/image-preview/image-preview.component';
 
+const ENTER_KEY = 13;
+
 @Component({
     selector: 'editor',
     templateUrl: './editor.component.html',
@@ -115,10 +117,10 @@ export class EditorComponent implements OnInit, OnDestroy {
                 .pipe(takeUntil(this.destroyed))
                 .subscribe(article => {
                     this.formGroup.patchValue({
-                        'articleTitle': article.title,
-                        'articleDescription': article.description,
-                        'tags': '',
-                        'coverPhoto': {}
+                        articleTitle: article.title,
+                        articleDescription: article.description,
+                        tags: '',
+                        coverPhoto: {}
                     });
                     this.image = article.coverPhoto;
                     if (article.tags instanceof Array) {
@@ -203,7 +205,7 @@ export class EditorComponent implements OnInit, OnDestroy {
     }
 
     onEnter(event: any) {
-        if (event.keyCode === 13 && this.tagInput) {
+        if (event.keyCode === ENTER_KEY && this.tagInput) {
             if (this.selectedTags.has(this.tagInput)) {
                 this.sms.displayErrorMessage('Tag already exists', 2000);
             } else {

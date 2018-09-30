@@ -21,7 +21,7 @@ export class AuthorService {
 
     getArticlesByAuthor(): Observable<Article[]> {
         const author = this.getAuthorUsername();
-        return this.http.get<Response>(`${environment.URL}/articles/${author}`)
+        return this.http.get<Response>(`${environment.URL}/article/author/${author}`)
             .pipe(map((res) => Object.assign(new Array<Article>(), res.data)));
     }
 

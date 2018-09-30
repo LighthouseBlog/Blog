@@ -56,22 +56,29 @@ export class ArticleListComponent implements OnInit, OnDestroy {
     }
 
     viewArticle(article: Article) {
-        this.router.navigateByUrl('/article/' + article.id);
+        const articleToView = Object.assign(new Article(), article);
+        this.router.navigateByUrl('/article/' + articleToView.id);
     }
 
     editArticle(article: Article) {
-        this.router.navigateByUrl('/edit/' + article.id);
+        const articleToEdit = Object.assign(new Article(), article);
+        this.router.navigateByUrl('/edit/' + articleToEdit.id);
     }
 
     deleteArticle(article: Article, articles: Article[]) {
-        this.dialog.open(DeleteArticleModalComponent)
-            .afterClosed()
-            .pipe(takeUntil(this.destroyed))
-            .subscribe(result => {
-                if (result === 'delete') {
-                    this.dataSubject.next(articles.filter(a => a !== article));
-                    this.sms.displaySuccess('Deleted article', 2000);
-                }
-            }, error => this.sms.displayError(error));
+        const articleToDelete = Object.assign(new Article(), article);
+        this.dialog.open(DeleteArticleModalComponent, {
+            data: {
+                id: articleToDelete.id
+            }
+        })
+        .afterClosed()
+        .pipe(takeUntil(this.destroyed))
+        .subscribe(result => {
+            if (result === 'delete') {
+                this.dataSubject.next(articles.filter(a => a !== article));
+                this.sms.displaySuccess('Deleted article', 2000);
+            }
+        }, error => this.sms.displayError(error));
     }
 }

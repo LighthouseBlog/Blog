@@ -17,13 +17,13 @@ export class DeleteArticleModalComponent implements OnDestroy {
 
     private destroyed: Subject<boolean> = new Subject<boolean>();
 
-    article: Article;
+    private articleId: number;
 
-    constructor(@Inject(MAT_DIALOG_DATA) private data: Article,
+    constructor(@Inject(MAT_DIALOG_DATA) private data: any,
                 private editorService: EditorService,
                 private dialogRef: MatDialogRef<DeleteArticleModalComponent>,
                 private sms: SnackbarMessagingService) {
-        this.article = data;
+        this.articleId = data.id;
     }
 
     ngOnDestroy() {
@@ -32,7 +32,7 @@ export class DeleteArticleModalComponent implements OnDestroy {
     }
 
     deleteArticle() {
-        this.editorService.deleteArticle(this.data)
+        this.editorService.deleteArticle(this.articleId)
             .pipe(takeUntil(this.destroyed))
             .subscribe(result => {
                 if (result) {
