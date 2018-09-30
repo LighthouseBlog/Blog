@@ -1,5 +1,5 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Params } from '@angular/router';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 
@@ -29,8 +29,8 @@ export class ArticleComponent implements OnInit, OnDestroy {
 
     ngOnInit() {
         this.route.params.pipe(takeUntil(this.destroyed))
-            .subscribe(results => {
-                this.getArticle(results);
+            .subscribe(params => {
+                this.getArticle(params);
             });
     }
 
@@ -39,8 +39,8 @@ export class ArticleComponent implements OnInit, OnDestroy {
         this.destroyed.complete();
     }
 
-    getArticle(results) {
-        this.articleService.getArticle(results.id)
+    getArticle(params: Params) {
+        this.articleService.getArticle(params.id)
             .pipe(takeUntil(this.destroyed))
             .subscribe(result => {
                 this.article = result;

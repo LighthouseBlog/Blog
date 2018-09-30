@@ -13,6 +13,7 @@ export class ArticlePreviewComponent {
     constructor(private router: Router) { }
 
     selectArticle() {
-        this.router.navigate(['article', this.article.id]);
+        const articleToPreview = Object.assign(new Article(), this.article);
+        this.router.navigate(['article', articleToPreview.id]);
     }
 }

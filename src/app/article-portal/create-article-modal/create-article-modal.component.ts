@@ -1,5 +1,5 @@
-import { Component, OnDestroy } from '@angular/core';
-import { FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms';
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
 import { MatDialogRef } from '@angular/material';
 import { Subject } from 'rxjs';
@@ -7,28 +7,27 @@ import { takeUntil } from 'rxjs/operators';
 
 import { EditorService } from 'app/_services/editor.service';
 import { SnackbarMessagingService } from '../../_services/snackbar-messaging.service';
+import { CreateArticleFormService } from './create-article-form.service';
 
 @Component({
     selector: 'create-article-modal',
     templateUrl: './create-article-modal.component.html',
     styleUrls: ['./create-article-modal.component.scss']
 })
-export class CreateArticleModalComponent implements OnDestroy {
+export class CreateArticleModalComponent implements OnInit, OnDestroy {
 
     private destroyed: Subject<boolean> = new Subject<boolean>();
 
-    title = 'Create a new article';
-    formGroup: FormGroup;
+    createArticleForm: FormGroup;
 
-    constructor(private fb: FormBuilder,
-                private router: Router,
+    constructor(private router: Router,
                 private dialogRef: MatDialogRef<CreateArticleModalComponent>,
                 private editorService: EditorService,
-                private sms: SnackbarMessagingService) {
-        this.formGroup = this.fb.group({
-            'articleTitle': new FormControl('', Validators.required),
-            'articleDescription': new FormControl('', Validators.required)
-        });
+                private sms: SnackbarMessagingService,
+                private formService: CreateArticleFormService) {}
+
+    ngOnInit() {
+        this.createArticleForm = this.formService.buildForm();
     }
 
     ngOnDestroy() {
@@ -38,11 +37,7 @@ export class CreateArticleModalComponent implements OnDestroy {
 
     create(formValue: any, isFormValid: boolean) {
         if (isFormValid) {
-
-            const articleTitle = formValue['articleTitle'];
-            const articleDescription = formValue['articleDescription'];
-
-            this.editorService.createArticle(articleTitle, articleDescription)
+            this.editorService.createArticle(formValue.title, formValue.description)
                 .pipe(takeUntil(this.destroyed))
                 .subscribe(results => {
                     const id = results.id;

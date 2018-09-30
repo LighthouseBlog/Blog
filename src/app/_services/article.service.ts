@@ -15,17 +15,17 @@ export class ArticleService {
     constructor(private http: HttpClient) { }
 
     getAllArticles(currentPage: number, pageSize: number): Observable<Article[]> {
-        return this.http.get<Response>(`${environment.URL}/blog?pageSize=${pageSize}&page=${currentPage}`)
+        return this.http.get<Response>(`${environment.URL}/article?pageSize=${pageSize}&page=${currentPage}`)
             .pipe(map(res => Object.assign(new Array<Article>(), res.data)));
     }
 
     getArticle(id: number): Observable<Article> {
-        return this.http.get<Response>(`${environment.URL}/blog/${id}`)
+        return this.http.get<Response>(`${environment.URL}/article/${id}`)
             .pipe(map(res => Object.assign(new Article(), res.data)));
     }
 
     getArticlesByTitle(title: string): Observable<ArticleList[]> {
-        return this.http.get<Response>(`${environment.URL}/blog/title/${title}`)
+        return this.http.get<Response>(`${environment.URL}/article/title/${title}`)
             .pipe(map(res => Object.assign(new Array<ArticleList>(), res.data)));
     }
 }

@@ -27,7 +27,7 @@ export class EditorService {
             author
         };
 
-        return this.http.post<Response>(`${environment.URL}/blog`, post)
+        return this.http.post<Response>(`${environment.URL}/article`, post)
             .pipe(map(res => Object.assign(new Article(), res.data)));
     }
 
@@ -44,22 +44,22 @@ export class EditorService {
 
         if (coverPhoto) {
             return forkJoin(
-                this.http.put(`${environment.URL}/blog/${id}`, post),
-                this.http.post(`${environment.URL}/blog/${id}`, coverPhoto)
+                this.http.put(`${environment.URL}/article/${id}`, post),
+                this.http.post(`${environment.URL}/article/${id}`, coverPhoto)
             );
         } else {
             return forkJoin(
-                this.http.put(`${environment.URL}/blog/${id}`, post)
+                this.http.put(`${environment.URL}/article/${id}`, post)
             );
         }
     }
 
     publishArticle(id: number): Observable<any> {
-        return this.http.put(`${environment.URL}/blog/${id}`, { isPublished: true })
+        return this.http.put(`${environment.URL}/article/${id}`, { isPublished: true })
     }
 
-    deleteArticle(article: Article): Observable<boolean> {
-        return this.http.delete<boolean>(`${environment.URL}/blog/${article.id}`)
+    deleteArticle(id: number): Observable<boolean> {
+        return this.http.delete<boolean>(`${environment.URL}/article/${id}`)
     }
 
     convertToHtml(url: string): Observable<Gist> {

@@ -1,17 +1,24 @@
-<form #f="ngForm" [formGroup]="formGroup" (ngSubmit)="create(f.value, f.valid)" novalidate>
+<form #f="ngForm" [formGroup]="createArticleForm" (ngSubmit)="create(f.value, f.valid)" novalidate>
   <mat-dialog-content>
     <mat-card class="create-card mat-elevation-z0">
       <mat-card-header>
-        <mat-card-title>{{title}}</mat-card-title>
+        <mat-card-title>Create a new article</mat-card-title>
       </mat-card-header>
         <mat-card-content align="center">
           <mat-form-field class="form-input">
-            <input matInput type="text" placeholder="Article Title" formControlName="articleTitle" required />
-            <mat-error *ngIf="formGroup.hasError('required', ['articleTitle'])">Article Title is required</mat-error>
+            <input matInput type="text"
+                            placeholder="Article Title"
+                            formControlName="title"
+                            required />
+            <mat-error *ngIf="formGroup.hasError('required', ['title'])">Article Title is required</mat-error>
           </mat-form-field>
           <mat-form-field class="form-input">
-            <textarea matInput type="text" placeholder="Article Description" formControlName="articleDescription" rows="5" required></textarea>
-            <mat-error *ngIf="formGroup.hasError('required', ['articleDescription'])">Article Description is required</mat-error>
+            <textarea matInput type="text"
+                                placeholder="Article Description"
+                                formControlName="description"
+                                rows="5"
+                                required></textarea>
+            <mat-error *ngIf="formGroup.hasError('required', ['description'])">Article Description is required</mat-error>
           </mat-form-field>
         </mat-card-content>
     </mat-card>

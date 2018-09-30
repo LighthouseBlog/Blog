@@ -21,6 +21,7 @@ import { ArticleListComponent } from './user-articles/article-list/article-list.
 import { ImagePreviewComponent } from 'app/article-portal/image-preview/image-preview.component';
 
 import { MaterialModule } from 'app/material.module';
+import { CreateArticleFormService } from './create-article-modal/create-article-form.service';
 
 @NgModule({
     declarations: [
@@ -50,6 +51,9 @@ import { MaterialModule } from 'app/material.module';
         DeleteArticleModalComponent,
         SettingsModalComponent,
         ImagePreviewComponent
+    ],
+    providers: [
+        CreateArticleFormService
     ]
 })
 export class ArticlePortalModule { }
