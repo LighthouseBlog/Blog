@@ -12,6 +12,7 @@ import { SiteInfoComponent } from './site-info/site-info.component';
 import { TagComponent } from './search-by-tags/tag/tag.component';
 import { SearchByTitleComponent } from './search-by-title/search-by-title.component';
 import { SearchByTagsComponent } from './search-by-tags/search-by-tags.component';
+import { DirectiveModule } from '../_directives/directive.module';
 
 @NgModule({
     declarations: [
@@ -27,7 +28,8 @@ import { SearchByTagsComponent } from './search-by-tags/search-by-tags.component
         PipeModule,
         ReactiveFormsModule,
         HttpClientModule,
-        CommonModule
+        CommonModule,
+        DirectiveModule
     ]
 })
 export class ArticlesModule { }

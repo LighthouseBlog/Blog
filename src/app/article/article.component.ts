@@ -9,6 +9,7 @@ import { SnackbarMessagingService } from 'app/_services/snackbar-messaging.servi
 
 import { Article } from 'app/_models/Article';
 import { Author } from 'app/_models/Author';
+import { ImageSet } from '../_models/ImageSet';
 
 @Component({
     selector: 'article',
@@ -19,6 +20,10 @@ export class ArticleComponent implements OnInit, OnDestroy {
 
     article: Article;
     author: Author;
+    articleCoverPhoto = '';
+    coverPhotoSet: ImageSet;
+    authorProfilePicture = '';
+    profilePictureSet: ImageSet;
 
     private destroyed: Subject<boolean> = new Subject<boolean>();
 
@@ -44,6 +49,8 @@ export class ArticleComponent implements OnInit, OnDestroy {
             .pipe(takeUntil(this.destroyed))
             .subscribe(result => {
                 this.article = result;
+                this.articleCoverPhoto = !!this.article.coverPhoto ? this.article.coverPhoto.small : '';
+                this.coverPhotoSet = !!this.article.coverPhoto ? this.article.coverPhoto : null;
                 this.getAuthor();
             }, error => this.snackbarMessagingService.displayError(error));
     }
@@ -53,6 +60,8 @@ export class ArticleComponent implements OnInit, OnDestroy {
             .pipe(takeUntil(this.destroyed))
             .subscribe(result => {
                 this.author = result;
+                this.authorProfilePicture = !!this.author.profilePicture ? this.author.profilePicture.small : '';
+                this.profilePictureSet = !!this.author.profilePicture ? this.author.profilePicture : null;
             }, error => this.snackbarMessagingService.displayError(error));
     }
 }

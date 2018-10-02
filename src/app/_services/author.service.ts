@@ -25,17 +25,6 @@ export class AuthorService {
             .pipe(map((res) => Object.assign(new Array<Article>(), res.data)));
     }
 
-    getAuthorName(): Promise<string> {
-        return new Promise<string>((resolve, reject) => {
-            this.getAuthor()
-                .subscribe(author => {
-                    resolve(author.name)
-                }, error => {
-                    reject(error);
-                })
-        });
-    }
-
     updateUserSettings(username: string, name: string, email: string, profilePicture?: FormData): Observable<any> {
         const body = { name, email };
 
@@ -50,21 +39,6 @@ export class AuthorService {
                 this.http.put(`${environment.URL}/user/${username}`, body)
             );
         }
-    }
-
-    getProfilePicture(): Promise<string> {
-        return new Promise<string>((resolve, reject) => {
-            this.getAuthor()
-                .subscribe(author => {
-                    if (author.profilePicture && author.profilePicture.startsWith('http')) {
-                        resolve(author.profilePicture)
-                    } else {
-                        resolve(environment.DEFAULT_PROFILE_PICTURE);
-                    }
-                }, error => {
-                    reject(error);
-                })
-        });
     }
 
     getAuthorUsername(): string {

@@ -15,6 +15,8 @@ import { LoginModalComponent } from 'app/login-modal/login-modal.component';
 import { RegisterModalComponent } from 'app/register-modal/register-modal.component';
 import { SettingsModalComponent } from 'app/article-portal/settings-modal/settings-modal.component';
 
+import { ImageSet } from '../_models/ImageSet';
+
 @Component({
     selector: 'nav-bar',
     templateUrl: './nav-bar.component.html',
@@ -27,9 +29,9 @@ export class NavBarComponent implements OnInit, OnDestroy {
     private destroyed: Subject<boolean> = new Subject<boolean>();
     private _mobileQueryListener: () => void;
 
-    title = `The Lighthouse`;
-    name: Promise<string>;
-    image: Promise<string>;
+    name: string;
+    image: string;
+    profilePictureSet: ImageSet;
     mobileQuery: MediaQueryList;
     hideSubscriptionOption = false;
 
@@ -49,8 +51,7 @@ export class NavBarComponent implements OnInit, OnDestroy {
     ngOnInit() {
         this.auth.checkJwtExpiration()
             .then(() => {
-                this.name = this.authorService.getAuthorName();
-                this.image = this.authorService.getProfilePicture();
+                this.retrieveAuthorDetails();
                 this.checkNotificationPermissions();
             })
             .catch(() => {
@@ -79,8 +80,7 @@ export class NavBarComponent implements OnInit, OnDestroy {
             .pipe(takeUntil(this.destroyed))
             .subscribe(result => {
                 if (result) {
-                    this.name = this.authorService.getAuthorName();
-                    this.image = this.authorService.getProfilePicture();
+                    this.retrieveAuthorDetails();
                 }
             }, error => this.sms.displayError(error));
     }
@@ -90,11 +90,8 @@ export class NavBarComponent implements OnInit, OnDestroy {
         this.dialog.open(RegisterModalComponent, { minWidth: '30vw'})
             .afterClosed()
             .pipe(takeUntil(this.destroyed))
-            .subscribe(name => {
-                if (name) {
-                    this.name = Promise.resolve(name);
-                    this.image = Promise.resolve(environment.DEFAULT_PROFILE_PICTURE);
-                }
+            .subscribe(() => {
+                this.retrieveAuthorDetails();
             });
     }
 
@@ -103,13 +100,8 @@ export class NavBarComponent implements OnInit, OnDestroy {
         this.dialog.open(SettingsModalComponent)
             .afterClosed()
             .pipe(takeUntil(this.destroyed))
-            .subscribe(result => {
-                if (result && result.name) {
-                    this.name = Promise.resolve(result.name);
-                }
-                if (result && result.image) {
-                    this.image = Promise.resolve(result.image);
-                }
+            .subscribe(() => {
+                this.retrieveAuthorDetails();
             });
     }
 
@@ -130,9 +122,21 @@ export class NavBarComponent implements OnInit, OnDestroy {
 
     subscribe() {
         this.swPush
-        .requestSubscription({ serverPublicKey: environment.VAPID_PUBLIC_KEY})
-        .then(sub => this.auth.addPushSubscriber(sub).subscribe())
-        .catch(err => this.sms.displayErrorMessage(err));
+            .requestSubscription({ serverPublicKey: environment.VAPID_PUBLIC_KEY})
+            .then(sub => this.auth.addPushSubscriber(sub).subscribe())
+            .catch(err => this.sms.displayErrorMessage(err));
+    }
+
+    private retrieveAuthorDetails() {
+        this.authorService.getAuthor().subscribe(author => {
+            this.name = author.name;
+            if (!!author.profilePicture && !!author.profilePicture.small) {
+                this.image = author.profilePicture.small;
+                this.profilePictureSet = author.profilePicture;
+            } else {
+                this.image = environment.DEFAULT_PROFILE_PICTURE;
+            }
+        }, error => this.sms.displayError(error))
     }
 
     @HostListener('window:resize', ['$event'])
