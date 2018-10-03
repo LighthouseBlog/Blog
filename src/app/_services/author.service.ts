@@ -9,7 +9,9 @@ import { Author } from 'app/_models/Author';
 import { environment } from '../../environments/environment';
 import { Response } from 'app/_models/Response';
 
-@Injectable()
+@Injectable({
+    providedIn: 'root'
+})
 export class AuthorService {
 
     constructor(private http: HttpClient) { }

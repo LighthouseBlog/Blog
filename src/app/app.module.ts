@@ -14,13 +14,6 @@ import { NavBarComponent } from './nav-bar/nav-bar.component';
 import { Router } from 'app/app.routing';
 
 import { AuthGuard } from 'app/_guards/auth.guard';
-import { AuthenticationService } from 'app/_services/authentication.service';
-import { EditorService } from 'app/_services/editor.service';
-import { ArticleService } from 'app/_services/article.service';
-import { AuthorService } from 'app/_services/author.service';
-import { ImagesService } from 'app/_services/images.service';
-import { TagService } from 'app/_services/tags.service';
-import { SnackbarMessagingService } from 'app/_services/snackbar-messaging.service';
 
 import { LoginModalComponent } from './login-modal/login-modal.component';
 import { RegisterModalComponent } from './register-modal/register-modal.component';
@@ -60,13 +53,6 @@ import { DirectiveModule } from './_directives/directive.module';
     ],
     providers: [
         AuthGuard,
-        AuthenticationService,
-        EditorService,
-        ArticleService,
-        AuthorService,
-        ImagesService,
-        TagService,
-        SnackbarMessagingService,
         {
             provide: HTTP_INTERCEPTORS,
             useClass: ResponseInterceptor,

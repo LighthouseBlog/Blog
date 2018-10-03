@@ -6,7 +6,9 @@ import { map, flatMap } from 'rxjs/operators';
 import { environment } from 'environments/environment';
 import { Token } from 'app/_models/Token';
 
-@Injectable()
+@Injectable({
+    providedIn: 'root'
+})
 export class AuthenticationService {
     token: string;
 

@@ -11,7 +11,9 @@ import { environment } from 'environments/environment';
 import { Response } from 'app/_models/Response';
 import { Article } from 'app/_models/Article';
 
-@Injectable()
+@Injectable({
+    providedIn: 'root'
+})
 export class EditorService {
 
     constructor(private http: HttpClient,

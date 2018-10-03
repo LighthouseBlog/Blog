@@ -9,7 +9,9 @@ import { ArticleList } from 'app/_models/ArticleList';
 import { environment } from '../../environments/environment';
 import { Response } from 'app/_models/Response';
 
-@Injectable()
+@Injectable({
+    providedIn: 'root'
+})
 export class ArticleService {
 
     constructor(private http: HttpClient) { }

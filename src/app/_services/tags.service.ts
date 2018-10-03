@@ -8,7 +8,9 @@ import { Article } from 'app/_models/Article';
 import { environment } from '../../environments/environment';
 import { Response } from 'app/_models/Response';
 
-@Injectable()
+@Injectable({
+    providedIn: 'root'
+})
 export class TagService {
 
     constructor(private http: HttpClient) { }
