@@ -4,8 +4,8 @@
         <span routerLink="/" class="link">The Lighthouse</span>
         <span class="spacer"></span>
         <div>
-            <a *ngIf="!loggedIn() && !mobileQuery.matches" mat-button (click)="login()">Login</a>
-            <a mat-button *ngIf="!loggedIn()" (click)="register()">Register</a>
+            <a mat-button *ngIf="!loggedIn() && !mobileQuery.matches" (click)="login()">Login</a>
+            <a mat-button *ngIf="!loggedIn() && !mobileQuery.matches" (click)="register()">Register</a>
             <a mat-button *ngIf="loggedIn() && !mobileQuery.matches && !hideSubscriptionOption" (click)="subscribe()">Subscribe</a>
             <a mat-button *ngIf="loggedIn() && !mobileQuery.matches" routerLink="/articles">Your Articles</a>
             <button mat-button *ngIf="loggedIn() && !mobileQuery.matches" [matMenuTriggerFor]="menu">
