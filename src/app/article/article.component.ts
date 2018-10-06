@@ -1,5 +1,6 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ActivatedRoute, Params } from '@angular/router';
+import { Location } from '@angular/common';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 
@@ -30,7 +31,8 @@ export class ArticleComponent implements OnInit, OnDestroy {
     constructor(private articleService: ArticleService,
                 private route: ActivatedRoute,
                 private authorService: AuthorService,
-                private snackbarMessagingService: SnackbarMessagingService) { }
+                private snackbarMessagingService: SnackbarMessagingService,
+                private location: Location) { }
 
     ngOnInit() {
         this.route.params.pipe(takeUntil(this.destroyed))
@@ -63,5 +65,9 @@ export class ArticleComponent implements OnInit, OnDestroy {
                 this.authorProfilePicture = !!this.author.profilePicture ? this.author.profilePicture.small : '';
                 this.profilePictureSet = !!this.author.profilePicture ? this.author.profilePicture : null;
             }, error => this.snackbarMessagingService.displayError(error));
+    }
+
+    onBackClicked() {
+        this.location.back();
     }
 }

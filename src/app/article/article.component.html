@@ -1,4 +1,5 @@
 <ng-container *ngIf="!!article && !!author else loadingMask">
+    <span class="back-button" (click)="onBackClicked()"><mat-icon>arrow_back_ios</mat-icon><span class="text">Back</span></span>
     <div class="article-display">
       <span class="article-info">
         <span class="headers">

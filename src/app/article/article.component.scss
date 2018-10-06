@@ -11,6 +11,26 @@
   }
 }
 
+.back-button {
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    max-width: 25%;
+    margin-top: 5px;
+    cursor: pointer;
+
+    mat-icon {
+        font-size: 14pt;
+        padding: 6px 2px 5px 8px;
+        height: 10px;
+        width: 15px;
+    }
+
+    .text {
+        font-size: 14pt
+    }
+}
+
 .title {
   float: left;
   font-size: 30px;
