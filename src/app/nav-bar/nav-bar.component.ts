@@ -121,10 +121,14 @@ export class NavBarComponent implements OnInit, OnDestroy {
     }
 
     subscribe() {
-        this.swPush
-            .requestSubscription({ serverPublicKey: environment.VAPID_PUBLIC_KEY})
-            .then(sub => this.auth.addPushSubscriber(sub).subscribe())
-            .catch(err => this.sms.displayErrorMessage(err));
+        if (this.swPush.isEnabled) {
+            this.swPush
+                .requestSubscription({ serverPublicKey: environment.VAPID_PUBLIC_KEY})
+                .then(sub => this.auth.addPushSubscriber(sub).subscribe())
+                .catch(err => this.sms.displayErrorMessage(err));
+        } else {
+            this.sms.displayErrorMessage('This browser does not support push notifications');
+        }
     }
 
     private retrieveAuthorDetails() {
