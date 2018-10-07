@@ -12,19 +12,19 @@
       </mat-cell>
     </ng-container>
     <!-- Title Column -->
-    <ng-container matColumnDef="title">
+    <ng-container  matColumnDef="title">
       <mat-header-cell *matHeaderCellDef mat-sort-header> Title </mat-header-cell>
       <mat-cell *matCellDef="let row"> {{row.title}} </mat-cell>
     </ng-container>
 
     <!-- Description Column -->
-    <ng-container matColumnDef="description">
+    <ng-container *ngIf="!mobileQuery.matches" matColumnDef="description">
       <mat-header-cell *matHeaderCellDef mat-sort-header> Description </mat-header-cell>
       <mat-cell *matCellDef="let row"> {{row.description}} </mat-cell>
     </ng-container>
 
     <!-- Date Posted Column -->
-    <ng-container matColumnDef="datePosted">
+    <ng-container *ngIf="!mobileQuery.matches" matColumnDef="datePosted">
       <mat-header-cell *matHeaderCellDef mat-sort-header> Date Posted </mat-header-cell>
       <mat-cell *matCellDef="let row"> {{row.datePosted | date:'longDate'}} </mat-cell>
     </ng-container>
@@ -32,9 +32,18 @@
     <ng-container matColumnDef="actions">
         <mat-header-cell *matHeaderCellDef mat-sort-header> Actions </mat-header-cell>
         <mat-cell *matCellDef="let row">
-            <button mat-button class="action-button" (click)="viewArticle(row)">View</button>
-            <button mat-button class="action-button" (click)="editArticle(row)">Edit</button>
-            <button mat-button class="action-button" (click)="deleteArticle(row, dataSubject.value)">Delete</button>
+            <button mat-button *ngIf="!mobileQuery.matches" class="action-button" (click)="viewArticle(row)">View</button>
+            <button mat-button *ngIf="!mobileQuery.matches" class="action-button" (click)="editArticle(row)">Edit</button>
+            <button mat-button *ngIf="!mobileQuery.matches" class="action-button" (click)="deleteArticle(row, dataSubject.value)">Delete</button>
+            <button mat-icon-button *ngIf="mobileQuery.matches" class="action-icon" (click)="viewArticle(row)">
+                <mat-icon aria-label="A button with a view icon">pageview</mat-icon>
+            </button>
+            <button mat-icon-button *ngIf="mobileQuery.matches" class="action-icon" (click)="editArticle(row)">
+                <mat-icon aria-label="A button with an edit icon">edit</mat-icon>
+            </button>
+            <button mat-icon-button *ngIf="mobileQuery.matches" class="action-icon" (click)="deleteArticle(row, dataSubject.value)">
+                <mat-icon aria-label="A button with a delete icon">delete</mat-icon>
+            </button>
         </mat-cell>
       </ng-container>
 
@@ -44,7 +53,7 @@
   <mat-paginator #paginator
                 [length]="dataSubject.value.length"
                 [pageIndex]="0"
-                [pageSize]="25"
+                [pageSize]="mobileQuery.matches ? 5 : 25"
                 [pageSizeOptions]="[5, 10, 25, 100]">
   </mat-paginator>
 </div>
