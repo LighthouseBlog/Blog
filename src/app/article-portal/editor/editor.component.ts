@@ -39,12 +39,13 @@ export class EditorComponent implements OnInit, OnDestroy {
         htmlRemoveTags: [''],
         htmlAllowedStyleProps: ['.*'],
         htmlDoNotWrapTags: [''],
-        htmlUntouched: true,
         pasteAllowedStyleProps: ['.*'],
         lineBreakerTags: [''],
         tableStyles: {},
         linkAlwaysBlank: true,
         toolbarSticky: false,
+        keepFormatOnDelete: true,
+        tabSpaces: 2,
         events: {
             'froalaEditor.contentChanged': (e, editor) => {
                 this.updateContent(editor);
