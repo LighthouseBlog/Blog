@@ -43,7 +43,7 @@ export class CreateArticleModalComponent implements OnInit, OnDestroy {
                     const id = results.id;
                     if (!Number.isNaN(id)) {
                         this.dialogRef.close('closed');
-                        this.router.navigateByUrl('/edit/' + id);
+                        this.router.navigateByUrl(`edit/${id}`);
                     } else {
                         this.sms.displayErrorMessage(`The article id generated was not a number.
                         The article was saved but should be deleted and redone.`);

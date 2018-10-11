@@ -111,7 +111,8 @@ export class NavBarComponent implements OnInit, OnDestroy {
 
     logout() {
         this.auth.logout();
-        this.router.navigate(['/']);
+        this.router.navigateByUrl('');
+        this.sms.displayErrorMessage('This session has expired');
         this.sidenav.close();
     }
 

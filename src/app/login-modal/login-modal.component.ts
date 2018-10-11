@@ -50,7 +50,7 @@ export class LoginModalComponent implements OnInit, OnDestroy {
                     if (result) {
                         this.dialogRef.close(username);
                         this.sms.displaySuccess('Login Sucessful', 2000);
-                        this.router.navigate(['articles']);
+                        this.router.navigateByUrl('articles');
                     } else {
                         this.sms.displayErrorMessage('Failed to login', 4000);
                     }

@@ -21,7 +21,7 @@ export class SearchByTitleComponent implements OnDestroy {
 
     selectArticle(article: ArticleList) {
         const articleToView = Object.assign(new ArticleList(), article);
-        this.router.navigate(['article', articleToView.id]);
+        this.router.navigateByUrl(`article/${articleToView.id}`);
     }
 
     filterArticles(title: string) {

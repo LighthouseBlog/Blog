@@ -15,7 +15,7 @@ export class ArticlePreviewComponent {
 
     selectArticle() {
         const articleToPreview = Object.assign(new Article(), this.article);
-        this.router.navigate(['article', articleToPreview.id]);
+        this.router.navigateByUrl(`article/${articleToPreview.id}`);
     }
 
     get image(): string {

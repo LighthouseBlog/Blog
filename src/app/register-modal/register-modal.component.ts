@@ -62,7 +62,7 @@ export class RegisterModalComponent implements OnDestroy {
                     if (result) {
                         this.dialogRef.close(name);
                         this.sms.displaySuccess('Registration Succeeded', 2000);
-                        this.router.navigate(['articles']);
+                        this.router.navigateByUrl('articles');
                     } else {
                         this.sms.displayErrorMessage('Registration failed', 4000);
                     }
