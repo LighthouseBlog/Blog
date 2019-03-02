@@ -36,17 +36,17 @@ export class NavBarComponent implements OnInit, OnDestroy {
     hideSubscriptionOption = false;
 
     constructor(private auth: AuthenticationService,
-                private authorService: AuthorService,
-                private router: Router,
-                private dialog: MatDialog,
-                private cdr: ChangeDetectorRef,
-                private media: MediaMatcher,
-                private sms: SnackbarMessagingService,
-                private swPush: SwPush) {
-                    this.mobileQuery = this.media.matchMedia('(max-width: 599px)');
-                    this._mobileQueryListener = () => this.cdr.detectChanges();
-                    this.mobileQuery.addListener(this._mobileQueryListener);
-                }
+        private authorService: AuthorService,
+        private router: Router,
+        private dialog: MatDialog,
+        private cdr: ChangeDetectorRef,
+        private media: MediaMatcher,
+        private sms: SnackbarMessagingService,
+        private swPush: SwPush) {
+        this.mobileQuery = this.media.matchMedia('(max-width: 599px)');
+        this._mobileQueryListener = () => this.cdr.detectChanges();
+        this.mobileQuery.addListener(this._mobileQueryListener);
+    }
 
     ngOnInit() {
         this.auth.checkJwtExpiration()
@@ -66,10 +66,8 @@ export class NavBarComponent implements OnInit, OnDestroy {
     }
 
     private checkNotificationPermissions() {
-        if ('Notification' in window) {
-            if (window['Notification'].permission === 'granted' || window['Notification'].permission === 'denied') {
-                this.hideSubscriptionOption = true;
-            }
+        if (window['Notification'] && (window['Notification'].permission === 'granted' || window['Notification'].permission === 'denied')) {
+            this.hideSubscriptionOption = true;
         }
     }
 
@@ -87,7 +85,7 @@ export class NavBarComponent implements OnInit, OnDestroy {
 
     register() {
         this.sidenav.close();
-        this.dialog.open(RegisterModalComponent, { minWidth: '30vw'})
+        this.dialog.open(RegisterModalComponent, { minWidth: '30vw' })
             .afterClosed()
             .pipe(takeUntil(this.destroyed))
             .subscribe(() => {
@@ -124,7 +122,7 @@ export class NavBarComponent implements OnInit, OnDestroy {
     subscribe() {
         if (this.swPush.isEnabled) {
             this.swPush
-                .requestSubscription({ serverPublicKey: environment.VAPID_PUBLIC_KEY})
+                .requestSubscription({ serverPublicKey: environment.VAPID_PUBLIC_KEY })
                 .then(sub => this.auth.addPushSubscriber(sub).subscribe())
                 .catch(err => this.sms.displayErrorMessage(err));
         } else {
